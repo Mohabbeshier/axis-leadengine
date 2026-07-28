@@ -116,8 +116,14 @@ def run_actor(cell, probe=False):
 
     for _ in range(90):                      # up to ~15 min
         time.sleep(10)
-        st = requests.get(f"https://api.apify.com/v2/actor-runs/{run_id}",
-                          params={"token": APIFY_TOKEN}, timeout=30).json()["data"]
+        try:
+            st = requests.get(f"https://api.apify.com/v2/actor-runs/{run_id}",
+                              params={"token": APIFY_TOKEN}, timeout=30).json()["data"]
+        except Exception:
+            # transient network blip while POLLING must not orphan the run —
+            # the run keeps going (and billing) on Apify's side regardless.
+            # Just poll again; the 90-iteration cap still bounds us.
+            continue
         if st["status"] in ("SUCCEEDED", "FAILED", "ABORTED", "TIMED-OUT"):
             return run_id, ds_id, st["status"], float(st.get("usageTotalUsd") or 0)
     return run_id, ds_id, "TIMEOUT", 0.0
