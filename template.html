@@ -121,36 +121,37 @@ p{text-wrap:pretty}
 .wrap{width:min(1200px,92vw);margin-inline:auto;position:relative}
 section{position:relative}
 
-/* ══ 4 · THE INTRO ══ */
-#intro{position:fixed;inset:0;z-index:400;display:grid;place-items:center;text-align:center;
-  background:linear-gradient(160deg,var(--rose-s),var(--paper) 46%,var(--lilac-s));
-  animation:introOut .85s var(--e) 1.65s forwards}
-#intro .mk{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;margin:0 auto 1.1rem;
-  background:var(--rose);color:var(--on);font-weight:900;font-size:1.9rem;
-  animation:mkIn .8s var(--eo) both}
-#intro .nm{font-weight:900;font-size:clamp(1.35rem,5.4vw,2.4rem);padding-inline:1.5rem;
-  animation:nmIn .8s var(--e) .3s both}
-#intro .ln{width:0;height:3px;border-radius:3px;margin:1.1rem auto 0;
-  background:linear-gradient(90deg,var(--rose),var(--lilac),var(--peach));
-  animation:lnIn 1s var(--e) .55s forwards}
-@keyframes mkIn{from{opacity:0;transform:scale(.4) rotate(-25deg)}to{opacity:1;transform:none}}
-@keyframes nmIn{from{opacity:0;transform:translateY(18px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
-@keyframes lnIn{to{width:min(220px,45vw)}}
-@keyframes introOut{to{opacity:0;transform:translateY(-16px);visibility:hidden}}
+/* ══ 1 · THE INTRO — the earlier curtain restored, it reads faster ══ */
+#intro{position:fixed;inset:0;z-index:400;background:var(--paper);
+  display:grid;place-items:center;animation:lift 1s var(--e) 1.05s forwards}
+#intro .mk{display:flex;gap:.55rem;align-items:center;animation:mkOut .45s ease .9s forwards}
+#intro .dot{width:13px;height:13px;border-radius:50%;background:var(--rose);
+  animation:bounce .85s var(--eo) infinite alternate}
+#intro .dot:nth-child(2){background:var(--lilac);animation-delay:.12s}
+#intro .dot:nth-child(3){background:var(--peach);animation-delay:.24s}
+@keyframes bounce{from{transform:translateY(7px) scale(.85);opacity:.5}to{transform:translateY(-7px) scale(1);opacity:1}}
+@keyframes mkOut{to{opacity:0;transform:scale(.85)}}
+@keyframes lift{to{transform:translateY(-101%)}}
+#sweep{position:fixed;inset-inline:0;top:0;height:4px;z-index:401;transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--rose),var(--lilac),var(--peach),var(--gold));
+  animation:sweepIn .65s var(--e) .25s both,sweepOut .5s var(--e) 1.4s forwards}
+@keyframes sweepIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes sweepOut{to{opacity:0}}
+html[dir="rtl"] #sweep{transform-origin:100% 50%}
 
 .in-1,.in-2,.in-3,.in-4{animation:enter .8s var(--e) both}
-.in-1{animation-delay:2.05s}.in-2{animation-delay:2.18s}
-.in-3{animation-delay:2.31s}.in-4{animation-delay:2.44s}
+.in-1{animation-delay:1.45s}.in-2{animation-delay:1.58s}
+.in-3{animation-delay:1.71s}.in-4{animation-delay:1.84s}
 @keyframes enter{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 .h-name span{display:inline-block;animation:unmask .8s var(--e) both}
 @keyframes unmask{from{opacity:0;clip-path:inset(0 0 105% 0);transform:translateY(.42em)}
                   to{opacity:1;clip-path:inset(0 0 -18% 0);transform:none}}
 .bento .tile{animation:deal .75s var(--eo) both}
-.bento .tile:nth-child(1){animation-delay:2.5s}
-.bento .tile:nth-child(2){animation-delay:2.58s}
-.bento .tile:nth-child(3){animation-delay:2.66s}
-.bento .tile:nth-child(4){animation-delay:2.74s}
-.bento .tile:nth-child(5){animation-delay:2.82s}
+.bento .tile:nth-child(1){animation-delay:1.9s}
+.bento .tile:nth-child(2){animation-delay:1.98s}
+.bento .tile:nth-child(3){animation-delay:2.06s}
+.bento .tile:nth-child(4){animation-delay:2.14s}
+.bento .tile:nth-child(5){animation-delay:2.22s}
 @keyframes deal{from{opacity:0;transform:translateY(52px) rotate(calc(var(--sx) * -3deg)) scale(.94)}
                 to{opacity:1;transform:none}}
 
@@ -188,7 +189,7 @@ html[dir="rtl"] #prog{transform-origin:100% 50%}
 /* ══ 3 · THE HEADER ══ */
 header.top{position:fixed;top:0;inset-inline:0;z-index:150;background:var(--glass);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
-  animation:enter .7s var(--e) 2.15s both;padding-top:env(safe-area-inset-top)}
+  animation:enter .7s var(--e) 1.5s both;padding-top:env(safe-area-inset-top)}
 header.top .bar{width:min(1200px,94vw);margin-inline:auto;height:60px;
   display:flex;align-items:center;gap:.7rem}
 .brand{display:flex;align-items:center;gap:.55rem;min-width:0;flex:1}
@@ -237,7 +238,7 @@ html[data-theme="dark"] #themeBtn .moon{display:none}
 .btn-wa{background:var(--wa);color:#fff;box-shadow:0 14px 34px -16px rgba(37,211,102,.95)}
 .btn-wa::after{content:"";position:absolute;top:0;bottom:0;width:34%;inset-inline-start:-50%;
   background:linear-gradient(105deg,transparent,rgba(255,255,255,.45),transparent);
-  transform:skewX(-18deg);animation:gleam 5s ease-in-out 3.2s infinite}
+  transform:skewX(-18deg);animation:gleam 5s ease-in-out 2.4s infinite}
 @keyframes gleam{0%,64%{inset-inline-start:-50%}86%,100%{inset-inline-start:125%}}
 .btn-o{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 .btn:hover{transform:translateY(-3px);box-shadow:var(--sh-l)}
@@ -431,8 +432,75 @@ footer .a{font-family:var(--fl);font-size:.77rem;color:var(--dim);margin-top:1.2
   background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-top:1px solid var(--line);transform:translateY(115%);transition:transform .45s var(--e)}
 #bar.on{transform:none}
+#bar.hushed{transform:translateY(115%)}
 #bar .btn{width:100%}
 @media(max-width:768px){#bar{display:block}}
+
+
+/* ══════════ INTERACTION LAYER ══════════
+   The page used to be a leaflet: you read it, then you left to type a message
+   from scratch. Now a service is a thing you can pick, the picks add up, and
+   the WhatsApp message writes itself. ══════════ */
+.svc{cursor:pointer;-webkit-user-select:none;user-select:none;padding-block:1.5rem}
+.svc .tick{position:absolute;inset-inline-end:1rem;top:1rem;width:26px;height:26px;border-radius:50%;
+  border:2px solid var(--line);display:grid;place-items:center;transition:.25s var(--e)}
+.svc .tick svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:3.2;
+  stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.5);transition:.22s var(--eo)}
+.svc[aria-pressed="true"]{border-color:transparent;
+  box-shadow:0 0 0 2px var(--rose) inset,var(--sh-l);background:color-mix(in oklab,var(--rose) 7%,var(--card))}
+.svc[aria-pressed="true"] .tick{background:var(--rose);border-color:var(--rose)}
+.svc[aria-pressed="true"] .tick svg{opacity:1;transform:none}
+.svc:active{transform:scale(.985)!important}
+.svc .nm{padding-inline-end:2.2rem}
+.filters button .c{font-size:.76em;opacity:.65;margin-inline-start:.3rem}
+
+#selbar{position:fixed;bottom:0;inset-inline:0;z-index:125;
+  padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
+  background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-top:1px solid var(--line);transform:translateY(125%);transition:transform .4s var(--e);
+  display:flex;align-items:center;gap:.7rem}
+#selbar.on{transform:none}
+#selbar .sum{flex:1;min-width:0;line-height:1.35}
+#selbar .sum b{display:block;font-size:.95rem;font-weight:800}
+#selbar .sum span{font-size:.8rem;color:var(--dim)}
+#selbar .btn{flex:none}
+#selbar .clr{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+  background:var(--card);color:var(--dim);cursor:pointer;display:grid;place-items:center;font-family:var(--f)}
+#selbar .clr svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+
+#lb{position:fixed;inset:0;z-index:320;background:rgba(0,0,0,.92);display:none;place-items:center;padding:1rem}
+#lb.on{display:grid;animation:fade .25s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+#lb img{max-width:96vw;max-height:86vh;border-radius:14px;object-fit:contain}
+#lb .x{position:absolute;top:calc(.9rem + env(safe-area-inset-top));inset-inline-end:.9rem;
+  width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;
+  cursor:pointer;display:grid;place-items:center}
+#lb .x svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.stack .ph{cursor:zoom-in}
+
+#toast{position:fixed;bottom:calc(6.2rem + env(safe-area-inset-bottom));inset-inline:0;margin-inline:auto;
+  width:max-content;max-width:88vw;background:var(--ink);color:var(--paper);
+  padding:.62rem 1.15rem;border-radius:999px;font-size:.86rem;font-weight:600;
+  opacity:0;transform:translateY(14px);pointer-events:none;transition:.3s var(--e);z-index:260}
+#toast.on{opacity:1;transform:none}
+
+#up{position:fixed;inset-inline-end:1rem;bottom:calc(6.2rem + env(safe-area-inset-bottom));z-index:118;
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--card);
+  border:1px solid var(--line);box-shadow:var(--sh);cursor:pointer;color:var(--rose);
+  opacity:0;pointer-events:none;transition:.3s var(--e)}
+#up.on{opacity:1;pointer-events:auto}
+#up svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+nav.links a.active{color:var(--rose);background:var(--rose-s)}
+.hours .line.today{color:var(--rose);font-weight:700}
+.hours .line.today span:last-child{color:var(--rose)}
+.copyable{cursor:copy}
+.act{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
+.act button{cursor:pointer;font-family:var(--f);font-size:.84rem;font-weight:600;
+  display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:999px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);transition:.25s var(--e)}
+.act button:hover{transform:translateY(-2px);color:var(--rose)}
+.act svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;
@@ -449,9 +517,8 @@ footer .a{font-family:var(--fl);font-size:.77rem;color:var(--dim);margin-top:1.2
 <path id="wa" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
 </defs></svg>
 
-<div id="intro" aria-hidden="true">
-  <div><div class="mk" id="iMk"></div><div class="nm" id="iNm"></div><div class="ln"></div></div>
-</div>
+<div id="intro" aria-hidden="true"><div class="mk"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+<div id="sweep" aria-hidden="true"></div>
 <div id="prog" aria-hidden="true"></div>
 
 <header class="top">
@@ -559,6 +626,10 @@ footer .a{font-family:var(--fl);font-size:.77rem;color:var(--dim);margin-top:1.2
     <h2 data-t="bkH"></h2>
     <p data-t="bkP"></p>
     <a class="btn btn-wa" id="ctaBook" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#wa"/></svg><span data-t="ctaBook"></span></a>
+    <div class="act">
+      <button id="btnShare" type="button"><svg viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4M5 15v3a2 2 0 002 2h10a2 2 0 002-2v-3"/></svg><span data-t="aShare"></span></button>
+      <button id="btnCopy" type="button"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg><span data-t="aCopy"></span></button>
+    </div>
     <div class="info">
       <div id="cAddr"><div class="k tr" data-t="kAddr"></div><div class="v" id="vAddr"></div></div>
       <div id="cHours"><div class="k tr" data-t="kHours"></div><div class="v" id="vHours"></div></div>
@@ -578,6 +649,14 @@ footer .a{font-family:var(--fl);font-size:.77rem;color:var(--dim);margin-top:1.2
   <div class="a">Crafted by Axis Marketing Agency</div>
 </div></footer>
 
+<div id="selbar">
+  <button class="clr" id="selClr" type="button" aria-label="clear"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="sum"><b id="selCount"></b><span id="selTotal"></span></div>
+  <a class="btn btn-wa" id="selGo" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#wa"/></svg><span data-t="selBook"></span></a>
+</div>
+<div id="lb" role="dialog" aria-modal="true"><button class="x" id="lbX" type="button" aria-label="close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><img id="lbImg" alt=""></div>
+<div id="toast" role="status"></div>
+<button id="up" type="button" aria-label="top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <div id="bar"><a class="btn btn-wa" id="ctaBar" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#wa"/></svg><span data-t="ctaBook"></span></a></div>
 
 <script>
@@ -635,7 +714,10 @@ var TXT={
   svcK:"الخدمات والأسعار",svcH:"كل شي واضح من البداية",
   svcP:"الأسعار مكتوبة قدامك — تعرفين وش تدفعين قبل لا تجين، وما فيه مفاجآت.",
   fAll:"الكل",fLow:"أقل من ٢٠٠",fMid:"٢٠٠ — ٣٠٠",fHigh:"أكثر من ٣٠٠",
-  ask:"اسألي عنها",
+  ask:"اسألي عنها",selBook:"احجزي المختار",
+  selOne:"خدمة مختارة",selMany:"خدمات مختارة",selTotal:"الإجمالي",
+  aShare:"مشاركة",aCopy:"نسخ العنوان",tCopied:"اتنسخ العنوان",tShared:"اتشارك",
+  tAdded:"انضافت لطلبك",tRemoved:"اتشالت",waPick:"السلام عليكم، أبغى أحجز:",waTotal:"الإجمالي التقريبي",
   galK:"من داخل الصالون",galH:"شوفي المكان قبل لا تحجزين",
   sayK:"آراء العميلات",sayH:"كلامهن، مو كلامنا",
   faqK:"أسئلة متكررة",faqH:"الأسئلة اللي تجينا كل يوم",
@@ -671,7 +753,10 @@ var TXT={
   svcK:"Services & prices",svcH:"Everything clear, up front",
   svcP:"Prices are on the page — you know what you are paying before you arrive. No surprises.",
   fAll:"All",fLow:"Under 200",fMid:"200 — 300",fHigh:"Over 300",
-  ask:"Ask about it",
+  ask:"Ask about it",selBook:"Book selected",
+  selOne:"service selected",selMany:"services selected",selTotal:"Total",
+  aShare:"Share",aCopy:"Copy address",tCopied:"Address copied",tShared:"Shared",
+  tAdded:"Added to your request",tRemoved:"Removed",waPick:"Hello, I would like to book:",waTotal:"Approximate total",
   galK:"Inside the salon",galH:"See the place before you book",
   sayK:"Client reviews",sayH:"Their words, not ours",
   faqK:"Common questions",faqH:"What clients ask us every day",
@@ -733,6 +818,15 @@ function target(el,n){if(!el)return;el.style.setProperty("--to",n);
 /* the salon's initial, for the intro badge and the header mark */
 function initial(nm){var w=nm.replace(/^(صالون|مركز|مشغل)\s+/,"").trim();return w.charAt(0)||"•"}
 
+var SVG="http://www.w3.org/2000/svg";
+var PKEY="axis-pick-"+location.pathname;
+var PICK={};
+try{PICK=JSON.parse(localStorage.getItem(PKEY)||"{}")||{}}catch(e){PICK={}}
+function savePick(){try{localStorage.setItem(PKEY,JSON.stringify(PICK))}catch(e){}}
+var toastT=0;
+function toast(m){var e=$("#toast");if(!e)return;e.textContent=m;e.classList.add("on");
+  clearTimeout(toastT);toastT=setTimeout(function(){e.classList.remove("on")},1800)}
+
 var BANDS=[["fAll",function(){return true}],
            ["fLow",function(p){return p<200}],
            ["fMid",function(p){return p>=200&&p<=300}],
@@ -741,29 +835,63 @@ var band=0;
 
 function drawCards(){
   var t=TXT[lang],box=$("#cards");box.textContent="";
-  (C.services||[]).slice(0,12).forEach(function(s){
-    var p=priceOf(s);
-    if(!BANDS[band][1](p))return;
+  (C.services||[]).slice(0,12).forEach(function(sv,i){
+    var pv=priceOf(sv);
+    if(!BANDS[band][1](pv))return;
     var c=document.createElement("article");c.className="svc";
+    c.setAttribute("role","button");c.setAttribute("tabindex","0");
+    c.setAttribute("aria-pressed",PICK[i]?"true":"false");
+    var tick=document.createElement("div");tick.className="tick";
+    var g=document.createElementNS(SVG,"svg");g.setAttribute("viewBox","0 0 24 24");
+    var pa=document.createElementNS(SVG,"path");pa.setAttribute("d","M5 13l4 4L19 7");
+    g.appendChild(pa);tick.appendChild(g);
     var a=document.createElement("div");a.className="nm";
-    a.textContent=S((lang==="en"&&s.name_en)?s.name_en:s.name);
+    a.textContent=S((lang==="en"&&sv.name_en)?sv.name_en:sv.name);
     var b=document.createElement("div");b.className="ds";
-    b.textContent=S((lang==="en"&&s.desc_en)?s.desc_en:s.desc);
+    b.textContent=S((lang==="en"&&sv.desc_en)?sv.desc_en:sv.desc);
     var f=document.createElement("div");f.className="foot";
     var pr=document.createElement("div");pr.className="pr";
-    pr.textContent=(S(s.price).replace(/[^\d٠-٩]/g,"")||S(s.price))+" ";
+    pr.textContent=(S(sv.price).replace(/[^\d\u0660-\u0669]/g,"")||S(sv.price))+" ";
     var sm=document.createElement("small");sm.textContent=t.cur;pr.appendChild(sm);
-    var go=document.createElement("a");go.className="go";go.href=WA;
-    var ic=document.createElementNS("http://www.w3.org/2000/svg","svg");
+    var go=document.createElement("span");go.className="go";
+    var ic=document.createElementNS(SVG,"svg");
     ic.setAttribute("viewBox","0 0 24 24");ic.setAttribute("fill","currentColor");
-    var u=document.createElementNS("http://www.w3.org/2000/svg","use");
-    u.setAttribute("href","#wa");ic.appendChild(u);
+    var u=document.createElementNS(SVG,"use");u.setAttribute("href","#wa");ic.appendChild(u);
     go.appendChild(ic);go.appendChild(document.createTextNode(t.ask));
     f.appendChild(pr);f.appendChild(go);
-    c.appendChild(a);c.appendChild(b);c.appendChild(f);box.appendChild(c);
+    c.appendChild(tick);c.appendChild(a);c.appendChild(b);c.appendChild(f);
+    function toggle(){
+      PICK[i]=!PICK[i];
+      c.setAttribute("aria-pressed",PICK[i]?"true":"false");
+      savePick();drawSel();toast(PICK[i]?t.tAdded:t.tRemoved);
+    }
+    c.addEventListener("click",toggle);
+    c.addEventListener("keydown",function(e){
+      if(e.key===" "||e.key==="Enter"){e.preventDefault();toggle()}});
+    box.appendChild(c);
   });
 }
 
+/* The picks compose the WhatsApp message, so she never has to type a service
+   name herself and the salon receives a request it can price at a glance. */
+function drawSel(){
+  var t=TXT[lang],picked=[],total=0;
+  (C.services||[]).forEach(function(sv,i){if(PICK[i]){picked.push(sv);total+=priceOf(sv)}});
+  var bar=$("#selbar");if(!bar)return;
+  bar.classList.toggle("on",picked.length>0);
+  $("#bar").classList.toggle("hushed",picked.length>0);
+  if(!picked.length)return;
+  $("#selCount").textContent=picked.length+" "+(picked.length===1?t.selOne:t.selMany);
+  $("#selTotal").textContent=t.selTotal+" · "+total+" "+t.cur;
+  var lines=picked.map(function(sv){
+    return "• "+((lang==="en"&&sv.name_en)?sv.name_en:sv.name)+" — "+priceOf(sv)+" "+t.cur});
+  var msg=t.waPick+"\n"+lines.join("\n")+"\n"+t.waTotal+": "+total+" "+t.cur;
+  $("#selGo").href="https://wa.me/"+encodeURIComponent(C.whatsapp)+"?text="+encodeURIComponent(msg);
+}
+
+var DAYS_AR=["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+var DAYS_EN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var TODAY_AR=DAYS_AR[new Date().getDay()]||"",TODAY_EN=DAYS_EN[new Date().getDay()]||"";
 function drawHours(){
   var body=$("#hrBody");body.textContent="";
   var raw=F("hours");
@@ -776,6 +904,9 @@ function drawHours(){
     var d=document.createElement("div");d.className="line";
     var a=document.createElement("span");a.textContent=m?m[1].trim():part;
     var b=document.createElement("span");b.textContent=m?m[2].trim():"";
+    var label=m?m[1]:part;
+    if((TODAY_AR&&label.indexOf(TODAY_AR)>-1)||(TODAY_EN&&label.indexOf(TODAY_EN)>-1))
+      d.classList.add("today");
     d.appendChild(a);d.appendChild(b);body.appendChild(d);
   });
 }
@@ -790,13 +921,12 @@ function paint(){
   var nm=F("salon_name"),ct=F("city");
   document.title=nm+" — "+ct;
   $("#fName").textContent=nm;$("#hCity").textContent=ct;$("#fCity").textContent=ct;
-  $("#bNm").textContent=nm;$("#iNm").textContent=nm;
-  $("#bMk").textContent=initial(nm);$("#iMk").textContent=initial(nm);
+  $("#bNm").textContent=nm;$("#bMk").textContent=initial(nm);
 
   var h=$("#hName");h.textContent="";
   nm.split(/\s+/).filter(Boolean).forEach(function(w,i){
     var s=document.createElement("span");s.textContent=w;
-    s.style.animationDelay=(2.1+i*.09).toFixed(2)+"s";
+    s.style.animationDelay=(1.5+i*.09).toFixed(2)+"s";
     h.appendChild(s);h.appendChild(document.createTextNode(" "));
   });
 
@@ -824,7 +954,9 @@ function paint(){
 
   var fl=$("#filters");fl.textContent="";
   BANDS.forEach(function(bnd,i){
+    var n=(C.services||[]).filter(function(x){return bnd[1](priceOf(x))}).length;
     var b=document.createElement("button");b.type="button";b.textContent=t[bnd[0]];
+    var cc=document.createElement("span");cc.className="c";cc.textContent=n;b.appendChild(cc);
     b.setAttribute("aria-pressed",i===band?"true":"false");
     b.addEventListener("click",function(){band=i;
       $$("#filters button").forEach(function(x,j){x.setAttribute("aria-pressed",j===i?"true":"false")});
@@ -873,10 +1005,50 @@ $("#themeBtn").addEventListener("click",function(){
 paint();
 
 /* the intro is animation-only — take it out so it can never sit over a tap target */
-setTimeout(function(){var i=$("#intro");if(i&&i.parentNode)i.parentNode.removeChild(i)},2700);
+setTimeout(function(){["#intro","#sweep"].forEach(function(q){
+  var e=$(q);if(e&&e.parentNode)e.parentNode.removeChild(e)})},2400);
+
+drawSel();
+$("#selClr").addEventListener("click",function(){PICK={};savePick();drawSel();drawCards()});
+
+/* gallery lightbox */
+$("#gg").addEventListener("click",function(e){
+  var fig=e.target.closest("figure");if(!fig)return;
+  var im=fig.querySelector("img");if(!im||im.classList.contains("dead"))return;
+  $("#lbImg").src=im.src;$("#lb").classList.add("on")});
+function closeLb(){$("#lb").classList.remove("on");$("#lbImg").removeAttribute("src")}
+$("#lbX").addEventListener("click",closeLb);
+$("#lb").addEventListener("click",function(e){if(e.target===this)closeLb()});
+addEventListener("keydown",function(e){if(e.key==="Escape")closeLb()});
+
+/* share + copy */
+$("#btnShare").addEventListener("click",function(){
+  var t=TXT[lang],d={title:F("salon_name"),text:F("salon_name")+" — "+F("city"),url:location.href};
+  if(navigator.share){navigator.share(d).then(function(){toast(t.tShared)}).catch(function(){})}
+  else if(navigator.clipboard){navigator.clipboard.writeText(location.href)
+    .then(function(){toast(t.tShared)})}});
+$("#btnCopy").addEventListener("click",function(){
+  var t=TXT[lang],a=F("address");if(!a||!navigator.clipboard)return;
+  navigator.clipboard.writeText(a).then(function(){toast(t.tCopied)})});
+
+$("#up").addEventListener("click",function(){scrollTo({top:0,behavior:"smooth"})});
+
+/* scroll-spy on the header links */
+(function(){
+  var links=$$("nav.links a");
+  var secs=links.map(function(a){return $(a.getAttribute("href"))}).filter(Boolean);
+  if(!secs.length||!("IntersectionObserver" in window))return;
+  var spy=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(!e.isIntersecting)return;
+      links.forEach(function(a){
+        a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id)})})},
+    {rootMargin:"-45% 0px -50% 0px"});
+  secs.forEach(function(x){spy.observe(x)});
+})();
 
 addEventListener("scroll",function(){
-  $("#bar").classList.toggle("on",scrollY>520)},{passive:true});
+  $("#bar").classList.toggle("on",scrollY>520);
+  $("#up").classList.toggle("on",scrollY>900)},{passive:true});
 
 if(!CSS.supports("animation-timeline: view()")&&"IntersectionObserver" in window){
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
