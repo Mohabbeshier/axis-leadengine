@@ -37,7 +37,17 @@ H = {"apikey": SUPA_KEY, "Authorization": f"Bearer {SUPA_KEY}",
 # Google returns men's barbershops for almost any salon query in Arabic.
 # Dropping them here costs nothing; a paid category filter would cost
 # $0.001 per place scraped.
-EXCLUDE_CATEGORIES = ("صالون حلاقة", "حلاق", "barber")
+#
+# The "مشغل نسائي" keyword also pulls a handful of non-salon women's
+# businesses that pass every other gate (gyms, clinics, product stores,
+# photo studios) — found by auditing a live 89-lead pool where 5/89 were
+# category leaks like this. Excluded the same cheap, code-side way as
+# barbershops rather than a paid category filter.
+EXCLUDE_CATEGORIES = ("صالون حلاقة", "حلاق", "barber",
+                      "صالة رياضة", "نادي رياضي", "gym",
+                      "عيادة", "clinic",
+                      "متجر مستلزمات التجميل",
+                      "استوديو التصوير", "تصوير فوتوغرافي", "photograph")
 EXCLUDE_NAME_HINTS = ("حلاق", "للحلاقة", "للحلاقه", "barber")
 
 
