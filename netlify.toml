@@ -1,0 +1,5 @@
+# Netlify build config — no build step, just serve the generated demo sites.
+# Publish directory = sites  ->  demo URLs are <domain>/<slug>/ which matches
+# what sitegen.py writes into each lead's demo_url (DEMO_BASE_URL/<slug>).
+[build]
+  publish = "sites"
