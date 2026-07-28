@@ -13,7 +13,17 @@
       "Bash(git add *)",
       "Bash(git -c core.quotepath=false status --short)",
       "Bash(git commit -q -m 'Axis Lead Engine: pipeline + luxury demo template *)",
-      "Bash(git commit -q -m 'First 9 real demo sites \\(An-Narjis batch\\) + price sanitization *)"
+      "Bash(git commit -q -m 'First 9 real demo sites \\(An-Narjis batch\\) + price sanitization *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "WebFetch(domain:axismarketinga.netlify.app)",
+      "Bash(nslookup axismarketinga.netlify.app)",
+      "Bash(git ls-remote *)",
+      "Bash(git commit -q -m 'netlify.toml: publish from sites/ \\(demo URLs become /<slug>/\\) *)",
+      "Bash(PYTHONUTF8=1 python -)",
+      "Bash(git commit -q -m 'harvest: exclude gym/clinic/store/photo-studio category leaks *)",
+      "Bash(git commit -q -m 'chore: verify Netlify auto-deploy is wired to the correct repo *)",
+      "Bash(PYTHONUTF8=1 python -c ' *)"
     ]
   }
 }

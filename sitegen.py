@@ -33,7 +33,7 @@ def build_config(rec, services):
         wa = wa[2:]
     if wa.startswith("0"):
         wa = "966" + wa[1:]
-    return {
+    cfg = {
         "salon_name":    rec.get("business_name") or "",
         "city":          " · ".join(x for x in [rec.get("city"), rec.get("area")] if x),
         "tagline":       " · ".join(s["name"] for s in services[:4]),
@@ -49,6 +49,23 @@ def build_config(rec, services):
         "photos":        rec.get("photos") or [],
         "reviews":       rec.get("top_reviews") or [],
     }
+    # The template has an Arabic/English switch. Service-level English arrives
+    # from content.services_for(); the salon's own fields are translated here.
+    # Any key that fails to come back is simply absent — the template falls
+    # back to the Arabic string rather than rendering a blank.
+    en = rec.get("en_fields")
+    if en is None:
+        try:
+            from content import en_fields_for
+            en = en_fields_for(cfg)
+        except Exception:
+            en = {}
+    cfg.update(en or {})
+    if not cfg.get("tagline_en"):
+        parts = [s.get("name_en") for s in services[:4] if s.get("name_en")]
+        if parts:
+            cfg["tagline_en"] = " · ".join(parts)
+    return cfg
 
 
 def render(rec, services):
