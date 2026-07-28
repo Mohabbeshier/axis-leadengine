@@ -37,6 +37,14 @@ RULES
 - price: digits only (e.g. "250") — no currency word, no symbol, no "SAR"/"ر.س".
 - Arabic must be Gulf/neutral — never Egyptian dialect, never transliterated English.
 - Base services on evidence in the reviews where present. Do not invent a service the salon clearly does not offer (no medical/laser unless the data says so).
+- When the evidence supports a treatment that has a current name, use the current
+  name rather than a dated one — the audience is mostly under 30 and finds these
+  salons through Instagram. Live vocabulary in this market right now: رفع الرموش
+  (lash lift) and تثبيت الحواجب (brow lamination) instead of generic تركيب رموش;
+  تنظيف عميق للبشرة / ترطيب وإصلاح حاجز البشرة for hydrating facials; نضارة
+  وإشراق for glow work; منيكير قصير / أظافر بتدرّج لوني for the shorter, softer
+  nail shapes that replaced long extensions. Never rename a service into
+  something the salon does not actually do — this is about wording, not scope.
 - desc: max 6 words, concrete, no marketing adjectives.
 - Also give a natural English rendering of each name and desc (name_en, desc_en) — the demo site has an English mode. Translate the meaning, do not transliterate the Arabic.
 
