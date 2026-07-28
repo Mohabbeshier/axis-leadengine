@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0E0A07">
+<meta name="robots" content="noindex">
+<title>صالون</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=El+Messiri:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   AXIS · غرفة الذهب — nocturnal jewel-box
+   One color-world: noir → molten gold. Every image force-graded.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --noir:#0E0A07;
+  --noir2:#161009;
+  --espresso:#1E1610;
+  --gold:#C9A25E;
+  --gold-lt:#F1DFB0;
+  --gold-hot:#FFE9B8;
+  --gold-deep:#8C6E3C;
+  --cream:#F5EBD9;
+  --hair:rgba(201,162,94,.30);
+  --fd:"Aref Ruqaa",serif;
+  --fb:"El Messiri",sans-serif;
+  --fl:"Cormorant Garamond",serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+html.lenis,html.lenis body{height:auto}
+body{
+  background:var(--noir);color:var(--cream);
+  font-family:var(--fb);line-height:1.8;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--gold);color:var(--noir)}
+a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+img{display:block;max-width:100%}
+h1,h2,h3{font-weight:400}
+
+/* ── THE GRADE: every photo passes through this. Nothing breaks the palette. */
+.graded{position:relative;overflow:hidden;background:var(--espresso)}
+.graded img{
+  width:100%;height:100%;object-fit:cover;
+  filter:sepia(.55) saturate(.85) brightness(.72) contrast(1.06) hue-rotate(-8deg);
+}
+.graded::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(14,10,7,.35),rgba(14,10,7,.55)),
+    radial-gradient(120% 80% at 50% 110%,rgba(201,162,94,.20),transparent 60%);
+  mix-blend-mode:normal;
+}
+.graded img.is-dead{display:none}
+
+/* ── molten-gold text (shimmer sweeps on its own = alive) */
+.gold{
+  background:linear-gradient(100deg,var(--gold-deep) 0%,var(--gold) 30%,var(--gold-hot) 50%,var(--gold) 70%,var(--gold-deep) 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 7s ease-in-out infinite;
+}
+@keyframes shimmer{0%,100%{background-position:100% 0}45%,55%{background-position:0 0}}
+
+/* ── page-wide layers */
+#dust{position:fixed;inset:0;z-index:3;pointer-events:none}
+#spine{position:fixed;top:0;right:calc(50% - .5px);width:1px;height:100%;z-index:2;pointer-events:none;opacity:.5;
+  background:linear-gradient(180deg,transparent,var(--hair) 15%,var(--hair) 85%,transparent)}
+@media(max-width:768px){#spine{display:none}}
+
+.wrap{width:min(1160px,92vw);margin-inline:auto;position:relative;z-index:4}
+section{position:relative}
+
+/* ── ornaments */
+.orn{display:flex;align-items:center;justify-content:center;gap:16px;color:var(--gold)}
+.orn .l{height:1px;width:min(110px,16vw);background:linear-gradient(90deg,transparent,var(--gold))}
+.orn .l:last-child{background:linear-gradient(90deg,var(--gold),transparent)}
+.orn svg{width:38px;height:38px;display:block}
+.kick{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--gold);
+  font-size:.74rem;font-weight:500;letter-spacing:.5em;padding-right:.5em}
+.kick::before,.kick::after{content:"";height:1px;width:30px;background:var(--hair)}
+
+/* ── buttons */
+.btn{position:relative;display:inline-flex;align-items:center;gap:.75rem;overflow:hidden;
+  padding:1.05rem 2.5rem;border-radius:2px;font-family:var(--fb);font-weight:600;font-size:1.05rem;
+  transition:transform .35s var(--ease),box-shadow .5s}
+.btn svg{width:21px;height:21px;flex:none}
+.btn-gold{color:#241A0E;
+  background:linear-gradient(110deg,var(--gold-deep),var(--gold) 35%,var(--gold-lt) 50%,var(--gold) 65%,var(--gold-deep));
+  background-size:200% 100%;
+  box-shadow:0 12px 40px -12px rgba(201,162,94,.65),inset 0 0 0 1px rgba(245,235,217,.3)}
+.btn-gold::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;
+  background:linear-gradient(105deg,transparent,rgba(255,240,200,.55),transparent);
+  transform:skewX(-20deg);animation:sheen 4.5s ease-in-out infinite}
+@keyframes sheen{0%,55%{left:-60%}75%,100%{left:130%}}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 20px 55px -12px rgba(201,162,94,.85)}
+.btn-gold:active{transform:scale(.97)}
+.btn-ghost{color:var(--gold-lt);border:1px solid var(--hair);background:rgba(14,10,7,.4);backdrop-filter:blur(8px)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-hot);transform:translateY(-3px)}
+
+/* ═══ LOADER ═══ */
+#loader{position:fixed;inset:0;z-index:300;background:var(--noir);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6rem}
+#loader.done{opacity:0;visibility:hidden;transition:opacity .7s ease,visibility .7s}
+#loader .mandala{width:clamp(120px,26vw,180px);height:auto;color:var(--gold);opacity:.9}
+#loader .mandala *{fill:none;stroke:currentColor;stroke-width:.8}
+#loader .name{font-family:var(--fd);font-size:clamp(1.5rem,5vw,2.4rem);text-align:center;padding-inline:1.5rem;opacity:0;transform:translateY(14px)}
+#loader .mark{font-family:var(--fl);font-style:italic;letter-spacing:.5em;text-transform:uppercase;
+  font-size:.72rem;color:var(--gold-deep);opacity:0}
+@media(prefers-reduced-motion:reduce){#loader{display:none}}
+
+/* ═══ HERO — typography is the spectacle ═══ */
+#hero{min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden;background:var(--noir)}
+#hero .bgimg{position:absolute;inset:-8% 0;z-index:0}
+#hero .bgimg img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
+#hero .vig{position:absolute;inset:0;z-index:1;
+  background:radial-gradient(120% 90% at 50% 45%,transparent 30%,rgba(14,10,7,.88) 100%),
+             linear-gradient(180deg,rgba(14,10,7,.55),rgba(14,10,7,.25) 40%,rgba(14,10,7,.92) 95%)}
+#hero .mandala-bg{position:absolute;z-index:2;top:50%;left:50%;width:min(150vw,1050px);aspect-ratio:1;
+  transform:translate(-50%,-52%);color:var(--gold);opacity:.07;pointer-events:none;
+  animation:spin 120s linear infinite}
+#hero .mandala-bg *{fill:none;stroke:currentColor;stroke-width:.7}
+@keyframes spin{to{transform:translate(-50%,-52%) rotate(360deg)}}
+#hero .frame{position:absolute;inset:clamp(14px,2.5vw,28px);z-index:2;pointer-events:none}
+#hero .frame path{fill:none;stroke:var(--gold);stroke-width:1;opacity:.75}
+#hero .inner{position:relative;z-index:5;padding:clamp(5rem,12vh,7rem) 1.2rem 4.5rem;width:min(1000px,94vw)}
+.h-city{font-size:.8rem;letter-spacing:.55em;color:var(--gold);opacity:0}
+.h-name{font-family:var(--fd);font-size:clamp(3rem,11vw,7.8rem);line-height:1.55;margin:.6rem 0 0;
+  filter:drop-shadow(0 6px 40px rgba(201,162,94,.25))}
+.h-tag{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.9rem;
+  color:var(--cream);opacity:.85;font-size:clamp(.85rem,2vw,1.02rem);margin-top:1.4rem;opacity:0}
+.h-tag .d{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);flex:none;opacity:.8}
+.h-rate{display:inline-flex;align-items:center;gap:1rem;margin-top:2rem;padding:.7rem 1.6rem;
+  border:1px solid var(--hair);background:rgba(14,10,7,.5);backdrop-filter:blur(8px);opacity:0}
+.h-rate .stars{color:var(--gold);letter-spacing:3px;font-size:.85rem}
+.h-rate .num{font-family:var(--fl);font-style:italic;font-size:1.5rem;color:var(--gold-lt)}
+.h-rate .cnt{font-size:.78rem;color:var(--cream);opacity:.75}
+.h-ctas{display:flex;align-items:center;justify-content:center;gap:1.1rem;flex-wrap:wrap;margin-top:2.4rem;opacity:0}
+.h-cue{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);z-index:5;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--gold);font-size:.68rem;letter-spacing:.4em;opacity:.8}
+.h-cue .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:fall 2.2s ease-in-out infinite}
+@keyframes fall{0%{transform:translateY(-8px);opacity:0}45%{opacity:1}100%{transform:translateY(10px);opacity:0}}
+
+/* ═══ MARQUEE — the page breathes ═══ */
+#marquee{border-block:1px solid var(--hair);background:var(--noir2);overflow:hidden;padding:1.05rem 0;position:relative;z-index:4}
+#marquee .track{display:flex;gap:3rem;width:max-content;animation:mq 30s linear infinite}
+#marquee span{display:flex;align-items:center;gap:3rem;font-family:var(--fd);font-size:1.15rem;color:var(--gold);white-space:nowrap;opacity:.9}
+#marquee i{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);flex:none;opacity:.6}
+@keyframes mq{to{transform:translateX(50%)}}   /* rtl: slides right */
+
+/* ═══ PHILOSOPHY ═══ */
+#phil{padding:clamp(5rem,12vw,8.5rem) 0;background:
+  radial-gradient(80% 60% at 15% 20%,rgba(201,162,94,.07),transparent 55%),var(--noir)}
+#phil .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2.5rem,6vw,5rem);align-items:center}
+#phil .txt h2{font-family:var(--fd);font-size:clamp(1.9rem,4.6vw,3.1rem);line-height:1.7;margin:1.1rem 0 1.3rem}
+#phil .txt p{color:var(--cream);opacity:.72;max-width:52ch}
+#phil .pills{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem}
+#phil .pills span{font-size:.8rem;color:var(--gold-lt);border:1px solid var(--hair);padding:.45rem 1.1rem;background:rgba(201,162,94,.05)}
+#phil .pic{aspect-ratio:4/5;position:relative}
+#phil .pic .frame2{position:absolute;inset:0;border:1px solid var(--hair);transform:translate(14px,14px);z-index:0}
+#phil .pic .graded{position:absolute;inset:0;z-index:1;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+@media(max-width:860px){#phil .grid{grid-template-columns:1fr}#phil .pic{max-width:460px;margin-inline:auto}}
+
+/* ═══ SERVICES ═══ */
+#services{padding:clamp(5rem,12vw,8.5rem) 0;background:var(--noir2);overflow:hidden}
+#services .bgorn{position:absolute;top:-4rem;left:-6rem;width:34rem;color:var(--gold);opacity:.045;pointer-events:none;animation:spin 160s linear infinite reverse}
+#services .bgorn *{fill:none;stroke:currentColor;stroke-width:.7}
+#services .head{text-align:center;margin-bottom:clamp(2.6rem,6vw,4.2rem)}
+#services .head h2{font-family:var(--fd);font-size:clamp(2.1rem,5.4vw,3.6rem);line-height:1.6;margin:.8rem 0 1rem}
+.svc{list-style:none;max-width:880px;margin-inline:auto}
+.svc li{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.4rem 1.8rem;
+  padding:1.55rem .6rem;border-bottom:1px solid rgba(201,162,94,.16);position:relative;transition:background .4s}
+.svc li::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(201,162,94,.08),transparent);
+  opacity:0;transition:opacity .4s}
+.svc li:hover::before{opacity:1}
+.svc .n{font-family:var(--fl);font-style:italic;font-size:1.35rem;color:var(--gold-deep);min-width:2.2rem}
+.svc .nm{font-size:clamp(1.05rem,2.4vw,1.3rem);font-weight:500;color:var(--cream)}
+.svc .ds{font-size:.85rem;color:var(--cream);opacity:.55;margin-top:.15rem}
+.svc .pr{font-family:var(--fl);font-size:clamp(1.15rem,2.4vw,1.45rem);color:transparent;white-space:nowrap;
+  background:linear-gradient(100deg,var(--gold-deep),var(--gold) 40%,var(--gold-lt) 55%,var(--gold));
+  -webkit-background-clip:text;background-clip:text}
+.svc .pr small{font-size:.68em}
+#services .cta{text-align:center;margin-top:2.8rem}
+
+/* ═══ EXPERIENCE — cinematic band ═══ */
+#exp{min-height:74svh;display:grid;place-items:center;text-align:center;overflow:hidden}
+#exp .bgimg{position:absolute;inset:-10% 0;z-index:0}
+#exp .vig{position:absolute;inset:0;z-index:1;
+  background:radial-gradient(100% 80% at 50% 50%,rgba(14,10,7,.45) 20%,rgba(14,10,7,.9) 100%)}
+#exp .inner{position:relative;z-index:2;padding:6rem 1.4rem}
+#exp h2{font-family:var(--fd);font-size:clamp(2rem,6.5vw,4.4rem);line-height:1.8;max-width:900px}
+#exp .sub{margin-top:1.2rem;color:var(--cream);opacity:.65;font-size:.95rem;letter-spacing:.06em}
+
+/* ═══ GALLERY ═══ */
+#gallery{padding:clamp(5rem,12vw,8.5rem) 0;background:var(--noir)}
+#gallery .head{text-align:center;margin-bottom:clamp(2.6rem,6vw,4rem)}
+#gallery .head h2{font-family:var(--fd);font-size:clamp(2rem,5.2vw,3.4rem);margin:.8rem 0 1rem;line-height:1.6}
+.mosaic{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(140px,16vw,230px);gap:10px}
+.mosaic .cell{position:relative;overflow:hidden;border:1px solid rgba(201,162,94,.18)}
+.mosaic .cell:nth-child(1){grid-column:span 2;grid-row:span 2}
+.mosaic .cell:nth-child(4){grid-row:span 2}
+.mosaic .cell:nth-child(6){grid-column:span 2}
+.mosaic .cell .graded{position:absolute;inset:0}
+.mosaic .cell img{transition:transform 1.2s var(--ease)}
+.mosaic .cell:hover img{transform:scale(1.07)}
+.mosaic .cell .glow{position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 50%,rgba(201,162,94,.22),transparent 70%);
+  opacity:0;transition:opacity .5s;pointer-events:none}
+.mosaic .cell:hover .glow{opacity:1}
+@media(max-width:640px){.mosaic{grid-template-columns:repeat(2,1fr)}
+  .mosaic .cell:nth-child(1){grid-column:span 2}
+  .mosaic .cell:nth-child(6){grid-column:span 2}}
+
+/* ═══ TESTIMONIALS (conditional) ═══ */
+#testi{padding:clamp(5rem,12vw,8rem) 0;background:var(--noir2)}
+#testi .head{text-align:center;margin-bottom:3rem}
+#testi .head h2{font-family:var(--fd);font-size:clamp(2rem,5vw,3.2rem);margin:.8rem 0;line-height:1.6}
+#testi .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.2rem}
+#testi .card{border:1px solid var(--hair);background:rgba(201,162,94,.04);padding:2rem 1.6rem;position:relative}
+#testi .card .q{font-family:var(--fl);font-size:3.4rem;line-height:0;color:var(--gold);opacity:.5;display:block;margin-bottom:1.4rem}
+#testi .card p{font-size:.95rem;opacity:.85}
+#testi .card .who{display:block;margin-top:1.2rem;font-size:.75rem;letter-spacing:.25em;color:var(--gold)}
+
+/* ═══ BOOKING ═══ */
+#booking{min-height:88svh;display:grid;place-items:center;text-align:center;overflow:hidden}
+#booking .bgimg{position:absolute;inset:-8% 0;z-index:0}
+#booking .vig{position:absolute;inset:0;z-index:1;
+  background:radial-gradient(110% 90% at 50% 40%,rgba(14,10,7,.55) 10%,rgba(14,10,7,.94) 100%)}
+#booking .inner{position:relative;z-index:2;padding:6.5rem 1.4rem;width:min(860px,94vw)}
+#booking h2{font-family:var(--fd);font-size:clamp(2.4rem,7vw,4.8rem);line-height:1.65}
+#booking .sub{margin:1.1rem 0 2.4rem;opacity:.7}
+#booking .info{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--hair);
+  border:1px solid var(--hair);margin-top:3rem}
+#booking .info>div{background:rgba(14,10,7,.75);backdrop-filter:blur(6px);padding:1.5rem 1.2rem}
+#booking .info .lb{font-size:.66rem;letter-spacing:.4em;color:var(--gold);margin-bottom:.5rem}
+#booking .info .vl{font-size:.92rem;opacity:.9}
+#booking .info a.vl{color:var(--gold-lt);border-bottom:1px solid transparent;transition:border-color .3s}
+#booking .info a.vl:hover{border-color:var(--gold)}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--noir);border-top:1px solid rgba(201,162,94,.15);padding:3.2rem 0 2.6rem;text-align:center}
+footer .nm{font-family:var(--fd);font-size:1.5rem}
+footer .ct{font-size:.72rem;letter-spacing:.3em;color:var(--gold);opacity:.8;margin-top:.4rem}
+footer .ax{font-family:var(--fl);font-style:italic;font-size:.8rem;color:var(--gold-deep);margin-top:1.6rem;letter-spacing:.12em}
+
+/* ═══ mobile sticky WA bar ═══ */
+#wabar{position:fixed;bottom:0;left:0;right:0;z-index:90;display:none;padding:.8rem 1rem calc(.8rem + env(safe-area-inset-bottom));
+  background:rgba(14,10,7,.92);backdrop-filter:blur(12px);border-top:1px solid var(--hair);
+  transform:translateY(110%);transition:transform .5s var(--ease)}
+#wabar.on{transform:none}
+#wabar .btn{width:100%;justify-content:center;padding:.95rem}
+@media(max-width:768px){#wabar{display:block}}
+
+/* ═══ reveals ═══ */
+.rv{opacity:0;transform:translateY(28px)}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+  #dust{display:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="mandala">
+      <circle cx="60" cy="60" r="58"/><circle cx="60" cy="60" r="46"/><circle cx="60" cy="60" r="30"/>
+      <g id="m8">
+        <path d="M60 2 L66 22 L60 30 L54 22 Z"/>
+        <path d="M60 14 C70 26,70 34,60 42 C50 34,50 26,60 14 Z"/>
+      </g>
+      <use href="#m8" transform="rotate(45 60 60)"/>
+      <use href="#m8" transform="rotate(90 60 60)"/>
+      <use href="#m8" transform="rotate(135 60 60)"/>
+      <use href="#m8" transform="rotate(180 60 60)"/>
+      <use href="#m8" transform="rotate(225 60 60)"/>
+      <use href="#m8" transform="rotate(270 60 60)"/>
+      <use href="#m8" transform="rotate(315 60 60)"/>
+      <circle cx="60" cy="60" r="8"/>
+      <path d="M60 52 L64 60 L60 68 L56 60 Z"/>
+    </g>
+    <path id="wa" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </defs>
+</svg>
+
+<div id="loader" role="status" aria-label="جارٍ التحميل">
+  <svg class="mandala" viewBox="0 0 120 120"><use href="#mandala"/></svg>
+  <div class="name gold" id="lName"></div>
+  <div class="mark">The Golden Room</div>
+</div>
+
+<canvas id="dust" aria-hidden="true"></canvas>
+<div id="spine" aria-hidden="true"></div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="bgimg graded"><img id="heroImg" src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=1900&q=80" alt="" loading="eager" fetchpriority="high"></div>
+  <div class="vig"></div>
+  <svg class="mandala-bg" viewBox="0 0 120 120" aria-hidden="true"><use href="#mandala"/></svg>
+  <svg class="frame" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 100 100">
+    <path id="framePath" vector-effect="non-scaling-stroke" d="M8 1 H92 M99 8 V92 M92 99 H8 M1 92 V8 M1 8 Q1 1 8 1 M92 1 Q99 1 99 8 M99 92 Q99 99 92 99 M8 99 Q1 99 1 92"/>
+  </svg>
+  <div class="inner">
+    <p class="h-city" id="hCity"></p>
+    <h1 class="h-name gold" id="hName"></h1>
+    <div class="h-tag" id="hTag"></div>
+    <div class="h-rate" id="hRate">
+      <span class="stars" id="hStars">★★★★★</span>
+      <span class="num" id="hNum">0.0</span>
+      <span class="cnt" id="hCnt"></span>
+    </div>
+    <div class="h-ctas" id="hCtas">
+      <a class="btn btn-gold" id="ctaHero" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor"><use href="#wa"/></svg>
+        <span>احجزي موعدك واتساب</span>
+      </a>
+      <a class="btn btn-ghost" href="#services"><span>استعرضي خدماتنا</span></a>
+    </div>
+  </div>
+  <div class="h-cue"><span>اكتشفي</span><span class="dot"></span></div>
+</section>
+
+<!-- ═══ MARQUEE ═══ -->
+<div id="marquee" aria-hidden="true"><div class="track" id="mqTrack"></div></div>
+
+<!-- ═══ PHILOSOPHY ═══ -->
+<section id="phil">
+  <div class="wrap">
+    <div class="grid">
+      <div class="txt">
+        <div class="kick rv">فلسفتنا</div>
+        <h2 class="rv">لأنّ الجمال طقسٌ<br><span class="gold">يليق بالملكات</span></h2>
+        <p class="rv">في عالمٍ لا يهدأ، صنعنا مكاناً يخصّك وحدك — تُستقبلين فيه بدفء، وتلمسين الفرق في كلّ تفصيلة: يدٌ ماهرة، وأجواء تفيض خصوصية وهدوءاً، ولمسة أخيرة تليق بك.</p>
+        <div class="pills rv">
+          <span>خصوصية تامة</span><span>خامات فاخرة</span><span>مواعيد دقيقة</span>
+        </div>
+      </div>
+      <div class="pic rv">
+        <div class="frame2"></div>
+        <div class="graded"><img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=1200&q=80" alt="" loading="eager" decoding="async"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <svg class="bgorn" viewBox="0 0 120 120" aria-hidden="true"><use href="#mandala"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="kick rv">قائمة الخدمات</div>
+      <h2 class="rv">خدماتنا <span class="gold">المميّزة</span></h2>
+      <div class="orn rv"><span class="l"></span>
+        <svg viewBox="0 0 120 120"><use href="#mandala" style="color:var(--gold)"/></svg>
+      <span class="l"></span></div>
+    </div>
+    <ul class="svc" id="svcList"></ul>
+    <div class="cta rv">
+      <a class="btn btn-gold" id="ctaSvc" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor"><use href="#wa"/></svg>
+        <span>استفسري عن موعد</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="exp">
+  <div class="bgimg graded"><img id="expImg" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1900&q=80" alt="" loading="eager" decoding="async"></div>
+  <div class="vig"></div>
+  <div class="inner">
+    <h2 class="rv gold">الجَمالُ تفاصيل…<br>ونحنُ نُتقنُ التفاصيل</h2>
+    <p class="sub rv">تجربة تبدأ من الاستقبال، ولا تنتهي عند المغادرة</p>
+  </div>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="head">
+      <div class="kick rv">أجواؤنا</div>
+      <h2 class="rv">لمحات من <span class="gold">عالمنا</span></h2>
+    </div>
+    <div class="mosaic" id="mosaic"></div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS (removed when empty) ═══ -->
+<section id="testi">
+  <div class="wrap">
+    <div class="head">
+      <div class="kick rv">قالوا عنّا</div>
+      <h2 class="rv">بكلمات <span class="gold">عميلاتنا</span></h2>
+    </div>
+    <div class="grid" id="tGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ BOOKING ═══ -->
+<section id="booking">
+  <div class="bgimg graded"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1900&q=80" alt="" loading="eager" decoding="async"></div>
+  <div class="vig"></div>
+  <div class="inner">
+    <div class="kick rv">احجزي الآن</div>
+    <h2 class="rv">موعدُكِ القادم…<br><span class="gold">يبدأ برسالة</span></h2>
+    <p class="sub rv">راسلينا على واتساب — نرد بسرعة ونرتّب لك كل شيء</p>
+    <a class="btn btn-gold rv" id="ctaBook" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><use href="#wa"/></svg>
+      <span>تواصلي عبر واتساب</span>
+    </a>
+    <div class="info rv">
+      <div><div class="lb">العنوان</div><div class="vl" id="bAddr"></div></div>
+      <div><div class="lb">ساعات العمل</div><div class="vl" id="bHours"></div></div>
+      <div><div class="lb">الهاتف</div><a class="vl" id="bPhone" href="#" dir="ltr"></a></div>
+      <div><div class="lb">الموقع</div><a class="vl" id="bMap" href="#" target="_blank" rel="noopener">فتح الخريطة ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="nm gold" id="fName"></div>
+  <div class="ct" id="fCity"></div>
+  <div class="ax">Crafted by Axis Marketing Agency</div>
+</footer>
+
+<div id="wabar"><a class="btn btn-gold" id="ctaBar" href="#">
+  <svg viewBox="0 0 24 24" fill="currentColor"><use href="#wa"/></svg>
+  <span>احجزي موعدك الآن</span></a>
+</div>
+
+<script>
+const CONFIG = {
+  "salon_name": "مشغل الجوهرة سبا للتزيين النسائي",
+  "city": "الرياض · الياسمين",
+  "tagline": "تصفيف الشعر · قص الشعر · مكياج سهرة · صبغ الشعر",
+  "rating": "4.2",
+  "reviews_count": "375",
+  "phone": "+966531314445",
+  "whatsapp": "966531314445",
+  "whatsapp_msg": "السلام عليكم، أبغى أحجز موعد",
+  "address": "حي، طريق ابي بكر الصديق، الياسمين، الرياض 13326، المملكة العربية السعودية",
+  "hours": "",
+  "maps_url": "https://www.google.com/maps/search/?api=1&query=%D9%85%D8%B4%D8%BA%D9%84%20%D8%A7%D9%84%D8%AC%D9%88%D9%87%D8%B1%D8%A9%20%D8%B3%D8%A8%D8%A7%20%D9%84%D9%84%D8%AA%D8%B2%D9%8A%D9%8A%D9%86%20%D8%A7%D9%84%D9%86%D8%B3%D8%A7%D8%A6%D9%8A&query_place_id=ChIJSet8oBgBLz4RId1a66eclVY",
+  "services": [
+    {
+      "name": "تصفيف الشعر",
+      "desc": "تمشيط وتجفيف بعد الغسيل",
+      "price": "80 ريال"
+    },
+    {
+      "name": "قص الشعر",
+      "desc": "قص حسب الطلب مع تشكيل",
+      "price": "120 ريال"
+    },
+    {
+      "name": "مكياج سهرة",
+      "desc": "مكياج كامل للمناسبات",
+      "price": "200 ريال"
+    },
+    {
+      "name": "صبغ الشعر",
+      "desc": "صبغة كاملة بمواد متخصصة",
+      "price": "300 ريال"
+    },
+    {
+      "name": "عناية بالأظافر",
+      "desc": "تنظيف وطلاء يدين وقدمين",
+      "price": "120 ريال"
+    },
+    {
+      "name": "تنظيف البشرة",
+      "desc": "جلسة تنظيف عميق للوجه",
+      "price": "250 ريال"
+    },
+    {
+      "name": "كيراتين الشعر",
+      "desc": "علاج كيراتين لتنعيم الشعر",
+      "price": "500 ريال"
+    }
+  ],
+  "photos": [],
+  "reviews": []
+};
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+<script>
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var C=CONFIG;
+var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var fine=matchMedia("(pointer: fine)").matches;
+var mobile=innerWidth<768;
+
+function dead(img){img.addEventListener("error",function(){img.classList.add("is-dead")})}
+function esc(s){return String(s==null?"":s)}
+
+/* ── populate ── */
+document.title=C.salon_name+" — "+C.city;
+var wa="https://wa.me/"+encodeURIComponent(C.whatsapp)+"?text="+encodeURIComponent(C.whatsapp_msg);
+["ctaHero","ctaSvc","ctaBook","ctaBar"].forEach(function(id){var e=$("#"+id);if(e)e.href=wa});
+
+$("#lName").textContent=C.salon_name;
+$("#hCity").textContent=C.city;
+$("#hName").textContent=C.salon_name;
+C.tagline.split("·").map(function(t){return t.trim()}).filter(Boolean).forEach(function(t,i,arr){
+  var s=document.createElement("span");s.textContent=t;$("#hTag").appendChild(s);
+  if(i<arr.length-1){var d=document.createElement("span");d.className="d";$("#hTag").appendChild(d)}
+});
+var rN=parseFloat(C.rating)||0;
+$("#hStars").textContent="★★★★★☆☆☆☆☆".slice(5-Math.round(rN),10-Math.round(rN));
+$("#hCnt").textContent="+"+C.reviews_count+" تقييم Google";
+
+/* marquee: services names twice for seamless loop */
+(function(){
+  var names=C.services.map(function(s){return s.name});
+  var mk=function(){var sp=document.createElement("span");
+    names.forEach(function(n,i){var t=document.createElement("b");t.style.fontWeight="400";t.textContent=n;sp.appendChild(t);
+      var d=document.createElement("i");sp.appendChild(d)});
+    return sp};
+  var tr=$("#mqTrack");tr.appendChild(mk());tr.appendChild(mk());tr.appendChild(mk());tr.appendChild(mk());
+})();
+
+/* services list */
+(function(){
+  var nums=["٠١","٠٢","٠٣","٠٤","٠٥","٠٦","٠٧"];
+  var ul=$("#svcList");
+  C.services.slice(0,7).forEach(function(s,i){
+    var li=document.createElement("li");li.className="rv";
+    var n=document.createElement("span");n.className="n";n.textContent=nums[i]||("0"+(i+1));
+    var tx=document.createElement("div");
+    var nm=document.createElement("div");nm.className="nm";nm.textContent=esc(s.name);
+    var ds=document.createElement("div");ds.className="ds";ds.textContent=esc(s.desc);
+    tx.appendChild(nm);tx.appendChild(ds);
+    /* price may arrive as "80", "80 SAR" or "٨٠ ر.س" — keep digits only,
+       the template owns the currency suffix */
+    var digits=String(s.price==null?"":s.price).replace(/[^\d٠-٩]/g,"")||esc(s.price);
+    var pr=document.createElement("div");pr.className="pr";pr.innerHTML=digits+" <small>ر.س</small>";
+    li.appendChild(n);li.appendChild(tx);li.appendChild(pr);
+    ul.appendChild(li);
+  });
+})();
+
+/* gallery: CONFIG.photos first, curated set otherwise — always full */
+(function(){
+  var CUR=[
+    "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1400&q=80",
+    "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1583416750470-965b2707b355?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1400&q=80"
+  ];
+  var ph=(C.photos&&C.photos.length?C.photos:CUR).slice(0,6);
+  var mo=$("#mosaic");
+  ph.forEach(function(u){
+    var c=document.createElement("figure");c.className="cell rv";
+    var g=document.createElement("div");g.className="graded";
+    var im=document.createElement("img");im.src=u;im.alt="";im.loading="eager";im.decoding="async";dead(im);
+    g.appendChild(im);
+    var gl=document.createElement("div");gl.className="glow";
+    c.appendChild(g);c.appendChild(gl);mo.appendChild(c);
+  });
+})();
+
+/* testimonials: real only, remove section when empty */
+(function(){
+  var sec=$("#testi"),revs=C.reviews||[];
+  if(!revs.length){sec.parentNode.removeChild(sec);return}
+  revs.slice(0,6).forEach(function(r){
+    var card=document.createElement("div");card.className="card rv";
+    var q=document.createElement("span");q.className="q";q.textContent="”";
+    var p=document.createElement("p");p.textContent=esc(r.text);
+    var w=document.createElement("span");w.className="who";w.textContent=esc(r.who);
+    card.appendChild(q);card.appendChild(p);card.appendChild(w);
+    $("#tGrid").appendChild(card);
+  });
+})();
+
+$("#bAddr").textContent=C.address;
+$("#bHours").textContent=C.hours;
+$("#bPhone").textContent=C.phone;$("#bPhone").href="tel:"+C.phone.replace(/\s/g,"");
+$("#bMap").href=C.maps_url;
+$("#fName").textContent=C.salon_name;
+$("#fCity").textContent=C.city;
+["#heroImg","#expImg"].forEach(function(s){var e=$(s);if(e)dead(e)});
+document.querySelectorAll(".graded img").forEach(dead);
+
+/* ── gold dust ── */
+(function(){
+  if(reduced)return;
+  var cv=$("#dust"),ctx=cv.getContext("2d"),P=[],N=mobile?14:30,W,H;
+  function size(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+  size();addEventListener("resize",size);
+  for(var i=0;i<N;i++)P.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+    r:Math.random()*1.6+.4,s:Math.random()*.35+.12,tw:Math.random()*Math.PI*2});
+  (function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<P.length;i++){var p=P[i];
+      p.y-=p.s;p.tw+=.02;p.x+=Math.sin(p.tw*.7)*.15;
+      if(p.y<-4){p.y=H+4;p.x=Math.random()*W}
+      var a=.25+Math.sin(p.tw)*.2;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);
+      ctx.fillStyle="rgba(233,200,138,"+a.toFixed(3)+")";ctx.fill()}
+    requestAnimationFrame(tick)
+  })();
+})();
+
+/* ── mobile sticky wa bar after hero ── */
+(function(){
+  var bar=$("#wabar");if(!bar)return;
+  addEventListener("scroll",function(){
+    bar.classList.toggle("on",scrollY>innerHeight*.85)
+  },{passive:true});
+})();
+
+/* ── motion ── */
+function boot(){
+  var hasG=typeof gsap!=="undefined"&&typeof ScrollTrigger!=="undefined";
+  var loader=$("#loader");
+  function openHero(){
+    if(!hasG){["#hCity","#hTag","#hRate","#hCtas"].forEach(function(s){var e=$(s);if(e)e.style.opacity=1});return}
+    var tl=gsap.timeline();
+    tl.fromTo("#hName",{opacity:0,y:36,filter:"blur(10px)"},{opacity:1,y:0,filter:"blur(0px)",duration:1.2,ease:"power3.out"})
+      .to("#hCity",{opacity:1,duration:.7},"-=.7")
+      .to("#hTag",{opacity:.85,duration:.7},"-=.4")
+      .to("#hRate",{opacity:1,duration:.7},"-=.4")
+      .to("#hCtas",{opacity:1,duration:.7},"-=.4");
+    gsap.fromTo("#framePath",{drawSVG:0},{duration:0});  /* no-op guard */
+    var num={v:0};
+    gsap.to(num,{v:rN,duration:1.6,ease:"power2.out",delay:.4,
+      onUpdate:function(){$("#hNum").textContent=num.v.toFixed(1)}});
+  }
+  function closeLoader(){if(loader&&!loader.classList.contains("done")){loader.classList.add("done");openHero()}}
+  if(reduced||!hasG){closeLoader()}
+  else{
+    var lt=gsap.timeline({onComplete:closeLoader});
+    lt.fromTo("#loader .mandala",{rotate:-30,opacity:0,scale:.85},{rotate:0,opacity:.9,scale:1,duration:.8,ease:"power2.out"})
+      .to("#loader .name",{opacity:1,y:0,duration:.6,ease:"power3.out"},"-=.3")
+      .to("#loader .mark",{opacity:1,duration:.4},"-=.2")
+      .to({},{duration:.35});
+    setTimeout(closeLoader,2600); /* failsafe */
+  }
+  if(!hasG){document.querySelectorAll(".rv").forEach(function(e){e.style.opacity=1;e.style.transform="none"});return}
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* lenis — single driver via gsap.ticker */
+  if(!reduced&&typeof Lenis!=="undefined"){
+    var lenis=new Lenis({duration:1.15,smoothTouch:false});
+    lenis.on("scroll",ScrollTrigger.update);
+    gsap.ticker.add(function(t){lenis.raf(t*1000)});
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* reveals */
+  document.querySelectorAll(".rv").forEach(function(el,i){
+    gsap.to(el,{opacity:1,y:0,duration:.95,ease:"power3.out",
+      scrollTrigger:{trigger:el,start:"top 88%"}});
+  });
+
+  /* parallax + ken-burns (desktop) */
+  if(!mobile&&!reduced){
+    [["#hero .bgimg img",16],["#exp .bgimg img",14],["#booking .bgimg img",12]].forEach(function(pair){
+      var el=document.querySelector(pair[0]);if(!el)return;
+      gsap.to(el,{yPercent:pair[1],ease:"none",
+        scrollTrigger:{trigger:el.closest("section"),start:"top bottom",end:"bottom top",scrub:true}});
+    });
+    gsap.fromTo("#hero .bgimg img",{scale:1.12},{scale:1,duration:9,ease:"power1.out"});
+  }
+}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",boot)}else{boot()}
+})();
+</script>
+</body>
+</html>
