@@ -12,7 +12,8 @@
       "Bash(python -m py_compile harvest.py)",
       "Bash(git add *)",
       "Bash(git -c core.quotepath=false status --short)",
-      "Bash(git commit -q -m 'Axis Lead Engine: pipeline + luxury demo template *)"
+      "Bash(git commit -q -m 'Axis Lead Engine: pipeline + luxury demo template *)",
+      "Bash(git commit -q -m 'First 9 real demo sites \\(An-Narjis batch\\) + price sanitization *)"
     ]
   }
 }

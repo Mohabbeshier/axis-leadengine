@@ -34,6 +34,7 @@ Infer a realistic service list from what the reviews and category actually menti
 RULES
 - 5 to 7 services, ordered cheapest to most expensive.
 - Saudi market prices in SAR, realistic for the area given. Round numbers only.
+- price: digits only (e.g. "250") — no currency word, no symbol, no "SAR"/"ر.س".
 - Arabic must be Gulf/neutral — never Egyptian dialect, never transliterated English.
 - Base services on evidence in the reviews where present. Do not invent a service the salon clearly does not offer (no medical/laser unless the data says so).
 - desc: max 6 words, concrete, no marketing adjectives.
