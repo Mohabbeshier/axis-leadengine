@@ -83,9 +83,9 @@ html[lang="ar"] .label{letter-spacing:normal;word-spacing:.28em}
    campaign: force them all through the same transfer curve. */
 .plate{position:relative;overflow:hidden;background:var(--travertine)}
 .plate img{width:100%;height:100%;object-fit:cover;
-  filter:sepia(.62) saturate(1.15) contrast(.96) brightness(1.06) hue-rotate(-12deg)}
+  filter:saturate(.94) contrast(1.03) brightness(1.02)}
 .plate::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(221,208,194,.34),rgba(123,97,77,.22));
+  background:linear-gradient(180deg,rgba(221,208,194,.10),rgba(123,97,77,.10));
   mix-blend-mode:multiply}
 .plate img.dead{display:none}
 
@@ -169,9 +169,9 @@ html[lang="ar"] .label{letter-spacing:normal;word-spacing:.28em}
   /* the statement type drifts a little slower than the page */
   .drag{animation:dragY linear both;animation-timeline:view();animation-range:cover}
   @keyframes dragY{from{transform:translateY(6%)}to{transform:translateY(-6%)}}
-  /* the hero's stone recedes as it leaves */
-  #hero .stone::before{animation:heroPush linear both;animation-timeline:view();animation-range:exit}
-  @keyframes heroPush{to{transform:scale(1.16) translateY(-3%)}}
+  /* the hero plate is not also a .par, so this owns transform alone */
+  #hero .plate img{animation:heroPush linear both;animation-timeline:view();animation-range:exit}
+  @keyframes heroPush{from{transform:scale(1.03)}to{transform:scale(1.13)}}
   #veilbar{animation:bar linear both;animation-timeline:scroll(root)}
   @keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 }
@@ -200,11 +200,11 @@ nav .ask{font-size:.78rem;color:var(--char);border-bottom:1px solid var(--bronze
 
 /* ══ HERO — one photograph, one name, nothing else ══ */
 #hero{height:100svh;min-height:560px;display:grid;align-items:end;overflow:hidden}
-#hero .stone{position:absolute;inset:0}
+#hero .plate{position:absolute;inset:0}
 #hero .vig{position:absolute;inset:0;z-index:1;
   background:
-    linear-gradient(180deg,rgba(23,20,17,.10) 0%,rgba(23,20,17,0) 34%,
-                    rgba(23,20,17,.34) 74%,rgba(23,20,17,.62) 100%)}
+    linear-gradient(180deg,rgba(23,20,17,.22) 0%,rgba(23,20,17,.04) 30%,
+                    rgba(23,20,17,.40) 70%,rgba(23,20,17,.72) 100%)}
 #hero .in{position:relative;z-index:2;text-align:start;width:100%;
   padding:0 var(--gut) clamp(5.5rem,14vh,9rem)}
 .h-place{font-size:.72rem;color:var(--ivory);opacity:.9}
@@ -294,11 +294,13 @@ html[lang="ar"] .h-name{line-height:1.5}
 .gal figure{overflow:hidden;border-radius:clamp(28px,3vw,40px)}
 .gal figure:nth-child(1){grid-column:1/9;aspect-ratio:4/3}
 .gal figure:nth-child(2){grid-column:9/13;aspect-ratio:3/4;align-self:end}
-.gal figure:nth-child(3){grid-column:3/13;aspect-ratio:16/9;margin-top:clamp(1rem,4vw,4rem)}
+.gal figure:nth-child(3){grid-column:1/7;aspect-ratio:1;margin-top:clamp(1rem,4vw,4rem)}
+.gal figure:nth-child(4){grid-column:7/13;aspect-ratio:4/5;margin-top:clamp(1rem,4vw,4rem)}
 @media(max-width:760px){
   .gal figure:nth-child(1){grid-column:1/13;aspect-ratio:4/3}
   .gal figure:nth-child(2){grid-column:1/9;aspect-ratio:3/4}
-  .gal figure:nth-child(3){grid-column:4/13;aspect-ratio:4/3}
+  .gal figure:nth-child(3){grid-column:1/7;aspect-ratio:1}
+  .gal figure:nth-child(4){grid-column:7/13;aspect-ratio:1}
 }
 
 /* ── a single voice, large ── */
@@ -380,7 +382,7 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 </nav>
 
 <section id="hero">
-  <div class="stone"><span class="seam"></span></div>
+  <div class="plate"><img id="p0" alt="" decoding="async" fetchpriority="high"></div>
   <div class="vig"></div>
   <div class="in">
     <p class="h-place b1" id="hPlace"></p>
@@ -409,7 +411,7 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
   </div>
 </div>
 
-<div class="bleed stone uncover"><span class="seam" style="inset-inline-start:63%"></span></div>
+<div class="bleed plate par uncover"><img id="p2" alt="" loading="lazy" decoding="async"></div>
 
 <section id="index" class="wrap">
   <span class="label rise" data-t="ixK"></span>
@@ -420,7 +422,7 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 
 <div class="wrap">
   <div class="spread flip" style="padding-top:var(--air)">
-    <figure class="art stone uncover"><span class="seam" style="inset-inline-start:44%"></span></figure>
+    <figure class="art plate par uncover"><img id="p3" alt="" loading="lazy" decoding="async"></figure>
     <div class="say rise">
       <span class="label" data-t="ch2"></span>
       <h3 class="serif" data-t="s2h"></h3>
@@ -607,9 +609,14 @@ function descOf(s){return S((lang==="en"&&s.desc_en)?s.desc_en:s.desc)}
    library still reads as one campaign. Real salon photographs, when the
    pipeline has them, arrive here and are graded identically. */
 var STOCK=[
- "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=2000&q=85",
- "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=1600&q=85",
- "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1600&q=85"];
+ "https://images.unsplash.com/photo-1618434958571-459c9c972ae8?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8Nnx8c2lsayUyMGZhYnJpYyUyMGZsb3dpbmd8ZW58MXwxfHx8MTc4NTI3NjU5Mnww&ixlib=rb-4.1.0&w=1800&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1739980737820-b6bb1a9b8456?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTR8fHNraW5jYXJlJTIwbWluaW1hbCUyMHByb2R1Y3R8ZW58MXwxfHx8MTc4NTI3NjU4Mnww&ixlib=rb-4.1.0&w=1200&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1631663027447-faf7074440ec?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MjN8fHNpbGslMjBmYWJyaWMlMjBmbG93aW5nfGVufDF8MXx8fDE3ODUyNzY1OTJ8MA&ixlib=rb-4.1.0&w=1800&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1719210945699-6b8d1e38b1f0?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8Mjh8fHNraW5jYXJlJTIwbWluaW1hbCUyMHByb2R1Y3R8ZW58MXwxfHx8MTc4NTI3NjU4Mnww&ixlib=rb-4.1.0&w=1200&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1643648854897-7b5845b4c04c?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8OXx8bmFpbHMlMjBtYW5pY3VyZSUyMG1vZGVybnxlbnwxfDF8fHwxNzg1Mjc2NTk2fDA&ixlib=rb-4.1.0&w=1000&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1585652757141-8837d676fac8?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8NXx8c2tpbmNhcmUlMjBtaW5pbWFsJTIwcHJvZHVjdHxlbnwxfDF8fHwxNzg1Mjc2NTgyfDA&ixlib=rb-4.1.0&w=1000&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1585652757173-57de5e9fab42?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTV8fHNraW5jYXJlJTIwbWluaW1hbCUyMHByb2R1Y3R8ZW58MXwxfHx8MTc4NTI3NjU4Mnww&ixlib=rb-4.1.0&w=1000&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1601049541079-473f79fd3746?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8Nnx8c2tpbmNhcmUlMjBtaW5pbWFsJTIwcHJvZHVjdHxlbnwxfDF8fHwxNzg1Mjc2NTgyfDA&ixlib=rb-4.1.0&w=1000&q=82&fm=jpg&fit=crop"];
 var POOL=(C.photos&&C.photos.length)?C.photos.concat(STOCK):STOCK;
 function pick(i){return POOL[i%POOL.length]}
 
@@ -724,10 +731,10 @@ function paint(){
 }
 
 /* imagery */
-[["#p0",0],["#p1",1],["#p2",2],["#p3",0]].forEach(function(x){
+[["#p0",0],["#p1",1],["#p2",2],["#p3",3]].forEach(function(x){
   var e=$(x[0]);if(!e)return;e.src=pick(x[1]);dead(e);
 });
-[0,1,2].forEach(function(i){
+[4,5,6,7].forEach(function(i){
   var f=document.createElement("figure");f.className="plate par uncover";
   var m=document.createElement("img");m.src=pick(i);m.alt="";m.loading="lazy";
   m.decoding="async";dead(m);f.appendChild(m);$("#gal").appendChild(f);
