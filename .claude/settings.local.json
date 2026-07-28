@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m py_compile store.py pipeline.py)",
+      "Bash(python -c ' *)",
+      "Bash(python -)",
+      "Bash(pip install *)",
+      "Bash(python -c \"import requests, dns.resolver; print\\('deps ok'\\)\")",
+      "mcp__claude_ai_Supabase__execute_sql",
+      "Bash(gh auth *)",
+      "Bash(git config *)",
+      "Bash(python -m py_compile harvest.py)",
+      "Bash(git add *)",
+      "Bash(git -c core.quotepath=false status --short)",
+      "Bash(git commit -q -m 'Axis Lead Engine: pipeline + luxury demo template *)"
+    ]
+  }
+}
