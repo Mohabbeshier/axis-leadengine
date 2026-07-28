@@ -158,7 +158,8 @@ nav.links a:hover,nav.links a.active{color:var(--rose);background:var(--rose-s)}
   box-shadow:0 8px 20px -10px rgba(37,211,102,.9);transition:transform .25s var(--e)}
 .book-pill:hover{transform:translateY(-2px)}
 .book-pill svg{width:17px;height:17px;flex:none}
-@media(max-width:400px){.book-pill span{display:none}.book-pill{padding:.55rem .7rem}}
+@media(max-width:430px){.book-pill{padding:.5rem .8rem;font-size:.82rem}
+  .brand .nm{max-width:15ch}}
 
 /* ══ atoms ══ */
 .chip{display:inline-flex;align-items:center;gap:.38rem;padding:.4rem .9rem;border-radius:999px;
@@ -197,7 +198,10 @@ nav.links a:hover,nav.links a.active{color:var(--rose);background:var(--rose-s)}
 .hero-grid{display:grid;grid-template-columns:1fr;gap:clamp(1.6rem,4vw,3rem);align-items:center}
 @media(min-width:900px){.hero-grid{grid-template-columns:1.05fr .95fr}}
 .hero-shot{aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-l);background:var(--tint)}
-@media(max-width:899px){.hero-shot{aspect-ratio:16/11;order:2}}
+@media(max-width:899px){
+  .hero-shot{order:2;aspect-ratio:4/3;border-radius:0;box-shadow:none;
+    width:100vw;margin-inline:calc(50% - 50vw)}
+}
 .h-name{font-size:clamp(2.1rem,7vw,4.4rem);font-weight:900;margin:.8rem 0 0}
 .h-cta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem}
 .h-cta .btn{flex:1 1 auto}
@@ -211,7 +215,7 @@ nav.links a:hover,nav.links a.active{color:var(--rose);background:var(--rose-s)}
 @media(max-width:620px){.trust{grid-template-columns:repeat(2,1fr)}}
 
 /* ══ categories ══ */
-.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(46%,190px),1fr));
   gap:clamp(10px,1.4vw,14px);margin-top:clamp(1.6rem,4vw,2.6rem)}
 .cat{border-radius:var(--r);border:1px solid var(--line);background:var(--paper);padding:1.4rem 1.2rem;
   box-shadow:var(--sh);transition:transform .3s var(--e),box-shadow .3s;cursor:pointer;text-align:start;
@@ -233,7 +237,10 @@ nav.links a:hover,nav.links a.active{color:var(--rose);background:var(--rose-s)}
   padding:.4rem .95rem;border-radius:999px;border:1px solid var(--line);background:var(--paper);
   color:var(--dim);transition:.25s var(--e)}
 .filters button[aria-pressed="true"]{background:var(--rose);border-color:transparent;color:#fff}
-.filters .c{font-size:.76em;opacity:.6;margin-inline-start:.28rem}
+.filters .c{font-size:.72em;font-weight:700;margin-inline-start:.45rem;
+  min-width:1.35em;padding:0 .35em;border-radius:999px;display:inline-block;text-align:center;
+  background:color-mix(in oklab,var(--ink) 9%,transparent)}
+.filters button[aria-pressed="true"] .c{background:rgba(255,255,255,.28)}
 @scope (.cards){
   :scope{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,268px),1fr));
     gap:clamp(10px,1.4vw,14px);margin-top:1.2rem}
@@ -637,12 +644,12 @@ var TXT={
   ctaBook:"احجزي واتساب",ctaMenu:"الأسعار",
   tRateK:"تقييم جوجل",tRevsK:"تقييم",tSvcK:"خدمة",tFromK:"تبدأ من (ر.س)",
   abK:"من نحن",abH:"مكان نسائي بالكامل، بمعايير ما نتنازل عنها",
-  abP:"صالون متكامل للسيدات في {city}. نشتغل بمواعيد دقيقة، وأدوات تتعقّم بعد كل عميلة، وأسعار مكتوبة قدامك من قبل لا تجين. {n} خدمة، وتقييم {r} من {rv} عميلة على جوجل.",
+  abP:"صالون متكامل للسيدات في {city}. نشتغل بمواعيد دقيقة، وأدوات تتعقّم بعد كل عميلة، وأسعار مكتوبة قدامك من قبل لا تجين. {n}، وتقييم {r} من {rv} عميلة على جوجل.",
   ctK:"تصنيفات الخدمات",ctH:"وش تحتاجين اليوم؟",
   cHair:"الشعر",cSkin:"البشرة",cNail:"الأظافر",cBody:"الجسم والسبا",cMake:"المكياج",cLash:"الرموش والحواجب",
   svcK:"قائمة الأسعار",svcH:"كل شي واضح من البداية",
   svcP:"اختاري الخدمات اللي تبينها وبتتجمّع لك في رسالة وحدة جاهزة على واتساب.",
-  fAll:"الكل",fLow:"أقل من ٢٠٠",fMid:"٢٠٠ — ٣٠٠",fHigh:"أكثر من ٣٠٠",ask:"اسألي عنها",
+  fAll:"الكل",fLow:"أقل من 200",fMid:"200 — 300",fHigh:"أكثر من 300",ask:"اسألي عنها",
   selBook:"احجزي المختار",selOne:"خدمة مختارة",selMany:"خدمات مختارة",selTotal:"الإجمالي",
   waPick:"السلام عليكم، أبغى أحجز:",waTotal:"الإجمالي التقريبي",
   tAdded:"انضافت لطلبك",tRemoved:"اتشالت",
@@ -677,7 +684,7 @@ var TXT={
   ctaBook:"Book on WhatsApp",ctaMenu:"Prices",
   tRateK:"Google rating",tRevsK:"reviews",tSvcK:"services",tFromK:"from (SAR)",
   abK:"About us",abH:"A fully female space, with standards we do not bend",
-  abP:"A complete ladies salon in {city}. We run to the minute, sterilise every tool after every client, and publish our prices before you arrive. {n} services, rated {r} by {rv} clients on Google.",
+  abP:"A complete ladies salon in {city}. We run to the minute, sterilise every tool after every client, and publish our prices before you arrive. {n}, rated {r} by {rv} clients on Google.",
   ctK:"Service categories",ctH:"What do you need today?",
   cHair:"Hair",cSkin:"Skin",cNail:"Nails",cBody:"Body & spa",cMake:"Makeup",cLash:"Lashes & brows",
   svcK:"Price list",svcH:"Everything clear, up front",
@@ -738,6 +745,13 @@ function target(el,n){if(!el)return;el.style.setProperty("--to",n);
   if(!CSS.supports("animation-timeline: view()"))el.style.setProperty("--n",n)}
 function initial(s){return S(s).replace(/^(صالون|مركز|مشغل)\s+/,"").trim().charAt(0)||"•"}
 
+function countLabel(n){
+  if(lang==="en")return n+" service"+(n===1?"":"s");
+  if(n===1)return "خدمة واحدة";
+  if(n===2)return "خدمتان";
+  if(n>=3&&n<=10)return n+" خدمات";
+  return n+" خدمة";
+}
 var RATE=parseFloat(C.rating)||0;
 var PRICES=(C.services||[]).map(priceOf).filter(function(n){return n>0});
 var WA="";
@@ -746,17 +760,17 @@ var WA="";
    never an invention. Anything unmatched simply has no category card. */
 var CATS=[
  ["cHair",/شعر|قص|صبغ|تصفيف|كيرات|هاي\s*لايت|فرد|بروتين|hair|cut|colou?r|blow|styl|kerat/i,
-  "M7 4c3 0 5 2 5 5s2 5 5 5M6 20c2-3 4-5 7-6"],
+  "M6.5 4L15 15.5|M17.5 4L9 15.5|M9 18.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0|M20 18.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0"],
  ["cSkin",/بشرة|وجه|تنظيف|نضار|تقشير|فيشل|skin|facial|glow|peel/i,
-  "M12 3a9 9 0 100 18 9 9 0 000-18zM9 10h.01M15 10h.01M9 15c1.5 1.2 4.5 1.2 6 0"],
+  "M12 3.5c3.2 4 5.5 6.6 5.5 9.5a5.5 5.5 0 11-11 0c0-2.9 2.3-5.5 5.5-9.5z"],
  ["cNail",/أظافر|اظافر|مانيكير|بديكير|nail|mani|pedi/i,
-  "M9 3h6v11a3 3 0 01-6 0zM9 20h6"],
+  "M9.5 3.5h5c.8 0 1.5.7 1.5 1.5v9a4 4 0 01-8 0v-9c0-.8.7-1.5 1.5-1.5z|M8 20.5h8"],
  ["cBody",/سبا|مساج|حمام|تدليك|جسم|استرخ|spa|massage|bath|body|scrub/i,
-  "M12 3c2 3 4 5 4 8a4 4 0 11-8 0c0-3 2-5 4-8z"],
+  "M20 4c0 8-5 12-12 12 0-8 5-12 12-12z|M8 16c-1.8 1.4-2.8 2.9-3 4.5"],
  ["cMake",/مكياج|ميك|makeup|make-up/i,
-  "M9 3h6l-1 6H10zM10 9v12h4V9"],
+  "M9 9h6v11a2 2 0 01-2 2h-2a2 2 0 01-2-2V9z|M10 9V4.5A1.5 1.5 0 0111.5 3h1A1.5 1.5 0 0114 4.5V9"],
  ["cLash",/رموش|حواجب|lash|brow/i,
-  "M2 12c4-5 16-5 20 0M6 12v3M12 13v4M18 12v3"]
+  "M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z|M14.5 12a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0"]
 ];
 function catOf(s){
   var t=S(s.name)+" "+S(s.name_en)+" "+S(s.desc);
@@ -770,9 +784,12 @@ var BANDS=[["fAll",function(){return true}],
            ["fHigh",function(p){return p>300}]];
 var band=0,catFilter=null;
 
+/* several sub-paths per icon, split on "|" */
 function icon(d){
   var g=document.createElementNS(SVG,"svg");g.setAttribute("viewBox","0 0 24 24");
-  var p=document.createElementNS(SVG,"path");p.setAttribute("d",d);g.appendChild(p);return g;
+  String(d).split("|").forEach(function(seg){
+    var p=document.createElementNS(SVG,"path");p.setAttribute("d",seg);g.appendChild(p)});
+  return g;
 }
 function waIcon(){
   var g=document.createElementNS(SVG,"svg");g.setAttribute("viewBox","0 0 24 24");
@@ -790,7 +807,7 @@ function drawCats(){
     b.setAttribute("aria-pressed",catFilter===i?"true":"false");
     var ic=document.createElement("div");ic.className="ic";ic.appendChild(icon(cat[2]));
     var h=document.createElement("h3");h.textContent=t[cat[0]];
-    var n=document.createElement("div");n.className="n";n.textContent=counts[i]+" "+t.tSvcK;
+    var n=document.createElement("div");n.className="n";n.textContent=countLabel(counts[i]);
     b.appendChild(ic);b.appendChild(h);b.appendChild(n);
     b.addEventListener("click",function(){
       catFilter=(catFilter===i)?null:i;band=0;
@@ -892,7 +909,7 @@ function paint(){
 
   /* the About paragraph is written out of the salon's own numbers */
   var ab=$('[data-t="abP"]');
-  if(ab)ab.textContent=t.abP.replace("{city}",city).replace("{n}",(C.services||[]).length)
+  if(ab)ab.textContent=t.abP.replace("{city}",city).replace("{n}",countLabel((C.services||[]).length))
     .replace("{r}",RATE.toFixed(1)).replace("{rv}",C.reviews_count||"—");
 
   var msg=(lang==="en"&&C.whatsapp_msg_en)?C.whatsapp_msg_en:C.whatsapp_msg;
