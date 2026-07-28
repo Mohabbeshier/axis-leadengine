@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"></noscript>
 
 <script>
 (function(){try{
@@ -25,26 +25,20 @@
 
 <style>
 /* ═══════════════════════════════════════════════════════════════════════
-   AXIS — demo template v5
-   Fixes from the phone review of v4:
-   · dark mode was brown-on-brown, so card and page read as one dead slab.
-     The dark base is now a cool near-black and the accents keep their
-     chroma against it. Tiles are tinted, not neutral — that is what was
-     making the grid feel empty.
-   · the bento left literal holes on a 2-column phone. Every tile now spans
-     a whole row or pairs exactly.
-   · .chip set display:inline-flex, which silently overrode the [hidden]
-     attribute — an empty pill rendered whenever a salon had no hours.
-   · scroll had no choreography. Everything below is driven by
-     animation-timeline, still with zero animation libraries: counters that
-     count as they enter, images that drift against the scroll, cards that
-     rise in sequence, a service ticker, and a hero that recedes.
+   AXIS — demo template v6  ·  "the arrival"
+   v5 fixed the colour. This one is about the first four seconds and the
+   scroll: a curtain that lifts, a name that unmasks line by line, tiles
+   that deal in, headings that wipe open as they enter, photographs that
+   stack and recede, a rail that travels sideways while the page travels
+   down, and counters that count. Still zero animation libraries — every
+   frame is CSS, on animation-timeline.
    ═══════════════════════════════════════════════════════════════════════ */
 :root{
   --fa:"Tajawal",system-ui,sans-serif;
   --fl:"Outfit",system-ui,sans-serif;
   --f:var(--fa);
   --e:cubic-bezier(.16,1,.3,1);
+  --eo:cubic-bezier(.34,1.56,.64,1);
   --r:clamp(20px,3.4vw,28px);
   --r-s:16px;
   --pad:clamp(3.5rem,8vw,6.5rem);
@@ -72,9 +66,9 @@ html[data-theme="light"]{
   --sh:0 14px 34px -18px rgba(60,44,24,.30);
   --sh-l:0 30px 70px -30px rgba(60,44,24,.38);
   --img:saturate(1.06) contrast(1.02);
+  --sheen:oklch(22% .026 60/.05);
 }
 html[data-theme="dark"]{
-  /* cool near-black, not brown — brown base is what killed v4 */
   --paper:#0F1113;  --paper:oklch(16% .008 250);
   --paper2:#15181B; --paper2:oklch(19.5% .010 250);
   --card:#1B1F23;   --card:oklch(23% .012 250);
@@ -85,7 +79,7 @@ html[data-theme="dark"]{
   --coral:#FF8A6E;  --coral:oklch(76% .140 35);
   --coral-s:#3A241F;--coral-s:oklch(28% .050 35);
   --plum:#E08AD4;   --plum:oklch(75% .130 330);
-  --plum-s:#33223140;--plum-s:oklch(28% .050 330);
+  --plum-s:#332231; --plum-s:oklch(28% .050 330);
   --amber:#F0BE5E;  --amber:oklch(82% .120 82);
   --amber-s:#3A2E19;--amber-s:oklch(28% .050 82);
   --line:rgba(242,240,236,.13); --line:oklch(95% .006 90/.13);
@@ -93,10 +87,11 @@ html[data-theme="dark"]{
   --sh:0 14px 34px -18px rgba(0,0,0,.7);
   --sh-l:0 30px 70px -30px rgba(0,0,0,.85);
   --img:saturate(1.03) contrast(1.05) brightness(.94);
+  --sheen:oklch(95% .006 90/.07);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
-[hidden]{display:none!important}          /* .chip's display must not win */
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{background:var(--paper);color:var(--ink);font-family:var(--f);
   font-size:clamp(1rem,.95rem + .22vw,1.09rem);line-height:1.8;overflow-x:hidden;
@@ -112,39 +107,81 @@ p{text-wrap:pretty}
 .wrap{width:min(1200px,92vw);margin-inline:auto;position:relative}
 section{position:relative}
 
-/* ══════════ SCROLL CHOREOGRAPHY — all of it CSS ══════════ */
+/* ══════════════ THE ARRIVAL ══════════════
+   A curtain in the page colour lifts away, so the first thing that happens
+   is the salon's name resolving — not a spinner, and not a blank white
+   frame while fonts decide to arrive. */
+#curtain{position:fixed;inset:0;z-index:300;background:var(--paper);
+  display:grid;place-items:center;animation:lift 1s var(--e) 1.15s forwards}
+#curtain .mk{display:flex;gap:.5rem;align-items:center;animation:mkOut .5s ease .95s forwards}
+#curtain .dot{width:12px;height:12px;border-radius:50%;background:var(--green);
+  animation:bounce .9s var(--eo) infinite alternate}
+#curtain .dot:nth-child(2){background:var(--coral);animation-delay:.12s}
+#curtain .dot:nth-child(3){background:var(--plum);animation-delay:.24s}
+@keyframes bounce{from{transform:translateY(6px) scale(.85);opacity:.5}to{transform:translateY(-6px) scale(1);opacity:1}}
+@keyframes mkOut{to{opacity:0;transform:scale(.85)}}
+@keyframes lift{to{transform:translateY(-101%)}}
+/* the sweep that follows the curtain up */
+#sweep{position:fixed;inset-inline:0;top:0;height:4px;z-index:301;transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--green),var(--amber),var(--coral),var(--plum));
+  animation:sweepIn .7s var(--e) .3s both,sweepOut .5s var(--e) 1.5s forwards}
+@keyframes sweepIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes sweepOut{to{opacity:0}}
+html[dir="rtl"] #sweep{transform-origin:100% 50%}
+
+/* staged entrance — each piece has its own beat */
+.in-1,.in-2,.in-3,.in-4,.in-5{animation:enter .8s var(--e) both}
+.in-1{animation-delay:1.25s}.in-2{animation-delay:1.4s}.in-3{animation-delay:1.62s}
+.in-4{animation-delay:1.78s}.in-5{animation-delay:1.92s}
+@keyframes enter{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+/* the name unmasks word by word from behind its own baseline */
+.h-name span{display:inline-block;animation:unmask .85s var(--e) both}
+@keyframes unmask{from{opacity:0;clip-path:inset(0 0 105% 0);transform:translateY(.42em)}
+                  to{opacity:1;clip-path:inset(0 0 -18% 0);transform:none}}
+/* tiles are dealt onto the table */
+.bento .tile{animation:deal .8s var(--eo) both}
+.bento .tile:nth-child(1){animation-delay:1.95s}
+.bento .tile:nth-child(2){animation-delay:2.05s}
+.bento .tile:nth-child(3){animation-delay:2.13s}
+.bento .tile:nth-child(4){animation-delay:2.21s}
+.bento .tile:nth-child(5){animation-delay:2.29s}
+@keyframes deal{from{opacity:0;transform:translateY(56px) rotate(calc(var(--sx) * -3deg)) scale(.94)}
+                to{opacity:1;transform:none}}
+
+/* ══════════════ SCROLL CHOREOGRAPHY ══════════════ */
 .rv{opacity:1}
 @supports (animation-timeline: view()){
   .rv{animation:rise both;animation-timeline:view();animation-range:entry 2% cover 26%}
   @keyframes rise{from{opacity:0;transform:translateY(38px) scale(.97)}to{opacity:1;transform:none}}
 
+  /* headings wipe open as they enter */
+  .mask{animation:wipe linear both;animation-timeline:view();animation-range:entry 12% entry 88%}
+  @keyframes wipe{from{clip-path:inset(0 0 100% 0);opacity:.25}to{clip-path:inset(0 0 -12% 0);opacity:1}}
+
   /* cards arrive in sequence, each with its own tilt */
   .stagger>*{animation:tilt both;animation-timeline:view();animation-range:entry 0% cover 24%}
-  @keyframes tilt{from{opacity:0;transform:translateY(46px) rotate(calc(var(--sx) * -1.6deg))}
+  @keyframes tilt{from{opacity:0;transform:translateY(48px) rotate(calc(var(--sx) * -2deg)) scale(.95)}
                   to{opacity:1;transform:none}}
 
-  /* photographs drift against the scroll */
   .drift img{animation:drift linear both;animation-timeline:view();animation-range:cover}
-  @keyframes drift{from{transform:scale(1.22) translateY(-4.5%)}to{transform:scale(1.22) translateY(4.5%)}}
+  @keyframes drift{from{transform:scale(1.24) translateY(-5%)}to{transform:scale(1.24) translateY(5%)}}
 
-  /* The hero recedes rather than just leaving.
-     NOTE: the timeline must be view(), not view(root) — "root" is not a valid
-     axis, the declaration would be dropped, and `animation: recede both` with
-     no duration would then snap the hero straight to its end state and hide it. */
   #recede{animation:recede linear both;animation-timeline:view();animation-range:exit 0% exit 100%}
-  @keyframes recede{to{opacity:0;transform:translateY(-40px) scale(.96);filter:blur(5px)}}
+  @keyframes recede{to{opacity:0;transform:translateY(-46px) scale(.95);filter:blur(6px)}}
 
-  /* numbers count while they enter the screen */
-  .num{animation:tick .1s linear both;animation-timeline:view();animation-range:entry 24% entry 92%}
+  .num{animation:tick .1s linear both;animation-timeline:view();animation-range:entry 22% entry 92%}
   @keyframes tick{to{--n:var(--to)}}
 
   #prog{animation:fill linear both;animation-timeline:scroll(root)}
   @keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
-  /* the service rail travels sideways as the page travels down */
   .rail{animation:slide linear both;animation-timeline:view();animation-range:cover}
-  @keyframes slide{from{transform:translateX(calc(var(--sx) * -3%))}
-                   to{transform:translateX(calc(var(--sx) * 22%))}}
+  @keyframes slide{from{transform:translateX(calc(var(--sx) * -4%))}
+                   to{transform:translateX(calc(var(--sx) * 26%))}}
+
+  /* stacked photographs: each recedes as the next arrives on top */
+  .stack .ph{animation:sink linear both;animation-timeline:view();animation-range:exit -12% exit 92%}
+  @keyframes sink{to{transform:scale(.9) translateY(-4%);opacity:.45;filter:saturate(.55)}}
 }
 @property --n{syntax:"<integer>";initial-value:0;inherits:false}
 .num{counter-reset:n var(--n)}
@@ -154,9 +191,9 @@ section{position:relative}
   background:linear-gradient(90deg,var(--green),var(--amber),var(--coral),var(--plum))}
 html[dir="rtl"] #prog{transform-origin:100% 50%}
 
-/* ══ controls ══ */
 #ctrl{position:fixed;top:0;inset-inline-end:0;z-index:140;display:flex;gap:.45rem;
-  padding:.8rem clamp(.8rem,3vw,1.4rem);padding-top:calc(.8rem + env(safe-area-inset-top))}
+  padding:.8rem clamp(.8rem,3vw,1.4rem);padding-top:calc(.8rem + env(safe-area-inset-top));
+  animation:enter .7s var(--e) 1.5s both}
 #ctrl button{cursor:pointer;font-family:var(--f);display:inline-flex;align-items:center;justify-content:center;
   height:42px;min-width:46px;padding:0 .85rem;border-radius:999px;border:1px solid var(--line);
   background:var(--card);color:var(--ink);font-size:.82rem;font-weight:700;box-shadow:var(--sh);
@@ -170,7 +207,8 @@ html[data-theme="dark"] #themeBtn .moon{display:none}
 
 /* ══ atoms ══ */
 .chip{display:inline-flex;align-items:center;gap:.42rem;padding:.44rem 1rem;border-radius:999px;
-  font-size:.85rem;font-weight:600;background:var(--card);border:1px solid var(--line)}
+  font-size:.85rem;font-weight:600;background:var(--card);border:1px solid var(--line);
+  white-space:nowrap;flex:none}
 .chip.g{background:var(--green-s);border-color:transparent;color:var(--green)}
 .chip.c{background:var(--coral-s);border-color:transparent;color:var(--coral)}
 .chip.p{background:var(--plum-s);border-color:transparent;color:var(--plum)}
@@ -178,11 +216,24 @@ html[data-theme="dark"] #themeBtn .moon{display:none}
 .chip i{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none;
   animation:pulse 2.4s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.45;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;padding:1.02rem 1.8rem;
-  border-radius:999px;font-family:var(--f);font-weight:700;font-size:1.02rem;
+/* one clean line that scrolls, instead of a ragged three-row wrap */
+.row{display:flex;gap:.45rem;overflow-x:auto;scrollbar-width:none;
+  -ms-overflow-style:none;padding-block:.15rem;
+  -webkit-mask-image:linear-gradient(to var(--fade,left),#000 82%,transparent);
+  mask-image:linear-gradient(to var(--fade,left),#000 82%,transparent)}
+html[dir="rtl"] .row{--fade:left}
+html[dir="ltr"] .row{--fade:right}
+.row::-webkit-scrollbar{display:none}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;padding:1.02rem 1.5rem;
+  border-radius:999px;font-family:var(--f);font-weight:700;font-size:1rem;position:relative;overflow:hidden;
   transition:transform .3s var(--e),box-shadow .4s;box-shadow:var(--sh)}
 .btn svg{width:20px;height:20px;flex:none}
 .btn-p{background:var(--green);color:var(--on)}
+.btn-p::after{content:"";position:absolute;top:0;bottom:0;width:35%;inset-inline-start:-50%;
+  background:linear-gradient(105deg,transparent,color-mix(in oklab,var(--on) 45%,transparent),transparent);
+  transform:skewX(-18deg);animation:gleam 4.5s ease-in-out 2.6s infinite}
+@keyframes gleam{0%,62%{inset-inline-start:-50%}84%,100%{inset-inline-start:125%}}
 .btn-o{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 .btn:hover{transform:translateY(-3px);box-shadow:var(--sh-l)}
 .btn:active{transform:scale(.97)}
@@ -195,7 +246,7 @@ html[data-theme="dark"] #themeBtn .moon{display:none}
 .ph img.dead{display:none}
 
 /* ══ HERO ══ */
-#hero{padding:clamp(6rem,14vh,8.5rem) 0 clamp(2rem,5vw,3rem);overflow:hidden}
+#hero{padding:clamp(5.5rem,13vh,8rem) 0 clamp(2rem,5vw,3rem);overflow:hidden}
 .blob{position:absolute;border-radius:50%;pointer-events:none;z-index:0;filter:blur(8px);
   animation:float 22s ease-in-out infinite alternate}
 .blob.b1{inset-inline-end:-20vw;top:-24vh;width:74vw;aspect-ratio:1;
@@ -204,24 +255,30 @@ html[data-theme="dark"] #themeBtn .moon{display:none}
   background:radial-gradient(circle,color-mix(in oklab,var(--green) 42%,transparent),transparent 68%)}
 .blob.b3{inset-inline-end:8vw;top:52vh;width:40vw;aspect-ratio:1;animation-delay:-15s;
   background:radial-gradient(circle,color-mix(in oklab,var(--plum) 34%,transparent),transparent 68%)}
-@keyframes float{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(3%,5%,0) scale(1.12)}}
+@keyframes float{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(3%,5%,0) scale(1.14)}}
 #hero .wrap{z-index:2}
 .h-top{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
 .h-name{font-size:clamp(2.3rem,8.4vw,5.6rem);font-weight:900;margin:1rem 0 0}
-.h-name span{display:inline-block;animation:word .9s var(--e) both}
-.h-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem}
-@keyframes word{from{opacity:0;transform:translateY(30px) rotate(2deg)}to{opacity:1;transform:none}}
-.h-cta{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.9rem}
-.h-cta .btn{flex:1 1 200px}
-.h-strip{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.4rem}
+.h-cta{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1.8rem;max-width:520px}
+.h-strip{margin-top:1.3rem}
 
-/* ══ BENTO — every tile fills its row, no holes ══ */
+/* ══ BENTO ══ */
 .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(10px,1.4vw,15px);
   margin-top:clamp(1.8rem,4.5vw,2.8rem)}
 .tile{border-radius:var(--r);padding:clamp(1.15rem,2.3vw,1.7rem);position:relative;overflow:hidden;
   box-shadow:var(--sh);transition:transform .35s var(--e),box-shadow .35s;
   background:var(--card);border:1px solid var(--line)}
-.tile:hover{transform:translateY(-4px);box-shadow:var(--sh-l)}
+.tile:hover{transform:translateY(-4px)!important;box-shadow:var(--sh-l)}
+/* a slow light passes over the tiles so the grid is never fully still */
+.tile::before{content:"";position:absolute;top:-40%;bottom:-40%;width:45%;inset-inline-start:-60%;
+  pointer-events:none;transform:skewX(-16deg);
+  background:linear-gradient(100deg,transparent,var(--sheen),transparent);
+  animation:pass 9s ease-in-out infinite}
+.tile:nth-child(2)::before{animation-delay:-1.6s}
+.tile:nth-child(3)::before{animation-delay:-3.1s}
+.tile:nth-child(4)::before{animation-delay:-4.6s}
+.tile:nth-child(5)::before{animation-delay:-6.1s}
+@keyframes pass{0%,55%{inset-inline-start:-60%}90%,100%{inset-inline-start:135%}}
 .tile .k{font-size:.75rem;font-weight:700;margin-bottom:.35rem;opacity:.9}
 .tile .big{font-size:clamp(1.9rem,5vw,3.1rem);font-weight:900;line-height:1.08}
 .tile .sm{font-size:.86rem;opacity:.72;margin-top:.25rem}
@@ -267,7 +324,7 @@ html[dir="rtl"] #ticker .run{animation-name:runr}
 .svc{border-radius:var(--r);background:var(--card);border:1px solid var(--line);padding:1.45rem 1.35rem;
   display:flex;flex-direction:column;gap:.3rem;box-shadow:var(--sh);position:relative;overflow:hidden;
   transition:transform .35s var(--e),box-shadow .35s}
-.svc:hover{transform:translateY(-5px);box-shadow:var(--sh-l)}
+.svc:hover{transform:translateY(-5px)!important;box-shadow:var(--sh-l)}
 .svc::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:5px;background:var(--green)}
 .svc:nth-child(4n+2)::before{background:var(--coral)}
 .svc:nth-child(4n+3)::before{background:var(--plum)}
@@ -276,18 +333,14 @@ html[dir="rtl"] #ticker .run{animation-name:runr}
 .svc .nm{font-size:1.14rem;font-weight:700}
 .svc .ds{font-size:.87rem;color:var(--dim);flex:1}
 .svc .pr{margin-top:.75rem;align-self:flex-start;display:inline-flex;align-items:baseline;gap:.28rem;
-  padding:.32rem .85rem;border-radius:999px;font-weight:800;font-size:1.02rem;
-  background:var(--paper2)}
+  padding:.32rem .85rem;border-radius:999px;font-weight:800;font-size:1.02rem;background:var(--paper2)}
 .svc .pr small{font-size:.66em;font-weight:600;opacity:.7}
 
-/* ══ GALLERY ══ */
-#gal{padding:var(--pad) 0;background:var(--paper2);overflow:hidden}
-.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.4vw,15px);
-  margin-top:clamp(1.8rem,4.5vw,2.8rem)}
-.shots .ph{aspect-ratio:3/4}
-.shots .ph:first-child{grid-column:span 2;aspect-ratio:16/11}
-@media(max-width:640px){.shots{grid-template-columns:repeat(2,1fr)}
-  .shots .ph:first-child{grid-column:span 2}}
+/* ══ GALLERY — stacked, each recedes under the next ══ */
+#gal{padding:var(--pad) 0;background:var(--paper2);overflow:clip}
+.stack{margin-top:clamp(1.8rem,4.5vw,2.8rem);display:flex;flex-direction:column;gap:clamp(1rem,3vw,2rem)}
+.stack .ph{position:sticky;top:clamp(4.5rem,14vh,7rem);aspect-ratio:4/3;box-shadow:var(--sh-l)}
+@media(min-width:900px){.stack .ph{aspect-ratio:16/9}}
 
 /* ══ REVIEWS ══ */
 #say{padding:var(--pad) 0}
@@ -336,7 +389,9 @@ footer .a{font-family:var(--fl);font-size:.77rem;color:var(--dim);margin-top:1.2
 @media(max-width:768px){#bar{display:block}}
 
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;
+    transition-duration:.01ms!important}
+  #curtain{display:none}
   html{scroll-behavior:auto}
 }
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.4s}
@@ -348,6 +403,8 @@ footer .a{font-family:var(--fl);font-size:.77rem;color:var(--dim);margin-top:1.2
 <path id="wa" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
 </defs></svg>
 
+<div id="curtain" aria-hidden="true"><div class="mk"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+<div id="sweep" aria-hidden="true"></div>
 <div id="prog" aria-hidden="true"></div>
 
 <div id="ctrl">
@@ -363,23 +420,23 @@ footer .a{font-family:var(--fl);font-size:.77rem;color:var(--dim);margin-top:1.2
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="wrap">
     <div id="recede">
-      <div class="h-top">
+      <div class="h-top in-1">
         <span class="chip g"><i></i><span id="hCity"></span></span>
         <span class="chip a" id="hOpen" hidden></span>
       </div>
       <h1 class="h-name" id="hName"></h1>
-      <div class="h-tags" id="hTags"></div>
-      <div class="h-cta">
+      <div class="row in-2" id="hTags"></div>
+      <div class="h-cta in-3">
         <a class="btn btn-p" id="ctaHero" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#wa"/></svg><span data-t="ctaBook"></span></a>
         <a class="btn btn-o" href="#svc"><span data-t="ctaMenu"></span></a>
       </div>
-      <div class="h-strip">
+      <div class="row h-strip in-4">
         <span class="chip p" data-t="tr1"></span><span class="chip g" data-t="tr2"></span>
         <span class="chip c" data-t="tr3"></span><span class="chip a" data-t="tr4"></span>
       </div>
     </div>
 
-    <div class="bento stagger">
+    <div class="bento">
       <div class="tile t-photo"><div class="ph drift"><img id="ph1" alt="" decoding="async" fetchpriority="high"></div></div>
       <div class="tile t-rate">
         <div class="k tr" data-t="kRate"></div>
@@ -395,14 +452,14 @@ footer .a{font-family:var(--fl);font-size:.77rem;color:var(--dim);margin-top:1.2
       </a>
     </div>
   </div>
-  <div id="ticker" aria-hidden="true"><div class="run rail" id="run"></div></div>
+  <div id="ticker" class="in-5" aria-hidden="true"><div class="run rail" id="run"></div></div>
 </section>
 
 <!-- ═══ SERVICES ═══ -->
 <section id="svc"><div class="wrap">
   <div class="rv">
     <span class="eyebrow tr" data-t="svcK"></span>
-    <h2 class="h2" data-t="svcH"></h2>
+    <h2 class="h2 mask" data-t="svcH"></h2>
     <p class="lead" data-t="svcP"></p>
   </div>
   <div class="cards stagger" id="cards"></div>
@@ -412,16 +469,16 @@ footer .a{font-family:var(--fl);font-size:.77rem;color:var(--dim);margin-top:1.2
 <section id="gal"><div class="wrap">
   <div class="rv">
     <span class="eyebrow tr" data-t="galK"></span>
-    <h2 class="h2" data-t="galH"></h2>
+    <h2 class="h2 mask" data-t="galH"></h2>
   </div>
-  <div class="shots stagger" id="gg"></div>
+  <div class="stack" id="gg"></div>
 </div></section>
 
 <!-- ═══ REVIEWS ═══ -->
 <section id="say"><div class="wrap">
   <div class="rv">
     <span class="eyebrow tr" data-t="sayK"></span>
-    <h2 class="h2" data-t="sayH"></h2>
+    <h2 class="h2 mask" data-t="sayH"></h2>
   </div>
   <div class="says stagger" id="says"></div>
 </div></section>
@@ -530,14 +587,14 @@ function F(k){if(lang==="en"&&C[k+"_en"])return C[k+"_en"];return C[k]||""}
 function S(v){return String(v==null?"":v)}
 function dead(i){i.addEventListener("error",function(){i.classList.add("dead")})}
 
-/* Stock imagery is the weak point of the demo: it is not this salon, and a
+/* Stock imagery is the weakest part of the demo — it is not this salon, and a
    generic library is one careless pick away from a photo that does not suit
-   the market. Kept deliberately small and to interiors/detail work until
-   each salon's own Google photos are wired in. */
+   the market. Interiors and detail work only until each salon's own Google
+   photos are wired in. */
 var STOCK=[
  "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600&q=80",
- "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=1200&q=80",
- "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80"];
+ "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=1400&q=80",
+ "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1400&q=80"];
 var POOL=(C.photos&&C.photos.length)?C.photos.concat(STOCK):STOCK;
 
 $("#ph1").src=POOL[0];dead($("#ph1"));
@@ -561,7 +618,6 @@ var RATE=parseFloat(C.rating)||0;
 var PRICES=(C.services||[]).map(function(s){
   return parseInt(S(s.price).replace(/[^\d]/g,""),10)}).filter(function(n){return n>0});
 
-/* the counters are CSS-driven via @property --n; JS only states the target */
 function target(el,n){if(!el)return;el.style.setProperty("--to",n);
   if(!CSS.supports("animation-timeline: view()"))el.style.setProperty("--n",n)}
 
@@ -576,11 +632,11 @@ function paint(){
   document.title=nm+" — "+ct;
   $("#fName").textContent=nm;$("#hCity").textContent=ct;$("#fCity").textContent=ct;
 
-  /* the name arrives word by word */
+  /* the name resolves word by word, right after the curtain lifts */
   var h=$("#hName");h.textContent="";
   nm.split(/\s+/).filter(Boolean).forEach(function(w,i){
     var s=document.createElement("span");s.textContent=w;
-    s.style.animationDelay=(.05+i*.07).toFixed(2)+"s";
+    s.style.animationDelay=(1.3+i*.09).toFixed(2)+"s";
     h.appendChild(s);h.appendChild(document.createTextNode(" "));
   });
 
@@ -648,10 +704,14 @@ $("#themeBtn").addEventListener("click",function(){
 
 paint();
 
+/* the curtain is animation-only; remove it once it is gone so it can never
+   sit on top of a tap target if an animation event is missed */
+setTimeout(function(){var c=$("#curtain");if(c&&c.parentNode)c.parentNode.removeChild(c);
+  var s=$("#sweep");if(s&&s.parentNode)s.parentNode.removeChild(s)},2600);
+
 addEventListener("scroll",function(){
   $("#bar").classList.toggle("on",scrollY>420)},{passive:true});
 
-/* browsers without scroll-driven animations still get the sequence */
 if(!CSS.supports("animation-timeline: view()")&&"IntersectionObserver" in window){
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
     e.target.animate([{opacity:0,transform:"translateY(30px)"},{opacity:1,transform:"none"}],
