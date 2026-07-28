@@ -3,3 +3,9 @@
 # what sitegen.py writes into each lead's demo_url (DEMO_BASE_URL/<slug>).
 [build]
   publish = "sites"
+
+# Old links used /sites/<slug>/ before publish-dir was set — keep them alive.
+[[redirects]]
+  from = "/sites/*"
+  to = "/:splat"
+  status = 301
