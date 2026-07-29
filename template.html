@@ -420,10 +420,14 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 
 <section id="hero">
   <div class="film" aria-hidden="true">
-    <video id="reel" autoplay muted loop playsinline preload="none" poster="" disablepictureinpicture>
-      <source src="https://assets.mixkit.co/videos/17149/17149-720.mp4" type="video/mp4" media="(min-width:901px)">
-      <source src="https://assets.mixkit.co/videos/17149/17149-360.mp4" type="video/mp4">
-    </video>
+    <!-- One source, no media attribute: Safari does not reliably honour
+         media on a <source> inside <video> and can end up choosing none.
+         The wide-screen file is swapped in by script instead. preload must
+         not be "none" — iOS will not autoplay a video it has not begun to
+         load, even when muted and playsinline. -->
+    <video id="reel" autoplay muted loop playsinline preload="auto"
+           src="https://assets.mixkit.co/videos/17149/17149-360.mp4"
+           disablepictureinpicture></video>
   </div>
   <div class="in">
     <p class="h-place b1" id="hPlace"></p>
@@ -767,6 +771,32 @@ $("#langBtn").addEventListener("click",function(){
     try{localStorage.setItem("axis-lang",lang)}catch(e){}paint()})});
 
 paint();
+
+/* The film: give iOS every chance to start it, and never let a blocked
+   autoplay leave the opening looking broken — the page simply reads as the
+   quiet version instead. A wider screen gets the larger file once the small
+   one is already playing, so nothing is ever waiting on 5.7MB. */
+(function(){
+  var v=document.getElementById("reel");if(!v)return;
+  function go(){var p=v.play();if(p&&p.catch)p.catch(function(){})}
+  v.addEventListener("loadeddata",go);
+  v.addEventListener("canplay",go);
+  ["touchstart","pointerdown","visibilitychange"].forEach(function(e){
+    addEventListener(e,go,{passive:true,once:false})});
+  go();
+  if(innerWidth>900&&!matchMedia("(prefers-reduced-data: reduce)").matches){
+    v.addEventListener("playing",function once(){
+      v.removeEventListener("playing",once);
+      var hi=new Image();  /* warm the connection, then swap on a keyframe */
+      var big="https://assets.mixkit.co/videos/17149/17149-720.mp4";
+      var t=document.createElement("video");
+      t.muted=true;t.playsInline=true;t.preload="auto";t.src=big;
+      t.addEventListener("canplaythrough",function(){
+        var at=v.currentTime;v.src=big;v.currentTime=at;go();
+      },{once:true});
+    },{once:true});
+  }
+})();
 
 /* the veil is animation-only; take it out so it can never hold a tap */
 setTimeout(function(){var v=$("#veil");if(v&&v.parentNode)v.parentNode.removeChild(v)},2400);
