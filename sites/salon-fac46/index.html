@@ -70,18 +70,26 @@ html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3{line-height:1.42;letter
 p{text-wrap:pretty;max-width:62ch}
 .wrap{width:min(1440px,100% - var(--gut)*2);margin-inline:auto;position:relative}
 section{position:relative}
+/* a whisper of grain — the difference between a screen and a printed page */
+body::after{content:"";position:fixed;inset:0;z-index:400;pointer-events:none;opacity:.030;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='4'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply}
 /* jumping to a section must not park its heading under the floating nav */
 section[id]{scroll-margin-top:clamp(4.5rem,12vh,7rem)}
 
 /* Latin small-caps labels get tracking; Arabic is joined and never does */
-.label{font-family:var(--fb);font-weight:400;font-size:.7rem;color:var(--walnut)}
+.label{font-family:var(--fb);font-weight:400;font-size:.74rem;color:var(--walnut);
+  display:inline-block;margin-bottom:.35rem}
 html[lang="en"] .label{letter-spacing:.34em;text-transform:uppercase}
 html[lang="ar"] .label{letter-spacing:normal;word-spacing:.28em}
 
 /* ── one grade for every photograph, whatever its source ──
    This is the only way images from a mixed library read as a single
    campaign: force them all through the same transfer curve. */
-.plate{position:relative;overflow:hidden;background:var(--travertine)}
+.plate{position:relative;overflow:hidden;background:var(--travertine);
+  box-shadow:0 40px 90px -60px rgba(60,44,30,.55)}
+.plate::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,252,247,.22)}
 .plate img{width:100%;height:100%;object-fit:cover;
   filter:saturate(.94) contrast(1.03) brightness(1.02)}
 .plate::after{content:"";position:absolute;inset:0;pointer-events:none;
@@ -155,11 +163,11 @@ html[lang="ar"] .label{letter-spacing:normal;word-spacing:.28em}
 /* ── motion: scroll-driven, physically slow ── */
 .rise{opacity:1}
 @supports (animation-timeline: view()){
-  .rise{animation:riseIn both;animation-timeline:view();animation-range:entry 0% cover 32%}
-  @keyframes riseIn{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:none}}
+  .rise{animation:riseIn both;animation-timeline:view();animation-range:entry 2% cover 42%}
+  @keyframes riseIn{from{opacity:0;transform:translateY(52px)}to{opacity:1;transform:none}}
   /* an image is uncovered rather than faded in */
   .uncover{animation:uncoverIn linear both;animation-timeline:view();
-    animation-range:entry 4% cover 40%}
+    animation-range:entry 6% cover 52%}
   @keyframes uncoverIn{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
   .lineIn{animation:lineDraw linear both;animation-timeline:view();animation-range:entry 10% cover 34%}
   @keyframes lineDraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -172,6 +180,9 @@ html[lang="ar"] .label{letter-spacing:normal;word-spacing:.28em}
   /* the hero plate is not also a .par, so this owns transform alone */
   #hero .plate img{animation:heroPush linear both;animation-timeline:view();animation-range:exit}
   @keyframes heroPush{from{transform:scale(1.03)}to{transform:scale(1.13)}}
+  /* the cue belongs to the first screen only */
+  .h-scroll{animation:cueOut linear both;animation-timeline:view();animation-range:exit 0% exit 40%}
+  @keyframes cueOut{to{opacity:0}}
   #veilbar{animation:bar linear both;animation-timeline:scroll(root)}
   @keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 }
@@ -186,8 +197,13 @@ nav.float{position:fixed;top:0;inset-inline:0;z-index:200;padding:clamp(1rem,3vw
   animation:settle 1.4s var(--slow) 2.4s both;
   transition:opacity .6s var(--slow),transform .6s var(--slow)}
 nav.float.away{opacity:0;transform:translateY(-14px);pointer-events:none}
-nav .mark{font-family:var(--fd);font-size:1.02rem;flex:1;min-width:0;
+nav .mark{font-family:var(--fd);font-size:1.06rem;flex:1;min-width:0;color:var(--char);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* over the opening plate the mark is ivory; it inverts once the page is white */
+#hero ~ * nav .mark{color:var(--char)}
+nav.float{color:var(--char);transition:opacity .6s var(--slow),transform .6s var(--slow),color .6s var(--slow)}
+nav.float.over{color:var(--ivory)}
+nav.float.over .lang,nav.float.over .ask{color:inherit}
 nav .set{display:none;gap:1.6rem;font-size:.78rem;color:var(--walnut)}
 nav .set a{position:relative;padding-block:.2rem}
 nav .set a::after{content:"";position:absolute;inset-inline:0;bottom:0;height:1px;
@@ -207,20 +223,25 @@ nav .ask{font-size:.78rem;color:var(--char);border-bottom:1px solid var(--bronze
                     rgba(23,20,17,.40) 70%,rgba(23,20,17,.72) 100%)}
 #hero .in{position:relative;z-index:2;text-align:start;width:100%;
   padding:0 var(--gut) clamp(5.5rem,14vh,9rem)}
+#hero .in::before{content:"";display:block;width:clamp(46px,9vw,84px);height:1px;
+  background:rgba(248,245,241,.55);margin-bottom:clamp(1.4rem,4vh,2.4rem);
+  animation:settle 1.4s var(--slow) 2.42s both}
 .h-place{font-size:.72rem;color:var(--ivory);opacity:.9}
 html[lang="en"] .h-place{letter-spacing:.4em;text-transform:uppercase}
-.h-name{font-family:var(--fd);color:var(--ivory);margin-top:1rem;max-width:14ch;
+.h-name{font-family:var(--fd);color:var(--ivory);margin-top:1.1rem;max-width:17ch;
   font-size:clamp(2.4rem,8.4vw,7.5rem);line-height:1.18;
   text-shadow:0 2px 40px rgba(23,23,23,.28)}
 html[lang="ar"] .h-name{line-height:1.5}
-.h-sub{margin-top:1.2rem;color:var(--ivory);opacity:.82;font-size:.86rem;font-weight:200;
-  max-width:34ch}
+.h-sub{margin-top:1.3rem;color:var(--ivory);opacity:.92;font-size:.9rem;font-weight:300;
+  max-width:34ch;text-shadow:0 1px 18px rgba(23,20,17,.45)}
 .h-ask{display:inline-block;margin-top:2rem;color:var(--ivory);font-size:.82rem;
   border-bottom:1px solid rgba(248,245,241,.5);padding-bottom:.3rem;
   transition:border-color .5s var(--slow),letter-spacing .5s var(--slow)}
 .h-ask:hover{border-color:var(--ivory)}
 .h-scroll{position:absolute;bottom:clamp(1.2rem,3.4vh,2.4rem);inset-inline-end:var(--gut);z-index:2;
-  color:var(--ivory);font-size:.6rem;opacity:.7;text-align:center}
+  color:var(--ivory);font-size:.6rem;opacity:.65;text-align:center;
+  transition:opacity .6s var(--slow)}
+#hero .h-scroll{animation:settle 1.5s var(--slow) 3.2s both}
 .h-scroll i{display:block;width:1px;height:38px;background:currentColor;margin:.7rem auto 0;
   transform-origin:50% 0;animation:drop 2.6s var(--slow) infinite}
 @keyframes drop{0%{transform:scaleY(0);opacity:0}30%{opacity:1}
@@ -228,10 +249,14 @@ html[lang="ar"] .h-name{line-height:1.5}
 
 /* ══ statement — type occupies the screen ══ */
 .statement{padding:var(--air) 0}
-.statement h2{font-family:var(--fd);font-size:clamp(1.9rem,6.4vw,5.4rem);max-width:16ch;
-  color:var(--char)}
-.statement .sig{margin-top:clamp(2rem,5vw,3.4rem);display:flex;gap:clamp(1.4rem,4vw,4rem);
-  flex-wrap:wrap;color:var(--walnut);font-size:.78rem}
+.statement h2{font-family:var(--fd);font-size:clamp(2.5rem,8.6vw,6.2rem);max-width:13ch;
+  color:var(--char);text-wrap:balance}
+.statement .sig{margin-top:clamp(2.6rem,6vw,4rem);display:flex;flex-wrap:wrap;
+  color:var(--walnut);font-size:.8rem;column-gap:0;row-gap:.5rem}
+.statement .sig span{padding-inline-end:clamp(1rem,3vw,2.4rem);position:relative}
+.statement .sig span:not(:last-child)::after{content:"";position:absolute;
+  inset-inline-end:clamp(.5rem,1.5vw,1.2rem);top:50%;width:3px;height:3px;border-radius:50%;
+  background:currentColor;opacity:.45}
 
 /* ── an editorial spread: image and text out of alignment on purpose ── */
 .spread{display:grid;gap:clamp(1.6rem,4vw,4rem);align-items:end;padding-bottom:var(--air)}
@@ -243,24 +268,24 @@ html[lang="ar"] .h-name{line-height:1.5}
   .spread.flip .say{grid-column:1/5}
 }
 .spread .art{aspect-ratio:4/5;border-radius:clamp(28px,3vw,40px);overflow:hidden}
-.spread .say h3{font-family:var(--fd);font-size:clamp(1.5rem,3.4vw,2.6rem);margin:.9rem 0 1rem}
+.spread .say h3{font-family:var(--fd);font-size:clamp(1.75rem,4.6vw,2.9rem);margin:1.1rem 0 1.1rem}
 .spread .say p{color:var(--walnut);font-size:.94rem}
 
 /* ── the index: services as an editorial contents page ── */
-.index{border-top:1px solid var(--travertine)}
+.index{border-top:1px solid color-mix(in oklab,var(--travertine) 62%,transparent)}
 .row{display:grid;grid-template-columns:auto 1fr auto;gap:1rem clamp(1rem,3vw,2.6rem);
-  align-items:baseline;padding:clamp(1.5rem,3.4vw,2.4rem) 0;
-  border-bottom:1px solid var(--travertine);position:relative;
+  align-items:baseline;padding:clamp(1.75rem,4vw,2.8rem) 0;
+  border-bottom:1px solid color-mix(in oklab,var(--travertine) 62%,transparent);position:relative;
   cursor:pointer;-webkit-user-select:none;user-select:none;
   transition:padding-inline .6s var(--slow),background .6s var(--slow)}
 .row:hover{padding-inline:clamp(.5rem,1.6vw,1.4rem);background:var(--surface)}
 .row .no{font-family:var(--fl);font-size:.82rem;color:var(--stone)}
 .row .nm{font-family:var(--fd);font-size:clamp(1.15rem,2.7vw,1.85rem);color:var(--char)}
-.row .ds{grid-column:2;font-size:.84rem;color:var(--stone);margin-top:.15rem}
-.row .pr{font-family:var(--fl);font-size:clamp(1rem,2.2vw,1.35rem);color:var(--walnut);
-  white-space:nowrap;font-variant-numeric:tabular-nums}
+.row .ds{grid-column:2;font-size:.85rem;color:var(--stone);margin-top:.35rem;max-width:46ch}
+.row .pr{font-family:var(--fl);font-size:clamp(1.15rem,2.8vw,1.6rem);color:var(--walnut);
+  white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:.01em}
 .row .pr b{font-weight:400}
-.row .pr small{font-size:.62em;color:var(--stone);margin-inline-start:.35em}
+.row .pr small{font-size:.56em;color:var(--stone);margin-inline-start:.4em}
 .row .mark{position:absolute;inset-inline-start:-1.4rem;top:50%;translate:0 -50%;
   width:6px;height:6px;border-radius:50%;background:var(--olive);
   opacity:0;transform:scale(.4);transition:.5s var(--slow)}
@@ -310,11 +335,13 @@ html[lang="ar"] .h-name{line-height:1.5}
 .voice cite{display:block;margin-top:1.6rem;font-style:normal;color:var(--stone);font-size:.78rem}
 
 /* ── visit ── */
-.visit{display:grid;gap:clamp(1.6rem,4vw,3rem);padding-bottom:var(--air)}
+.visit{display:grid;gap:clamp(2rem,5vw,3.4rem);padding-bottom:calc(var(--air) * .55)}
 @media(min-width:900px){.visit{grid-template-columns:repeat(12,1fr)}
   .visit .col{grid-column:span 4}}
-.visit .col h4{font-family:var(--fb);font-weight:400;font-size:.72rem;color:var(--walnut);
-  margin-bottom:1rem}
+.visit .col h4{font-family:var(--fb);font-weight:400;font-size:.74rem;color:var(--walnut);
+  margin-bottom:1.15rem}
+.visit .col p{line-height:1.85}
+.visit .col p + p{margin-top:1.1rem}
 html[lang="en"] .visit .col h4{letter-spacing:.3em;text-transform:uppercase}
 .visit .col p,.visit .col a{font-size:.95rem;color:var(--char)}
 .visit .hr{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;
@@ -324,18 +351,28 @@ html[lang="en"] .visit .col h4{letter-spacing:.3em;text-transform:uppercase}
 .visit .hr span:last-child{color:var(--stone);font-variant-numeric:tabular-nums}
 
 /* ── the whisper ── */
-.whisper{text-align:center;padding-block:var(--air);border-top:1px solid var(--travertine)}
-.whisper h2{font-family:var(--fd);font-size:clamp(1.8rem,5.4vw,4.2rem);max-width:18ch;
-  margin-inline:auto}
-.whisper .go{display:inline-block;margin-top:clamp(2rem,4vw,3rem);font-size:.86rem;
-  color:var(--char);border-bottom:1px solid var(--bronze);padding-bottom:.35rem;
-  transition:letter-spacing .6s var(--slow),border-color .6s var(--slow)}
+.whisper{text-align:center;padding-block:calc(var(--air) * 1.15) var(--air);
+  border-top:1px solid var(--travertine)}
+.whisper h2{font-family:var(--fd);font-size:clamp(2.3rem,7.8vw,5rem);max-width:14ch;
+  margin-inline:auto;text-wrap:balance;line-height:1.34}
+.whisper .go,.h-ask,.kv a.v,nav .ask{position:relative;border-bottom:0}
+.whisper .go{display:inline-block;margin-top:clamp(2.4rem,5vw,3.4rem);font-size:.88rem;
+  color:var(--char);padding-bottom:.4rem}
+.whisper .go::after,.h-ask::after,.kv a.v::after,nav .ask::after{content:"";position:absolute;
+  inset-inline:0;bottom:0;height:1px;background:currentColor;opacity:.45;
+  transform:scaleX(1);transform-origin:var(--o,100%) 50%;
+  transition:transform .7s var(--slow),opacity .7s var(--slow)}
+html[dir="ltr"] .whisper .go::after,html[dir="ltr"] .h-ask::after,
+html[dir="ltr"] .kv a.v::after,html[dir="ltr"] nav .ask::after{--o:0%}
+.whisper .go:hover::after,.h-ask:hover::after,.kv a.v:hover::after,nav .ask:hover::after{
+  opacity:1;transform:scaleX(1.04)}
 .whisper .go:hover{border-color:var(--char)}
 html[lang="en"] .whisper .go:hover{letter-spacing:.06em}
 
-footer{padding-block:clamp(2.4rem,6vw,4rem);border-top:1px solid var(--travertine);
-  display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+footer{padding-block:clamp(2.8rem,6vw,4.4rem);border-top:1px solid var(--travertine);
+  display:flex;flex-wrap:wrap;gap:1.4rem;justify-content:space-between;align-items:flex-end;
   color:var(--stone);font-size:.74rem}
+footer .n{line-height:1.5}
 footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 
 /* ── the standing invitation, only once the hero is behind you ── */
@@ -415,7 +452,7 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 
 <section id="index" class="wrap">
   <span class="label rise" data-t="ixK"></span>
-  <h2 class="serif rise" style="font-size:clamp(1.7rem,4.6vw,3.4rem);margin:.8rem 0 clamp(2rem,5vw,3.4rem)" data-t="ixH"></h2>
+  <h2 class="serif rise" style="font-size:clamp(2rem,6.2vw,3.9rem);margin:1.1rem 0 clamp(2.4rem,6vw,4rem)" data-t="ixH"></h2>
   <div class="index" id="rows"></div>
   <p class="rise" style="margin-top:1.6rem;color:var(--stone);font-size:.8rem" data-t="ixNote"></p>
 </section>
@@ -453,7 +490,7 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 
 <section id="gallery" class="wrap">
   <span class="label rise" data-t="glK"></span>
-  <h2 class="serif rise" style="font-size:clamp(1.7rem,4.6vw,3.4rem);margin:.8rem 0 clamp(2rem,5vw,3.4rem)" data-t="glH"></h2>
+  <h2 class="serif rise" style="font-size:clamp(2rem,6.2vw,3.9rem);margin:1.1rem 0 clamp(2.4rem,6vw,4rem)" data-t="glH"></h2>
   <div class="gal" id="gal"></div>
 </section>
 
@@ -464,14 +501,14 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 
 <section id="visit" class="wrap">
   <span class="label rise" data-t="viK"></span>
-  <h2 class="serif rise" style="font-size:clamp(1.7rem,4.6vw,3.4rem);margin:.8rem 0 clamp(2rem,5vw,3.4rem)" data-t="viH"></h2>
+  <h2 class="serif rise" style="font-size:clamp(2rem,6.2vw,3.9rem);margin:1.1rem 0 clamp(2.4rem,6vw,4rem)" data-t="viH"></h2>
   <div class="visit">
     <div class="col rise"><h4 data-t="viAddr"></h4><p id="vAddr"></p>
       <p style="margin-top:1rem"><a id="vMap" href="#" target="_blank" rel="noopener" style="border-bottom:1px solid var(--bronze);padding-bottom:.2rem"><span data-t="viMap"></span></a></p></div>
     <div class="col rise"><h4 data-t="viHours"></h4><div id="vHours"></div></div>
     <div class="col rise"><h4 data-t="viReach"></h4>
       <p><a id="vPhone" href="#" dir="ltr"></a></p>
-      <p style="margin-top:.6rem"><a id="ctaVisit" href="#" style="border-bottom:1px solid var(--bronze);padding-bottom:.2rem"><span data-t="ask"></span></a></p></div>
+      </div>
   </div>
 </section>
 
@@ -709,8 +746,9 @@ function drawDock(){
 
 function drawHours(){
   var box=$("#vHours");box.textContent="";
-  var raw=F("hours");
-  if(!raw){box.textContent="—";return}
+  var raw=F("hours"),block=box.closest(".col");
+  if(!raw){if(block)block.hidden=true;return}
+  if(block)block.hidden=false;
   raw.split(/[،,]/).map(function(x){return x.trim()}).filter(Boolean).forEach(function(part){
     var m=part.match(/^(.*?)([\d٠-٩].*)$/);
     var d=document.createElement("div");d.className="hr";
@@ -746,7 +784,7 @@ function paint(){
 
   var msg=(lang==="en"&&C.whatsapp_msg_en)?C.whatsapp_msg_en:C.whatsapp_msg;
   var wa="https://wa.me/"+encodeURIComponent(C.whatsapp)+"?text="+encodeURIComponent(msg||"");
-  ["ctaNav","ctaHero","ctaVisit","ctaEnd"].forEach(function(id){var e=$("#"+id);if(e)e.href=wa});
+  ["ctaNav","ctaHero","ctaEnd"].forEach(function(id){var e=$("#"+id);if(e)e.href=wa});
 
   $("#vAddr").textContent=F("address")||"—";
   if(C.phone){$("#vPhone").textContent=C.phone;$("#vPhone").href="tel:"+S(C.phone).replace(/\s/g,"")}
@@ -792,11 +830,13 @@ $("#lb").addEventListener("close",function(){$("#lbImg").removeAttribute("src")}
 /* navigation withdraws while you read, returns when you look up */
 var lastY=0;
 addEventListener("scroll",function(){
-  var y=scrollY;
-  $("#dock").classList.toggle("up",y>innerHeight*.9);
-  $("#nav").classList.toggle("away",y>lastY&&y>innerHeight*.6);
+  var y=scrollY,h=innerHeight;
+  $("#dock").classList.toggle("up",y>h*.9);
+  $("#nav").classList.toggle("away",y>lastY&&y>h*.6);
+  $("#nav").classList.toggle("over",y<h*.82);
   lastY=y;
 },{passive:true});
+$("#nav").classList.add("over");
 
 (function(){
   var links=$$("nav .set a");
