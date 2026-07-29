@@ -178,8 +178,7 @@ html[lang="ar"] .label{letter-spacing:normal;word-spacing:.28em}
   .drag{animation:dragY linear both;animation-timeline:view();animation-range:cover}
   @keyframes dragY{from{transform:translateY(6%)}to{transform:translateY(-6%)}}
   /* the hero plate is not also a .par, so this owns transform alone */
-  #hero .plate img{animation:heroPush linear both;animation-timeline:view();animation-range:exit}
-  @keyframes heroPush{from{transform:scale(1.03)}to{transform:scale(1.13)}}
+
   /* the cue belongs to the first screen only */
   .h-scroll{animation:cueOut linear both;animation-timeline:view();animation-range:exit 0% exit 40%}
   @keyframes cueOut{to{opacity:0}}
@@ -202,8 +201,7 @@ nav .mark{font-family:var(--fd);font-size:1.06rem;flex:1;min-width:0;color:var(-
 /* over the opening plate the mark is ivory; it inverts once the page is white */
 #hero ~ * nav .mark{color:var(--char)}
 nav.float{color:var(--char);transition:opacity .6s var(--slow),transform .6s var(--slow),color .6s var(--slow)}
-nav.float.over{color:var(--ivory)}
-nav.float.over .lang,nav.float.over .ask{color:inherit}
+
 nav .set{display:none;gap:1.6rem;font-size:.78rem;color:var(--walnut)}
 nav .set a{position:relative;padding-block:.2rem}
 nav .set a::after{content:"";position:absolute;inset-inline:0;bottom:0;height:1px;
@@ -215,31 +213,24 @@ nav .lang{font-size:.72rem;color:var(--walnut);letter-spacing:.1em}
 nav .ask{font-size:.78rem;color:var(--char);border-bottom:1px solid var(--bronze);padding-bottom:.15rem}
 
 /* ══ HERO — one photograph, one name, nothing else ══ */
-#hero{height:100svh;min-height:560px;display:grid;align-items:end;overflow:hidden}
-#hero .plate{position:absolute;inset:0}
-#hero .vig{position:absolute;inset:0;z-index:1;
-  background:
-    linear-gradient(180deg,rgba(23,20,17,.22) 0%,rgba(23,20,17,.04) 30%,
-                    rgba(23,20,17,.40) 70%,rgba(23,20,17,.72) 100%)}
-#hero .in{position:relative;z-index:2;text-align:start;width:100%;
-  padding:0 var(--gut) clamp(5.5rem,14vh,9rem)}
+#hero{min-height:100svh;display:grid;align-items:center;overflow:hidden;background:var(--ivory)}
+
+
+#hero .in{position:relative;z-index:2;text-align:start;width:min(1440px,100% - var(--gut)*2);
+  margin-inline:auto;padding-block:clamp(6rem,16vh,10rem)}
 #hero .in::before{content:"";display:block;width:clamp(46px,9vw,84px);height:1px;
-  background:rgba(248,245,241,.55);margin-bottom:clamp(1.4rem,4vh,2.4rem);
+  background:var(--bronze);margin-bottom:clamp(1.4rem,4vh,2.4rem);
   animation:settle 1.4s var(--slow) 2.42s both}
-.h-place{font-size:.72rem;color:var(--ivory);opacity:.9}
+.h-place{font-size:.74rem;color:var(--walnut)}
 html[lang="en"] .h-place{letter-spacing:.4em;text-transform:uppercase}
-.h-name{font-family:var(--fd);color:var(--ivory);margin-top:1.1rem;max-width:17ch;
-  font-size:clamp(2.4rem,8.4vw,7.5rem);line-height:1.18;
-  text-shadow:0 2px 40px rgba(23,23,23,.28)}
-html[lang="ar"] .h-name{line-height:1.5}
-.h-sub{margin-top:1.3rem;color:var(--ivory);opacity:.92;font-size:.9rem;font-weight:300;
-  max-width:34ch;text-shadow:0 1px 18px rgba(23,20,17,.45)}
-.h-ask{display:inline-block;margin-top:2rem;color:var(--ivory);font-size:.82rem;
-  border-bottom:1px solid rgba(248,245,241,.5);padding-bottom:.3rem;
-  transition:border-color .5s var(--slow),letter-spacing .5s var(--slow)}
-.h-ask:hover{border-color:var(--ivory)}
+  .h-name{font-family:var(--fd);color:var(--char);margin-top:1.4rem;max-width:13ch;
+  font-size:clamp(3.2rem,13vw,9.5rem);line-height:1.14}
+html[lang="ar"] .h-name{line-height:1.36}
+.h-sub{margin-top:1.6rem;color:var(--stone);font-size:.88rem;font-weight:300;max-width:34ch}
+.h-ask{display:inline-block;margin-top:clamp(2.4rem,6vh,3.6rem);color:var(--char);
+  font-size:.86rem;padding-bottom:.35rem}
 .h-scroll{position:absolute;bottom:clamp(1.2rem,3.4vh,2.4rem);inset-inline-end:var(--gut);z-index:2;
-  color:var(--ivory);font-size:.6rem;opacity:.65;text-align:center;
+  color:var(--walnut);font-size:.6rem;opacity:.7;text-align:center;
   transition:opacity .6s var(--slow)}
 #hero .h-scroll{animation:settle 1.5s var(--slow) 3.2s both}
 .h-scroll i{display:block;width:1px;height:38px;background:currentColor;margin:.7rem auto 0;
@@ -295,6 +286,7 @@ html[lang="ar"] .h-name{line-height:1.5}
 
 /* ── a full-bleed plate between chapters ── */
 .bleed{height:clamp(58svh,70vh,86svh);overflow:hidden;margin-block:var(--air)}
+.bleed.first{height:clamp(72svh,86vh,100svh);margin-top:0}
 .bleed .plate{height:100%}
 
 /* ── numbers, spoken quietly ── */
@@ -317,15 +309,11 @@ html[lang="ar"] .h-name{line-height:1.5}
 .gal{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(.8rem,2vw,2rem);
   padding-bottom:var(--air)}
 .gal figure{overflow:hidden;border-radius:clamp(28px,3vw,40px)}
-.gal figure:nth-child(1){grid-column:1/9;aspect-ratio:4/3}
-.gal figure:nth-child(2){grid-column:9/13;aspect-ratio:3/4;align-self:end}
-.gal figure:nth-child(3){grid-column:1/7;aspect-ratio:1;margin-top:clamp(1rem,4vw,4rem)}
-.gal figure:nth-child(4){grid-column:7/13;aspect-ratio:4/5;margin-top:clamp(1rem,4vw,4rem)}
+.gal figure:nth-child(1){grid-column:1/10;aspect-ratio:5/4}
+.gal figure:nth-child(2){grid-column:4/13;aspect-ratio:16/10;margin-top:clamp(1.5rem,6vw,6rem)}
 @media(max-width:760px){
-  .gal figure:nth-child(1){grid-column:1/13;aspect-ratio:4/3}
-  .gal figure:nth-child(2){grid-column:1/9;aspect-ratio:3/4}
-  .gal figure:nth-child(3){grid-column:1/7;aspect-ratio:1}
-  .gal figure:nth-child(4){grid-column:7/13;aspect-ratio:1}
+  .gal figure:nth-child(1){grid-column:1/13;aspect-ratio:5/4}
+  .gal figure:nth-child(2){grid-column:1/13;aspect-ratio:4/3}
 }
 
 /* ── a single voice, large ── */
@@ -419,8 +407,6 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 </nav>
 
 <section id="hero">
-  <div class="plate"><img id="p0" alt="" decoding="async" fetchpriority="high"></div>
-  <div class="vig"></div>
   <div class="in">
     <p class="h-place b1" id="hPlace"></p>
     <h1 class="h-name b2" id="hName"></h1>
@@ -429,6 +415,8 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
   </div>
   <div class="h-scroll b4"><span data-t="scroll"></span><i></i></div>
 </section>
+
+<div class="bleed first plate par uncover"><img id="p0" alt="" loading="eager" fetchpriority="high" decoding="async"></div>
 
 <section id="story" class="statement"><div class="wrap">
   <h2 class="serif rise drag" data-t="stH"></h2>
@@ -458,9 +446,8 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 </section>
 
 <div class="wrap">
-  <div class="spread flip" style="padding-top:var(--air)">
-    <figure class="art plate par uncover"><img id="p3" alt="" loading="lazy" decoding="async"></figure>
-    <div class="say rise">
+  <div class="spread" style="padding-top:var(--air)">
+    <div class="say rise" style="grid-column:1/6">
       <span class="label" data-t="ch2"></span>
       <h3 class="serif" data-t="s2h"></h3>
       <p data-t="s2p"></p>
@@ -481,12 +468,6 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
   </div>
 </div></div>
 
-<section class="wrap"><div class="count">
-  <div class="rise"><div class="v"><span class="tally" id="cRate"></span></div><div class="k" data-t="cRateK"></div></div>
-  <div class="rise"><div class="v"><span class="tally" id="cRev"></span></div><div class="k" data-t="cRevK"></div></div>
-  <div class="rise"><div class="v"><span class="tally" id="cSvc"></span></div><div class="k" data-t="cSvcK"></div></div>
-  <div class="rise"><div class="v"><span class="tally" id="cFrom"></span></div><div class="k" data-t="cFromK"></div></div>
-</div></section>
 
 <section id="gallery" class="wrap">
   <span class="label rise" data-t="glK"></span>
@@ -776,11 +757,6 @@ function paint(){
     .filter(Boolean).slice(0,3).join("  ·  ");
   $$('[data-t="sg3"]').forEach(function(e){e.textContent=t.sg3.replace("{city}",city)});
 
-  tally($("#cRev"),parseInt(C.reviews_count,10)||0);
-  tally($("#cSvc"),(C.services||[]).length);
-  tally($("#cFrom"),PRICES.length?Math.min.apply(null,PRICES):0);
-  $("#cRate").textContent=RATE.toFixed(1);
-  $("#cRate").classList.remove("tally");
 
   var msg=(lang==="en"&&C.whatsapp_msg_en)?C.whatsapp_msg_en:C.whatsapp_msg;
   var wa="https://wa.me/"+encodeURIComponent(C.whatsapp)+"?text="+encodeURIComponent(msg||"");
@@ -800,7 +776,7 @@ function paint(){
 [["#p0",0],["#p1",1],["#p2",2],["#p3",3]].forEach(function(x){
   var e=$(x[0]);if(!e)return;e.src=pick(x[1]);dead(e);
 });
-[4,5,6,7].forEach(function(i){
+[4,5].forEach(function(i){
   var f=document.createElement("figure");f.className="plate par uncover";
   var m=document.createElement("img");m.src=pick(i);m.alt="";m.loading="lazy";
   m.decoding="async";dead(m);f.appendChild(m);$("#gal").appendChild(f);
@@ -833,10 +809,9 @@ addEventListener("scroll",function(){
   var y=scrollY,h=innerHeight;
   $("#dock").classList.toggle("up",y>h*.9);
   $("#nav").classList.toggle("away",y>lastY&&y>h*.6);
-  $("#nav").classList.toggle("over",y<h*.82);
   lastY=y;
 },{passive:true});
-$("#nav").classList.add("over");
+
 
 (function(){
   var links=$$("nav .set a");
