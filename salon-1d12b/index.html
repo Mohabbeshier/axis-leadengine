@@ -32,9 +32,9 @@
    ═══════════════════════════════════════════════════════════════════════ */
 :root{
   /* the brief's palette, verbatim */
-  --ivory:#F7F3EE;
-  --surface:#DED5CA;
-  --travertine:#D5C5B5;
+  --ivory:#EFE7DB;
+  --surface:#E4D8C7;
+  --travertine:#D3C2AC;
   --walnut:#6A4E3B;
   --bronze:#B58A5A;
   --stone:#A79C90;
@@ -70,6 +70,13 @@ html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3{line-height:1.42;letter
 p{text-wrap:pretty;max-width:62ch}
 .wrap{width:min(1440px,100% - var(--gut)*2);margin-inline:auto;position:relative}
 section{position:relative}
+/* consecutive bands alternate tone — a single flat ivory read as clinical */
+.statement{background:var(--ivory)}
+#index{background:var(--surface);padding-block:var(--air)}
+#gallery{background:var(--ivory)}
+#visit{background:var(--surface);padding-block:var(--air)}
+.whisper{background:var(--ivory)}
+footer{background:var(--surface)}
 /* a whisper of grain — the difference between a screen and a printed page */
 body::after{content:"";position:fixed;inset:0;z-index:400;pointer-events:none;opacity:.030;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='4'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -155,8 +162,8 @@ html[lang="ar"] .label{letter-spacing:normal;word-spacing:.28em}
 
 /* entrance beats, after the veil */
 .b1,.b2,.b3,.b4{animation:settle 1.5s var(--slow) both}
-.b1{animation-delay:2.35s}.b2{animation-delay:2.6s}
-.b3{animation-delay:3.15s}.b4{animation-delay:3.45s}
+.b1{animation-delay:1.55s}.b2{animation-delay:1.75s}
+.b3{animation-delay:2.05s}.b4{animation-delay:2.3s}
 @keyframes settle{from{opacity:0;transform:translateY(26px);filter:blur(6px)}
                   to{opacity:1;transform:none;filter:none}}
 
@@ -193,7 +200,7 @@ html[dir="rtl"] #veilbar{transform-origin:100% 50%}
 nav.float{position:fixed;top:0;inset-inline:0;z-index:200;padding:clamp(1rem,3vw,2rem) var(--gut);
   padding-top:calc(clamp(1rem,3vw,2rem) + env(safe-area-inset-top));
   display:flex;align-items:center;gap:1.2rem;
-  animation:settle 1.6s var(--slow) 3.6s both;
+  animation:settle 1.6s var(--slow) 2.5s both;
   transition:opacity .6s var(--slow),transform .6s var(--slow)}
 nav.float.away{opacity:0;transform:translateY(-14px);pointer-events:none}
 nav .mark{font-family:var(--fd);font-size:1.06rem;flex:1;min-width:0;color:var(--char);
@@ -213,38 +220,31 @@ nav .lang{font-size:.72rem;color:var(--walnut);letter-spacing:.1em}
 nav .ask{font-size:.78rem;color:var(--char);border-bottom:1px solid var(--bronze);padding-bottom:.15rem}
 
 /* ══ HERO — one photograph, one name, nothing else ══ */
-#hero{min-height:100svh;display:grid;align-items:center;overflow:hidden;background:var(--surface)}
-/* the film sits under everything, and a warm ground means no black flash */
-#hero .film{position:absolute;inset:0;z-index:0;overflow:hidden;background:var(--surface)}
-#hero .film video{width:100%;height:100%;object-fit:cover;
-  filter:saturate(.66) contrast(1.02) brightness(1.05) sepia(.14);
-  animation:filmIn 2.6s var(--slow) both,filmDrift 40s ease-in-out infinite alternate 2.6s}
-@keyframes filmIn{from{opacity:0;transform:scale(1.10)}to{opacity:1;transform:scale(1.02)}}
-@keyframes filmDrift{to{transform:scale(1.10)}}
-/* a wash so charcoal type holds on the brightest part of the cloth */
-#hero .film::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(247,243,238,.30),rgba(247,243,238,.05) 38%,
-             rgba(247,243,238,.58) 100%)}
+#hero{min-height:100svh;display:grid;align-items:end;overflow:hidden;background:var(--surface)}
+#hero .open{position:absolute;inset:0;z-index:0}
+#hero .open::after{content:"";position:absolute;inset:0;z-index:2;
+  background:linear-gradient(180deg,rgba(28,22,16,.34) 0%,rgba(28,22,16,.06) 30%,
+             rgba(28,22,16,.44) 72%,rgba(28,22,16,.76) 100%)}
+#hero .in{padding-bottom:clamp(4.5rem,12vh,8rem)}
 
 
 #hero .in{position:relative;z-index:2;text-align:start;width:min(1440px,100% - var(--gut)*2);
   margin-inline:auto;padding-block:clamp(6rem,16vh,10rem)}
 #hero .in::before{content:"";display:block;width:clamp(46px,9vw,84px);height:1px;
-  background:var(--bronze);margin-bottom:clamp(1.4rem,4vh,2.4rem);
-  animation:settle 1.6s var(--slow) 2.3s both}
-.h-place{font-size:.74rem;color:var(--walnut)}
-#hero .in{text-shadow:0 1px 30px rgba(247,243,238,.7)}
+  background:rgba(247,243,238,.6);margin-bottom:clamp(1.4rem,4vh,2.4rem);
+  animation:settle 1.6s var(--slow) 1.5s both}
+.h-place{font-size:.76rem;color:var(--ivory);opacity:.92}
 html[lang="en"] .h-place{letter-spacing:.4em;text-transform:uppercase}
-  .h-name{font-family:var(--fd);color:var(--char);margin-top:1.4rem;max-width:13ch;
+  .h-name{font-family:var(--fd);color:var(--ivory);margin-top:1.4rem;max-width:13ch;
   font-size:clamp(3.4rem,13.5vw,10.5rem);line-height:1.12}
 html[lang="ar"] .h-name{line-height:1.36}
-.h-sub{margin-top:1.6rem;color:var(--walnut);font-size:.9rem;font-weight:400;max-width:34ch}
-.h-ask{display:inline-block;margin-top:clamp(2.4rem,6vh,3.6rem);color:var(--char);
-  font-size:.86rem;padding-bottom:.35rem}
+.h-sub{margin-top:1.5rem;color:var(--ivory);opacity:.88;font-size:.9rem;font-weight:300;max-width:34ch}
+.h-ask{display:inline-block;margin-top:clamp(2.2rem,5vh,3.2rem);color:var(--ivory);
+  font-size:.88rem;padding-bottom:.35rem}
 .h-scroll{position:absolute;bottom:clamp(1.2rem,3.4vh,2.4rem);inset-inline-end:var(--gut);z-index:2;
-  color:var(--walnut);font-size:.6rem;opacity:.7;text-align:center;
+  color:var(--ivory);font-size:.6rem;opacity:.72;text-align:center;
   transition:opacity .6s var(--slow)}
-#hero .h-scroll{animation:settle 1.6s var(--slow) 3.9s both}
+#hero .h-scroll{animation:settle 1.6s var(--slow) 2.8s both}
 .h-scroll i{display:block;width:1px;height:38px;background:currentColor;margin:.7rem auto 0;
   transform-origin:50% 0;animation:drop 2.6s var(--slow) infinite}
 @keyframes drop{0%{transform:scaleY(0);opacity:0}30%{opacity:1}
@@ -419,16 +419,7 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 </nav>
 
 <section id="hero">
-  <div class="film" aria-hidden="true">
-    <!-- One source, no media attribute: Safari does not reliably honour
-         media on a <source> inside <video> and can end up choosing none.
-         The wide-screen file is swapped in by script instead. preload must
-         not be "none" — iOS will not autoplay a video it has not begun to
-         load, even when muted and playsinline. -->
-    <video id="reel" autoplay muted loop playsinline preload="auto"
-           src="https://assets.mixkit.co/videos/17149/17149-360.mp4"
-           disablepictureinpicture></video>
-  </div>
+  <div class="open plate"><img id="p0" alt="" decoding="async" fetchpriority="high"></div>
   <div class="in">
     <p class="h-place b1" id="hPlace"></p>
     <h1 class="h-name b2" id="hName"></h1>
@@ -670,14 +661,12 @@ function descOf(s){return S((lang==="en"&&s.desc_en)?s.desc_en:s.desc)}
    library still reads as one campaign. Real salon photographs, when the
    pipeline has them, arrive here and are graded identically. */
 var STOCK=[
- "https://images.unsplash.com/photo-1706629503650-cade709d15e3?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8N3x8YmVhdXR5JTIwc2Fsb24lMjBpbnRlcmlvciUyMG1vZGVybnxlbnwxfDB8fHwxNzg1Mjg3NzYwfDA&ixlib=rb-4.1.0&w=1800&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1706629504952-ab5e50f5c179?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8Nnx8YmVhdXR5JTIwc2Fsb24lMjBpbnRlcmlvciUyMG1vZGVybnxlbnwxfDB8fHwxNzg1Mjg3NzYwfDA&ixlib=rb-4.1.0&w=1200&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1706629506571-a6d86798916b?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8OXx8YmVhdXR5JTIwc2Fsb24lMjBpbnRlcmlvciUyMG1vZGVybnxlbnwxfDB8fHwxNzg1Mjg3NzYwfDA&ixlib=rb-4.1.0&w=1800&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1706629503720-13cad35ce2e5?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTB8fHNhbG9uJTIwc3R5bGluZyUyMGNoYWlyJTIwbWlycm9yfGVufDF8MXx8fDE3ODUyODc3NjJ8MA&ixlib=rb-4.1.0&w=1200&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1706629505300-168aa1604912?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTJ8fHNhbG9uJTIwc3R5bGluZyUyMGNoYWlyJTIwbWlycm9yfGVufDF8MXx8fDE3ODUyODc3NjJ8MA&ixlib=rb-4.1.0&w=1000&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1575287537815-ef82dd922198?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MjZ8fGhhaXJkcmVzc2VyJTIwc3R5bGluZyUyMGhhaXJ8ZW58MXwxfHx8MTc4NTI4Nzc2NXww&ixlib=rb-4.1.0&w=1000&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1745327883290-1e9c6447b938?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8NXx8c3BhJTIwbWFzc2FnZSUyMGJlZCUyMHJvb218ZW58MXwwfHx8MTc4NTI4Nzc2OHww&ixlib=rb-4.1.0&w=1000&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1626379501846-0df4067b8bb9?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8Mnx8aGFpciUyMHNhbG9uJTIwaW50ZXJpb3J8ZW58MXwwfHx8MTc4NTI4Nzc1OHww&ixlib=rb-4.1.0&w=1000&q=82&fm=jpg&fit=crop"];
+ "https://images.unsplash.com/photo-1613323885789-e2212e15c326?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8M3x8bG9uZyUyMHNoaW55JTIwaGFpciUyMGJhY2t8ZW58MXwxfHx8MTc4NTMwNzYwN3ww&ixlib=rb-4.1.0&w=1800&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1755344953503-6911565dd387?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8NXx8aGFpciUyMHRleHR1cmUlMjB3YXZlcyUyMGNsb3NldXB8ZW58MXwxfHx8MTc4NTMwNzYwOXww&ixlib=rb-4.1.0&w=1200&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1560264641-1b5191cc63e2?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8Mnx8aGFpciUyMHRleHR1cmUlMjB3YXZlcyUyMGNsb3NldXB8ZW58MXwxfHx8MTc4NTMwNzYwOXww&ixlib=rb-4.1.0&w=1800&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1692221307059-8819db116d92?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTZ8fGV5ZWJyb3dzJTIwY2xvc2V1cCUyMGJlYXV0eXxlbnwxfDF8fHwxNzg1MzA3NjEzfDA&ixlib=rb-4.1.0&w=1200&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1682450285233-1fb10d4a4616?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTN8fGhhaXIlMjB0ZXh0dXJlJTIwd2F2ZXMlMjBjbG9zZXVwfGVufDF8MXx8fDE3ODUzMDc2MDl8MA&ixlib=rb-4.1.0&w=1100&q=82&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1613057388812-029549dc3d39?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTl8fGV5ZWxhc2glMjBleHRlbnNpb25zJTIwY2xvc2V1cHxlbnwxfDF8fHwxNzg1MzA3NjE1fDA&ixlib=rb-4.1.0&w=1100&q=82&fm=jpg&fit=crop"];
 var POOL=(C.photos&&C.photos.length)?C.photos.concat(STOCK):STOCK;
 function pick(i){return POOL[i%POOL.length]}
 
@@ -806,32 +795,6 @@ $("#langBtn").addEventListener("click",function(){
     try{localStorage.setItem("axis-lang",lang)}catch(e){}paint()})});
 
 paint();
-
-/* The film: give iOS every chance to start it, and never let a blocked
-   autoplay leave the opening looking broken — the page simply reads as the
-   quiet version instead. A wider screen gets the larger file once the small
-   one is already playing, so nothing is ever waiting on 5.7MB. */
-(function(){
-  var v=document.getElementById("reel");if(!v)return;
-  function go(){var p=v.play();if(p&&p.catch)p.catch(function(){})}
-  v.addEventListener("loadeddata",go);
-  v.addEventListener("canplay",go);
-  ["touchstart","pointerdown","visibilitychange"].forEach(function(e){
-    addEventListener(e,go,{passive:true,once:false})});
-  go();
-  if(innerWidth>900&&!matchMedia("(prefers-reduced-data: reduce)").matches){
-    v.addEventListener("playing",function once(){
-      v.removeEventListener("playing",once);
-      var hi=new Image();  /* warm the connection, then swap on a keyframe */
-      var big="https://assets.mixkit.co/videos/17149/17149-720.mp4";
-      var t=document.createElement("video");
-      t.muted=true;t.playsInline=true;t.preload="auto";t.src=big;
-      t.addEventListener("canplaythrough",function(){
-        var at=v.currentTime;v.src=big;v.currentTime=at;go();
-      },{once:true});
-    },{once:true});
-  }
-})();
 
 /* the veil is animation-only; take it out so it can never hold a tap */
 setTimeout(function(){var v=$("#veil");if(v&&v.parentNode)v.parentNode.removeChild(v)},2400);
