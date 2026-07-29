@@ -58,7 +58,17 @@ html[dir="rtl"]{--sx:-1}
 html{scroll-behavior:smooth;background:var(--ivory)}
 body{background:var(--ivory);color:var(--char);font-family:var(--f);
   font-weight:300;font-size:clamp(.98rem,.92rem + .22vw,1.06rem);line-height:2;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased;letter-spacing:0}
+  -webkit-font-smoothing:antialiased;letter-spacing:0;
+  /* clip, never hidden: overflow-x:hidden here makes body a scroll container,
+     which silently kills position:sticky on every descendant. That is what
+     emptied three screens of this page into flat beige. clip contains the
+     bleed without creating a scroller. */
+  overflow-x:clip}
+@supports not (overflow-x:clip){
+  /* only the offending element is contained, so sticky survives */
+  body{overflow-x:visible}
+  .broken{overflow-x:hidden}
+}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -93,7 +103,12 @@ html[lang="ar"] .label{letter-spacing:normal;word-spacing:.28em}
 /* ── one grade for every photograph, whatever its source ──
    This is the only way images from a mixed library read as a single
    campaign: force them all through the same transfer curve. */
-.plate{position:relative;overflow:hidden;background:var(--travertine);
+.plate{position:relative;overflow:hidden;
+  /* a warm field with a hint of light, so a slow frame reads as intended
+     rather than as content that failed */
+  background:
+    radial-gradient(120% 80% at 22% 12%,color-mix(in oklab,var(--pearl,#E8DED3) 70%,transparent),transparent 62%),
+    linear-gradient(168deg,var(--travertine),var(--surface) 55%,var(--travertine));
   box-shadow:0 40px 90px -60px rgba(60,44,30,.55)}
 .plate::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
   border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,252,247,.22)}
@@ -207,7 +222,18 @@ nav .mark{font-family:var(--fd);font-size:1.06rem;flex:1;min-width:0;color:var(-
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* over the opening plate the mark is ivory; it inverts once the page is white */
 #hero ~ * nav .mark{color:var(--char)}
-nav.float{color:var(--char);transition:opacity .6s var(--slow),transform .6s var(--slow),color .6s var(--slow)}
+nav.float{color:var(--char);
+  transition:opacity .6s var(--slow),transform .6s var(--slow),
+             background .6s var(--slow),backdrop-filter .6s var(--slow)}
+/* Charcoal type sat directly on a dark photograph in the pinned scene and
+   became unreadable. Once the opening screen is behind you the bar earns a
+   soft surface of its own, so the wordmark reads over anything. */
+nav.float.surfaced{background:color-mix(in oklab,var(--ivory) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
+  border-bottom:1px solid color-mix(in oklab,var(--travertine) 60%,transparent)}
+@supports not (backdrop-filter:blur(2px)){
+  nav.float.surfaced{background:color-mix(in oklab,var(--ivory) 97%,transparent)}
+}
 
 nav .set{display:none;gap:1.6rem;font-size:.78rem;color:var(--walnut)}
 nav .set a{position:relative;padding-block:.2rem}
@@ -749,12 +775,12 @@ function descOf(s){return S((lang==="en"&&s.desc_en)?s.desc_en:s.desc)}
    library still reads as one campaign. Real salon photographs, when the
    pipeline has them, arrive here and are graded identically. */
 var STOCK=[
- "https://images.unsplash.com/photo-1613323885789-e2212e15c326?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8M3x8bG9uZyUyMHNoaW55JTIwaGFpciUyMGJhY2t8ZW58MXwxfHx8MTc4NTMwNzYwN3ww&ixlib=rb-4.1.0&w=1800&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1755344953503-6911565dd387?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8NXx8aGFpciUyMHRleHR1cmUlMjB3YXZlcyUyMGNsb3NldXB8ZW58MXwxfHx8MTc4NTMwNzYwOXww&ixlib=rb-4.1.0&w=1200&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1560264641-1b5191cc63e2?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8Mnx8aGFpciUyMHRleHR1cmUlMjB3YXZlcyUyMGNsb3NldXB8ZW58MXwxfHx8MTc4NTMwNzYwOXww&ixlib=rb-4.1.0&w=1800&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1692221307059-8819db116d92?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTZ8fGV5ZWJyb3dzJTIwY2xvc2V1cCUyMGJlYXV0eXxlbnwxfDF8fHwxNzg1MzA3NjEzfDA&ixlib=rb-4.1.0&w=1200&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1682450285233-1fb10d4a4616?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTN8fGhhaXIlMjB0ZXh0dXJlJTIwd2F2ZXMlMjBjbG9zZXVwfGVufDF8MXx8fDE3ODUzMDc2MDl8MA&ixlib=rb-4.1.0&w=1100&q=82&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1613057388812-029549dc3d39?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTl8fGV5ZWxhc2glMjBleHRlbnNpb25zJTIwY2xvc2V1cHxlbnwxfDF8fHwxNzg1MzA3NjE1fDA&ixlib=rb-4.1.0&w=1100&q=82&fm=jpg&fit=crop"];
+ "https://images.unsplash.com/photo-1613323885789-e2212e15c326?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8M3x8bG9uZyUyMHNoaW55JTIwaGFpciUyMGJhY2t8ZW58MXwxfHx8MTc4NTMwNzYwN3ww&ixlib=rb-4.1.0&w=1400&q=80&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1755344953503-6911565dd387?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8NXx8aGFpciUyMHRleHR1cmUlMjB3YXZlcyUyMGNsb3NldXB8ZW58MXwxfHx8MTc4NTMwNzYwOXww&ixlib=rb-4.1.0&w=1000&q=80&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1560264641-1b5191cc63e2?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8Mnx8aGFpciUyMHRleHR1cmUlMjB3YXZlcyUyMGNsb3NldXB8ZW58MXwxfHx8MTc4NTMwNzYwOXww&ixlib=rb-4.1.0&w=1400&q=80&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1692221307059-8819db116d92?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTZ8fGV5ZWJyb3dzJTIwY2xvc2V1cCUyMGJlYXV0eXxlbnwxfDF8fHwxNzg1MzA3NjEzfDA&ixlib=rb-4.1.0&w=1000&q=80&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1682450285233-1fb10d4a4616?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTN8fGhhaXIlMjB0ZXh0dXJlJTIwd2F2ZXMlMjBjbG9zZXVwfGVufDF8MXx8fDE3ODUzMDc2MDl8MA&ixlib=rb-4.1.0&w=900&q=80&fm=jpg&fit=crop",
+ "https://images.unsplash.com/photo-1613057388812-029549dc3d39?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTl8fGV5ZWxhc2glMjBleHRlbnNpb25zJTIwY2xvc2V1cHxlbnwxfDF8fHwxNzg1MzA3NjE1fDA&ixlib=rb-4.1.0&w=900&q=80&fm=jpg&fit=crop"];
 var POOL=(C.photos&&C.photos.length)?C.photos.concat(STOCK):STOCK;
 function pick(i){return POOL[i%POOL.length]}
 
@@ -864,14 +890,30 @@ function paint(){
   drawRows();drawDock();drawHours();
 }
 
-/* imagery */
-[["#p0",0],["#p1",1],["#p2",2],["#p3",3]].forEach(function(x){
-  var e=$(x[0]);if(!e)return;e.src=pick(x[1]);dead(e);
+/* imagery.
+   A 1MB 1800px frame inside a pinned scene, marked lazy, arrives after the
+   visitor is already standing in front of it — which is what produced the
+   empty brown screens. Every plate now ships a srcset so a 390px phone
+   fetches ~800px, and the pinned frame loads eagerly because it is a
+   full-screen moment rather than something below the fold. */
+function widen(u,w){return u.replace(/([?&])w=\d+/,"$1w="+w)}
+function dress(el,url,eager){
+  if(!el)return;
+  el.setAttribute("srcset",[640,900,1300,1800].map(function(w){
+    return widen(url,w)+" "+w+"w"}).join(", "));
+  el.setAttribute("sizes","100vw");
+  el.src=widen(url,900);
+  el.loading=eager?"eager":"lazy";
+  if(eager)el.setAttribute("fetchpriority","high");
+  dead(el);
+}
+[["#p0",0,true],["#p1",1,false],["#p2",2,true],["#p3",3,false]].forEach(function(x){
+  dress($(x[0]),pick(x[1]),x[2]);
 });
 [4,5].forEach(function(i){
   var f=document.createElement("figure");f.className="plate par uncover";
-  var m=document.createElement("img");m.src=pick(i);m.alt="";m.loading="lazy";
-  m.decoding="async";dead(m);f.appendChild(m);$("#gal").appendChild(f);
+  var m=document.createElement("img");m.alt="";m.decoding="async";
+  dress(m,pick(i),false);f.appendChild(m);$("#gal").appendChild(f);
 });
 
 function swap(fn){
@@ -901,6 +943,7 @@ addEventListener("scroll",function(){
   var y=scrollY,h=innerHeight;
   $("#dock").classList.toggle("up",y>h*.9);
   $("#nav").classList.toggle("away",y>lastY&&y>h*.6);
+  $("#nav").classList.toggle("surfaced",y>h*.85);
   lastY=y;
 },{passive:true});
 
