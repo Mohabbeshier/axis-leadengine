@@ -394,6 +394,73 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 #lb .x{position:fixed;top:calc(1rem + env(safe-area-inset-top));inset-inline-end:1rem;
   color:var(--ivory);font-size:.76rem;letter-spacing:.2em}
 
+
+/* ══════════════════════════════════════════════════════════════════════
+   THE HELD SCENE
+   The one place the page stops. The plate is pinned for three screens
+   while the lines of the ritual replace one another over it. Scrolling
+   here changes what is said, not where you are — which is the only reason
+   to take a visitor's scroll away from them.
+   ══════════════════════════════════════════════════════════════════════ */
+#held{position:relative;height:300svh;margin-block:var(--air)}
+#held .frame{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
+#held .frame .plate{position:absolute;inset:0}
+#held .frame .plate::after{content:"";position:absolute;inset:0;z-index:2;
+  background:linear-gradient(180deg,rgba(28,22,16,.30),rgba(28,22,16,.62))}
+#held .lines{position:relative;z-index:3;width:min(1180px,90vw);color:var(--ivory);text-align:start}
+#held .lines b{display:block;font-family:var(--fd);font-weight:400;
+  font-size:clamp(1.9rem,6.4vw,4.4rem);line-height:1.4;opacity:0}
+#held .lines{position:relative;min-height:clamp(9rem,26vh,15rem)}
+#held .lines b{position:absolute;inset-block-start:0;inset-inline:0}
+#held .no{display:block;font-family:var(--fl);font-size:.8rem;color:var(--bronze);
+  margin-bottom:1.4rem;opacity:0;position:relative}
+@supports (animation-timeline: view()){
+  /* A named timeline on the tall section. The lines live inside the sticky
+     frame, which does not itself move, so their own view() timeline would
+     never advance; and `contain` collapses to zero length whenever the
+     subject is taller than the viewport — which is the whole point of this
+     section. Both mistakes were in the first version of this block. */
+  #held{view-timeline-name:--held;view-timeline-axis:block}
+  #held .lines b{animation:heldLine linear both;animation-timeline:--held}
+  #held .lines b:nth-child(2){animation-range:cover 8% cover 40%}
+  #held .lines b:nth-child(3){animation-range:cover 38% cover 70%}
+  #held .lines b:nth-child(4){animation-range:cover 68% cover 100%}
+  @keyframes heldLine{
+    0%{opacity:0;transform:translateY(26px);filter:blur(6px)}
+    22%,78%{opacity:1;transform:none;filter:none}
+    100%{opacity:0;transform:translateY(-20px);filter:blur(6px)}}
+  #held .no{animation:heldNo linear both;animation-timeline:--held;
+    animation-range:cover 4% cover 14%}
+  @keyframes heldNo{from{opacity:0}to{opacity:.9}}
+  #held .frame .plate img{animation:heldPush linear both;animation-timeline:--held;
+    animation-range:cover 0% cover 100%}
+  @keyframes heldPush{from{transform:scale(1.02)}to{transform:scale(1.16)}}
+}
+@supports not (animation-timeline: view()){
+  #held{height:auto}
+  #held .frame{position:relative;height:auto;padding-block:var(--air)}
+  #held .lines{min-height:0}
+  #held .lines b{opacity:1;position:relative!important;margin-bottom:1.2rem}
+  #held .no{opacity:.9}
+}
+
+/* ══ the grid breaks once ══
+   The plate runs off the start edge and the section's word sits across it. */
+.broken{position:relative;margin-block:var(--air);
+  padding-inline-end:var(--gut)}
+.broken .art{width:min(88%,980px);aspect-ratio:4/5;overflow:hidden;
+  border-start-end-radius:clamp(28px,4vw,44px);border-end-end-radius:clamp(28px,4vw,44px);
+  margin-inline-start:calc(var(--gut) * -1)}
+@media(min-width:900px){.broken .art{width:min(62%,860px);aspect-ratio:1}}
+.broken .over{position:absolute;inset-inline-end:var(--gut);bottom:clamp(1.4rem,6vw,4rem);
+  z-index:3;text-align:end;max-width:min(92%,620px)}
+.broken .over h3{font-family:var(--fd);font-size:clamp(2rem,8vw,5.4rem);line-height:1.28;
+  color:var(--char);mix-blend-mode:multiply}
+.broken .over span{display:block;font-size:.76rem;color:var(--walnut);margin-bottom:.7rem}
+@media(min-width:900px){
+  .broken .over{bottom:auto;top:50%;translate:0 -50%}
+}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;
     transition-duration:.01ms!important}
@@ -438,18 +505,26 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
   </div>
 </div></section>
 
-<div class="wrap">
-  <div class="spread">
-    <figure class="art plate par uncover"><img id="p1" alt="" loading="lazy" decoding="async"></figure>
-    <div class="say rise">
-      <span class="label" data-t="ch1"></span>
-      <h3 class="serif" data-t="s1h"></h3>
-      <p data-t="s1p"></p>
-    </div>
+<div class="broken">
+  <figure class="art plate par uncover"><img id="p1" alt="" loading="lazy" decoding="async"></figure>
+  <div class="over rise">
+    <span class="label" data-t="ch1"></span>
+    <h3 class="serif" data-t="s1h"></h3>
   </div>
 </div>
+<div class="wrap" style="padding-bottom:var(--air)">
+  <p class="rise" style="max-width:52ch;margin-inline-start:auto;text-align:end;color:var(--walnut)" data-t="s1p"></p>
+</div>
 
-<div class="bleed plate par uncover"><img id="p2" alt="" loading="lazy" decoding="async"></div>
+<section id="held">
+  <div class="frame">
+    <div class="plate"><img id="p2" alt="" loading="lazy" decoding="async"></div>
+    <div class="lines">
+      <span class="no">01 — 03</span>
+      <b data-t="r1"></b><b data-t="r2"></b><b data-t="r3"></b>
+    </div>
+  </div>
+</section>
 
 <section id="index" class="wrap">
   <span class="label rise" data-t="ixK"></span>
@@ -573,6 +648,9 @@ var TXT={
   ch2:"الخطوة الثانية",
   s2h:"الاستشارة",
   s2p:"قبل ما نبدأ نسمع منك: شعرك، بشرتك، والمناسبة. ونقول لك بصراحة إيش يناسبك وإيش ما يناسبك، حتى لو كان الجواب خدمة أرخص.",
+  r1:"نبدأ بأن نسمع، لا بأن نقترح.",
+  r2:"ثم نعمل ببطء، وأدواتٍ تُعقَّم أمامك.",
+  r3:"وننتهي باتفاق، لا بفاتورة.",
   ch3:"الخطوة الثالثة",s3h:"الجلسة",
   s3p:"الأدوات تتعقّم قدّامك، والمنتجات نختارها مرة وما نبدلها بأرخص منها. تقدرين تشوفين كل خطوة قبل ما تتم.",
   ch4:"الخطوة الرابعة",s4h:"قبل ما تمشين",
@@ -598,6 +676,9 @@ var TXT={
   ch2:"Step two",
   s2h:"The consultation",
   s2p:"Before anything begins we listen: your hair, your skin, the occasion. Then we tell you plainly what suits you and what does not — even when the honest answer is a cheaper service.",
+  r1:"We begin by listening, not by recommending.",
+  r2:"Then we work slowly, with tools sterilised in front of you.",
+  r3:"And we finish with an agreement, not an invoice.",
   ch3:"Step three",s3h:"The appointment",
   s3p:"Tools are sterilised in front of you, and the products are chosen once and never quietly swapped for something cheaper. You can see every step before it happens.",
   ch4:"Step four",s4h:"Before you leave",
