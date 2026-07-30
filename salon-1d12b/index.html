@@ -487,6 +487,86 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
   .broken .over{bottom:auto;top:50%;translate:0 -50%}
 }
 
+
+/* ══════════════════════════════════════════════════════════════════════
+   BOOKING — a room, not a form.
+   Porcelain ground, ink type, one column, one decision per screen.
+   ══════════════════════════════════════════════════════════════════════ */
+#bk{border:0;padding:0;width:100vw;height:100dvh;max-width:none;max-height:none;
+  background:var(--porcelain,#FBF8F3);color:var(--char)}
+#bk::backdrop{background:rgba(23,20,15,.55);backdrop-filter:blur(6px)}
+#bk .shell{height:100%;display:flex;flex-direction:column;
+  width:min(680px,100%);margin-inline:auto;
+  padding:calc(1rem + env(safe-area-inset-top)) clamp(1.2rem,5vw,2.4rem)
+          calc(1.2rem + env(safe-area-inset-bottom))}
+#bk header{display:flex;align-items:center;gap:1rem;flex:none;padding-block:.4rem 1.2rem}
+#bk header .mk{font-family:var(--fd);font-size:1rem;flex:1}
+#bk header button{cursor:pointer;font-family:var(--f);font-size:.78rem;color:var(--walnut);
+  padding:.4rem .2rem}
+#bk .steps{display:flex;gap:.45rem;flex:none;margin-bottom:clamp(1.2rem,3vh,2rem)}
+#bk .steps i{height:2px;flex:1;background:var(--travertine);transition:background .4s var(--slow)}
+#bk .steps i.on{background:var(--bronze)}
+#bk form{flex:1;min-height:0;display:flex;flex-direction:column}
+#bk fieldset{border:0;min-height:0;flex:1;display:none;flex-direction:column;overflow:hidden}
+#bk fieldset.on{display:flex}
+#bk legend{float:inline-start;width:100%;padding:0;margin-bottom:.4rem}
+#bk .q{font-family:var(--fd);font-size:clamp(1.45rem,5.6vw,2.1rem);line-height:1.4}
+#bk .hint{font-size:.82rem;color:var(--stone);margin-bottom:1.1rem}
+#bk .list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+  scrollbar-width:none;padding-block:.2rem .4rem;margin-inline:-.2rem;padding-inline:.2rem}
+#bk .list::-webkit-scrollbar{display:none}
+
+#bk .opt{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.9rem;
+  width:100%;text-align:start;font-family:var(--f);color:inherit;cursor:pointer;
+  padding:1.05rem .95rem;border:1px solid var(--travertine);border-radius:14px;
+  background:#fff;margin-bottom:.55rem;transition:border-color .25s,box-shadow .25s}
+#bk .opt:hover{border-color:var(--bronze)}
+#bk .opt[aria-pressed="true"]{border-color:var(--bronze);
+  box-shadow:0 0 0 1px var(--bronze) inset}
+#bk .opt .tk{width:22px;height:22px;border-radius:50%;border:1.6px solid var(--travertine);
+  display:grid;place-items:center;flex:none;transition:.2s}
+#bk .opt .tk svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:3;
+  stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.5);transition:.18s}
+#bk .opt[aria-pressed="true"] .tk{background:var(--bronze);border-color:var(--bronze)}
+#bk .opt[aria-pressed="true"] .tk svg{opacity:1;transform:none}
+#bk .opt .nm{font-weight:500;font-size:.98rem}
+#bk .opt .ds{font-size:.8rem;color:var(--stone);margin-top:.1rem}
+#bk .opt .pr{font-family:var(--fl);font-size:1.05rem;color:var(--walnut);
+  white-space:nowrap;font-variant-numeric:tabular-nums}
+#bk .opt .pr small{font-size:.62em;color:var(--stone);margin-inline-start:.3em}
+
+#bk .field{margin-bottom:1rem}
+#bk .field label{display:block;font-size:.78rem;color:var(--walnut);margin-bottom:.4rem}
+#bk .field input{width:100%;font-family:var(--f);font-size:1.02rem;color:var(--char);
+  background:#fff;border:1px solid var(--travertine);border-radius:12px;
+  padding:.9rem 1rem;transition:border-color .25s}
+#bk .field input:focus{outline:none;border-color:var(--bronze)}
+#bk .field input[dir="ltr"]{text-align:start}
+#bk .err{font-size:.8rem;color:var(--rosewood,#805A51);margin-top:.4rem;min-height:1.2em}
+
+#bk .sum{background:#fff;border:1px solid var(--travertine);border-radius:14px;
+  padding:1.1rem 1.15rem;margin-bottom:.6rem}
+#bk .sum .row2{display:flex;justify-content:space-between;gap:1rem;
+  padding-block:.35rem;font-size:.92rem}
+#bk .sum .row2 span:last-child{font-family:var(--fl);color:var(--walnut);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+#bk .sum .row2.total{border-top:1px solid var(--travertine);margin-top:.4rem;
+  padding-top:.7rem;font-weight:600}
+#bk .note{font-size:.78rem;color:var(--stone);line-height:1.7}
+
+#bk footer{flex:none;display:flex;gap:.6rem;padding-top:1rem}
+#bk footer .go{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:var(--f);font-weight:600;font-size:.98rem;cursor:pointer;
+  background:var(--char);color:var(--porcelain,#FBF8F3);border:0;border-radius:999px;
+  padding:1.02rem 1.4rem;transition:transform .25s var(--slow),opacity .25s}
+#bk footer .go:disabled{opacity:.35;cursor:default}
+#bk footer .go:not(:disabled):hover{transform:translateY(-2px)}
+#bk footer .back{flex:none;font-family:var(--f);font-size:.85rem;color:var(--walnut);
+  background:none;border:0;cursor:pointer;padding:1rem .6rem}
+#bk footer .go.wa{background:#1FAF57}
+#bk footer .go svg{width:18px;height:18px;flex:none;fill:currentColor}
+@media(prefers-reduced-motion:reduce){#bk .opt,#bk footer .go{transition:none}}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;
     transition-duration:.01ms!important}
@@ -621,6 +701,55 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
   <div class="sum" id="dockSum"></div>
   <a class="go" id="ctaDock" href="#"><span data-t="ask"></span></a>
 </div>
+
+<dialog id="bk" aria-labelledby="bkTitle">
+  <div class="shell">
+    <header>
+      <span class="mk" id="bkMark"></span>
+      <button type="button" id="bkClose" data-t="bClose"></button>
+    </header>
+    <div class="steps" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <form id="bkForm" novalidate>
+      <fieldset data-step="1">
+        <legend><span class="q" id="bkTitle" data-t="bQ1"></span></legend>
+        <p class="hint" data-t="bH1"></p>
+        <div class="list" id="bkSvcs"></div>
+      </fieldset>
+      <fieldset data-step="2">
+        <legend><span class="q" data-t="bQ2"></span></legend>
+        <p class="hint" data-t="bH2"></p>
+        <div class="list" id="bkDays"></div>
+      </fieldset>
+      <fieldset data-step="3">
+        <legend><span class="q" data-t="bQ3"></span></legend>
+        <p class="hint" data-t="bH3"></p>
+        <div class="list">
+          <div class="field"><label for="bkName" data-t="bName"></label>
+            <input id="bkName" name="name" type="text" autocomplete="name" maxlength="40"></div>
+          <div class="field"><label for="bkPhone" data-t="bPhone"></label>
+            <input id="bkPhone" name="phone" type="tel" inputmode="tel" dir="ltr"
+                   autocomplete="tel" placeholder="05XXXXXXXX" maxlength="17">
+            <div class="err" id="bkErr" role="alert"></div></div>
+        </div>
+      </fieldset>
+      <fieldset data-step="4">
+        <legend><span class="q" data-t="bQ4"></span></legend>
+        <p class="hint" data-t="bH4"></p>
+        <div class="list">
+          <div class="sum" id="bkSum"></div>
+          <p class="note" data-t="bNote"></p>
+        </div>
+      </fieldset>
+      <footer>
+        <button type="button" class="back" id="bkBack" data-t="bBack"></button>
+        <button type="button" class="go" id="bkNext"><span data-t="bNext"></span></button>
+        <a class="go wa" id="bkSend" href="#" target="_blank" rel="noopener" hidden>
+          <svg viewBox="0 0 24 24"><use href="#wa"/></svg><span data-t="bSend"></span></a>
+      </footer>
+    </form>
+  </div>
+</dialog>
+
 <dialog id="lb"><button class="x" id="lbX" type="button">CLOSE</button><img id="lbImg" alt=""></dialog>
 
 <script>
@@ -725,7 +854,20 @@ var TXT={
   cRateK:"تقييم جوجل",cRevK:"ضيفة قيّمتنا",cSvcK:"خدمة",cFromK:"تبدأ من (ريال)",
   dockOne:"خدمة واحدة",dockMany:"خدمات",dockTotal:"الإجمالي",
   waPick:"السلام عليكم، أرغب بحجز:",waTotal:"الإجمالي التقريبي",
-  cur:"ريال"},
+  cur:"ريال",
+  bClose:"إغلاق",bBack:"رجوع",bNext:"التالي",bSend:"إرسال الطلب واتساب",
+  bQ1:"وش تحبين نجهّز لك؟",bH1:"اختاري خدمة أو أكثر — والأسعار تبدأ من المذكور.",
+  bQ2:"متى يناسبك؟",bH2:"اختاري اليوم الأقرب لك، ونأكد الوقت بالضبط على واتساب.",
+  bQ3:"عرّفينا عليك",bH3:"نحتاج اسمك ورقم جوالك فقط — لا حساب ولا كلمة مرور.",
+  bQ4:"كل شيء جاهز",bH4:"راجعي الطلب، وبضغطة وحدة يوصلنا على واتساب.",
+  bName:"الاسم",bPhone:"رقم الجوال",
+  bErrPhone:"اكتبي رقم جوال سعودي يبدأ بـ 05 — مثل 0512345678.",
+  bErrName:"اكتبي اسمك الأول على الأقل.",
+  bErrSvc:"اختاري خدمة وحدة على الأقل.",
+  bToday:"اليوم",bTomorrow:"بكرة",bTotal:"الإجمالي التقريبي",bDay:"اليوم المفضل",
+  bGuest:"الاسم",bReply:"نرد خلال ساعات العمل — غالباً في أقل من ساعة.",
+  bWa1:"السلام عليكم، أبغى أحجز:",bWa2:"اليوم المفضل",bWa3:"الاسم",
+  bNote:"الطلب يُرسل برسالة واتساب عادية من جوالك — ما ننشئ حساب ولا نحفظ بياناتك."},
  en:{lang:"ع",
   nStory:"Story",nIndex:"Index",nGallery:"Space",nVisit:"Visit",
   ask:"Request an appointment",scroll:"Scroll",
@@ -753,7 +895,20 @@ var TXT={
   cRateK:"Google rating",cRevK:"guests rated us",cSvcK:"services",cFromK:"from (SAR)",
   dockOne:"service",dockMany:"services",dockTotal:"Total",
   waPick:"Hello, I would like to book:",waTotal:"Approximate total",
-  cur:"SAR"}
+  cur:"SAR",
+  bClose:"Close",bBack:"Back",bNext:"Next",bSend:"Send via WhatsApp",
+  bQ1:"What shall we prepare for you?",bH1:"Choose one or more — prices are starting-from.",
+  bQ2:"When suits you?",bH2:"Pick the nearest day; we confirm the exact time on WhatsApp.",
+  bQ3:"Tell us who you are",bH3:"Just your name and mobile — no account, no password.",
+  bQ4:"Everything is ready",bH4:"Review the request; one tap sends it to us on WhatsApp.",
+  bName:"Name",bPhone:"Mobile number",
+  bErrPhone:"Enter a Saudi mobile starting 05 — e.g. 0512345678.",
+  bErrName:"At least your first name, please.",
+  bErrSvc:"Choose at least one service.",
+  bToday:"Today",bTomorrow:"Tomorrow",bTotal:"Approximate total",bDay:"Preferred day",
+  bGuest:"Name",bReply:"We reply during opening hours — usually within the hour.",
+  bWa1:"Hello, I would like to book:",bWa2:"Preferred day",bWa3:"Name",
+  bNote:"The request is sent as a normal WhatsApp message from your phone — no account is created and nothing is stored."}
 };
 
 var lang=root.getAttribute("lang")==="en"?"en":"ar";
@@ -921,6 +1076,168 @@ paint();
 
 /* the veil is animation-only; take it out so it can never hold a tap */
 setTimeout(function(){var v=$("#veil");if(v&&v.parentNode)v.parentNode.removeChild(v)},2400);
+
+
+/* ── booking overlay ── */
+(function(){
+  var SVG="http://www.w3.org/2000/svg";
+  var bk=$("#bk");if(!bk||!bk.showModal)return;
+  var BKEY="axis-bk-"+location.pathname;
+  var st={step:1,svc:{},day:null,name:"",phone:""};
+  try{var saved=JSON.parse(sessionStorage.getItem(BKEY)||"null");
+      if(saved&&saved.svc)st=saved}catch(e){}
+  function keep(){try{sessionStorage.setItem(BKEY,JSON.stringify(st))}catch(e){}}
+  function t(){return TXT[lang]}
+
+  function dayList(){
+    var out=[],now=new Date();
+    for(var i=0;i<6;i++){
+      var d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i);
+      var label=i===0?t().bToday:(i===1?t().bTomorrow:
+        (lang==="ar"?DAYS_AR[d.getDay()]:DAYS_EN[d.getDay()]));
+      var date=(d.getMonth()+1)+"/"+d.getDate();
+      out.push({key:d.toISOString().slice(0,10),label:label,date:date});
+    }
+    return out;
+  }
+
+  function draw(){
+    $("#bkMark").textContent=F("salon_name");
+    [].slice.call(bk.querySelectorAll(".steps i")).forEach(function(el,i){
+      el.classList.toggle("on",i<st.step)});
+    [].slice.call(bk.querySelectorAll("fieldset")).forEach(function(fs){
+      fs.classList.toggle("on",+fs.getAttribute("data-step")===st.step)});
+    $("#bkBack").style.visibility=st.step>1?"visible":"hidden";
+    var last=st.step===4;
+    $("#bkNext").hidden=last;$("#bkSend").hidden=!last;
+
+    if(st.step===1){
+      var box=$("#bkSvcs");box.textContent="";
+      (C.services||[]).forEach(function(sv,i){
+        var b=document.createElement("button");b.type="button";b.className="opt";
+        b.setAttribute("aria-pressed",st.svc[i]?"true":"false");
+        var tk=document.createElement("span");tk.className="tk";
+        var g=document.createElementNS(SVG,"svg");g.setAttribute("viewBox","0 0 24 24");
+        var pa=document.createElementNS(SVG,"path");pa.setAttribute("d","M5 13l4 4L19 7");
+        g.appendChild(pa);tk.appendChild(g);
+        var mid=document.createElement("span");
+        var nm=document.createElement("span");nm.className="nm";nm.textContent=nameOf(sv);
+        var ds=document.createElement("span");ds.className="ds";ds.textContent=descOf(sv);
+        mid.appendChild(nm);mid.appendChild(document.createElement("br"));mid.appendChild(ds);
+        var pr=document.createElement("span");pr.className="pr";
+        pr.textContent=priceOf(sv)+" ";
+        var sm=document.createElement("small");sm.textContent=t().cur;pr.appendChild(sm);
+        b.appendChild(tk);b.appendChild(mid);b.appendChild(pr);
+        b.addEventListener("click",function(){
+          st.svc[i]=!st.svc[i];keep();
+          b.setAttribute("aria-pressed",st.svc[i]?"true":"false")});
+        box.appendChild(b);
+      });
+    }
+    if(st.step===2){
+      var db=$("#bkDays");db.textContent="";
+      dayList().forEach(function(d){
+        var b=document.createElement("button");b.type="button";b.className="opt";
+        b.setAttribute("aria-pressed",st.day===d.key?"true":"false");
+        var tk=document.createElement("span");tk.className="tk";
+        var g=document.createElementNS(SVG,"svg");g.setAttribute("viewBox","0 0 24 24");
+        var pa=document.createElementNS(SVG,"path");pa.setAttribute("d","M5 13l4 4L19 7");
+        g.appendChild(pa);tk.appendChild(g);
+        var mid=document.createElement("span");
+        var nm=document.createElement("span");nm.className="nm";nm.textContent=d.label;
+        mid.appendChild(nm);
+        var pr=document.createElement("span");pr.className="pr";pr.textContent=d.date;
+        b.appendChild(tk);b.appendChild(mid);b.appendChild(pr);
+        b.addEventListener("click",function(){
+          st.day=d.key;st.dayLabel=d.label+" "+d.date;keep();draw()});
+        db.appendChild(b);
+      });
+    }
+    if(st.step===3){
+      $("#bkName").value=st.name||"";
+      $("#bkPhone").value=st.phone||"";
+      $("#bkErr").textContent="";
+    }
+    if(st.step===4){
+      var sum=$("#bkSum");sum.textContent="";
+      var total=0;
+      (C.services||[]).forEach(function(sv,i){
+        if(!st.svc[i])return;
+        total+=priceOf(sv);
+        var r=document.createElement("div");r.className="row2";
+        var a=document.createElement("span");a.textContent=nameOf(sv);
+        var b2=document.createElement("span");b2.textContent=priceOf(sv)+" "+t().cur;
+        r.appendChild(a);r.appendChild(b2);sum.appendChild(r);
+      });
+      [[t().bDay,st.dayLabel||"—"],[t().bGuest,st.name||"—"]].forEach(function(x){
+        var r=document.createElement("div");r.className="row2";
+        var a=document.createElement("span");a.textContent=x[0];
+        var b2=document.createElement("span");b2.textContent=x[1];
+        r.appendChild(a);r.appendChild(b2);sum.appendChild(r);
+      });
+      var tr=document.createElement("div");tr.className="row2 total";
+      var a2=document.createElement("span");a2.textContent=t().bTotal;
+      var b3=document.createElement("span");b3.textContent=total+" "+t().cur;
+      tr.appendChild(a2);tr.appendChild(b3);sum.appendChild(tr);
+
+      var lines=[t().bWa1];
+      (C.services||[]).forEach(function(sv,i){
+        if(st.svc[i])lines.push("• "+nameOf(sv)+" — "+priceOf(sv)+" "+t().cur)});
+      lines.push(t().bTotal+": "+total+" "+t().cur);
+      lines.push(t().bWa2+": "+(st.dayLabel||"—"));
+      lines.push(t().bWa3+": "+(st.name||"—"));
+      $("#bkSend").href="https://wa.me/"+encodeURIComponent(C.whatsapp)+
+        "?text="+encodeURIComponent(lines.join("\n"));
+    }
+  }
+
+  function saudi(raw){
+    var d=String(raw||"").replace(/[^\d]/g,"");
+    if(/^00966/.test(d))d=d.slice(5);
+    else if(/^966/.test(d))d=d.slice(3);
+    else if(/^0/.test(d))d=d.slice(1);
+    return /^5\d{8}$/.test(d)?"966"+d:null;
+  }
+
+  function advance(){
+    var t_=t();
+    if(st.step===1){
+      var any=Object.keys(st.svc).some(function(k){return st.svc[k]});
+      if(!any){ // fall through to the index picks if she chose there first
+        (C.services||[]).forEach(function(_,i){if(PICK[i])st.svc[i]=true});
+        any=Object.keys(st.svc).some(function(k){return st.svc[k]});
+      }
+      if(!any){toast(t_.bErrSvc);return}
+    }
+    if(st.step===2&&!st.day){toast(lang==="ar"?"اختاري يوماً.":"Pick a day.");return}
+    if(st.step===3){
+      st.name=$("#bkName").value.trim();
+      st.phone=$("#bkPhone").value.trim();
+      if(st.name.length<2){$("#bkErr").textContent=t_.bErrName;return}
+      var ok=saudi(st.phone);
+      if(!ok){$("#bkErr").textContent=t_.bErrPhone;return}
+      st.phoneNorm=ok;
+    }
+    st.step=Math.min(4,st.step+1);keep();draw();
+  }
+
+  function openBk(e){
+    if(e)e.preventDefault();
+    // arrive with the index picks already chosen
+    (C.services||[]).forEach(function(_,i){if(PICK[i])st.svc[i]=true});
+    st.step=1;keep();draw();
+    bk.showModal();
+  }
+  // every booking entry point now opens the overlay instead of bare WhatsApp
+  ["ctaNav","ctaHero","ctaEnd","ctaDock"].forEach(function(id){
+    var el=$("#"+id);if(el)el.addEventListener("click",openBk)});
+  $("#bkClose").addEventListener("click",function(){bk.close()});
+  $("#bkBack").addEventListener("click",function(){
+    st.step=Math.max(1,st.step-1);keep();draw()});
+  $("#bkNext").addEventListener("click",advance);
+  bk.addEventListener("click",function(e){if(e.target===bk)bk.close()});
+  bk.addEventListener("close",keep);
+})();
 
 $("#gal").addEventListener("click",function(e){
   var f=e.target.closest("figure");if(!f)return;
