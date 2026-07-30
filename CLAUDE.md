@@ -271,3 +271,35 @@ check" and "wrong geolocation" fixes above for the pattern: he flags a
 symptom, the fix should be structural, not cosmetic). Explicitly asked
 for small, cheap tests (under 10 cents) before any real spend — respect
 that on every future change to `harvest.py`.
+
+
+## The demo template (v23+) — non-negotiable rules
+
+The demo each salon receives is `template.html`, rendered per salon by
+`sitegen.py` (CONFIG block regex-replace). Rules that must survive any edit:
+
+- **Arabic never gets `letter-spacing`.** Tracking lives under
+  `html[lang="en"]` only; Arabic uses `word-spacing`.
+- **`body` overflow-x is `clip`, never `hidden`** — hidden makes body a
+  scroll container and silently kills every `position:sticky` inside
+  (this produced the three-screen beige void twice).
+- Plates ship `srcset` 640/900/1300/1800 + `sizes=100vw`; the pinned
+  frame loads eager/high — everything else lazy.
+- No JS animation libraries. Motion is scroll-driven CSS (four verbs:
+  rise/uncover/drift/hold) with an IntersectionObserver fallback.
+- No video in the hero: iOS Low Power Mode disables autoplay and paints a
+  grey play button over it. Decided after a real screenshot; do not revisit
+  without new evidence.
+- Booking is the native `<dialog>` four-step overlay ending in a composed
+  WhatsApp message. Saudi numbers normalised from 05/5/+9665/009665.
+- Demo honesty: no invented staff, reviews, awards or availability; the
+  membership figures carry an "illustrative" line on-page. See
+  `docs/demo-content.md`.
+- Docs are the contract: `docs/creative-decisions.md` (100 numbered council
+  decisions with status) is the implementation checklist; update statuses
+  there rather than re-litigating in chat.
+- Verification style: nothing is called fixed from the diff. Render at
+  390×844 through the harness in `scratchpad/shot2.py`-style (same-origin
+  iframe, real device height, scroll-confirmed) or measure with an injected
+  probe. Chrome headless clamps its viewport to 500px — never screenshot the
+  page directly at phone widths.
