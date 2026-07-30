@@ -565,6 +565,61 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
   background:none;border:0;cursor:pointer;padding:1rem .6rem}
 #bk footer .go.wa{background:#1FAF57}
 #bk footer .go svg{width:18px;height:18px;flex:none;fill:currentColor}
+
+/* ══ BRIDAL — the pearl chapter ══ */
+#bridal{background:var(--pearl,#E8DED3);padding-block:var(--air)}
+#bridal .wrap{display:grid;gap:clamp(1.6rem,4vw,3.5rem)}
+@media(min-width:900px){#bridal .wrap{grid-template-columns:5fr 7fr;align-items:center}}
+#bridal h2{font-family:var(--fd);font-size:clamp(2rem,6.6vw,4rem);line-height:1.4}
+#bridal .lead{max-width:44ch}
+#bridal .rites{list-style:none;display:grid;gap:.1rem;margin-top:1.4rem}
+#bridal .rites li{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:baseline;
+  padding:1rem 0;border-bottom:1px solid color-mix(in oklab,var(--walnut) 18%,transparent)}
+#bridal .rites li:last-child{border-bottom:0}
+#bridal .rites .no{font-family:var(--fl);font-size:.8rem;color:var(--bronze)}
+#bridal .rites .nm{font-weight:500}
+#bridal .rites .ds{font-size:.84rem;color:var(--walnut);opacity:.75;margin-top:.15rem}
+#bridal .go{display:inline-block;margin-top:1.8rem;font-size:.88rem;color:var(--char);
+  border-bottom:1px solid var(--bronze);padding-bottom:.3rem}
+
+/* ══ PRIVATE / HOME — quiet, factual ══ */
+#private{padding-block:var(--air);background:var(--ivory)}
+#private .duo{display:grid;gap:clamp(1.4rem,4vw,3rem);margin-top:clamp(1.8rem,4vw,2.6rem)}
+@media(min-width:860px){#private .duo{grid-template-columns:1fr 1fr}}
+#private .cell{border-top:2px solid var(--char);padding-top:1.2rem}
+#private .cell h3{font-family:var(--fd);font-size:clamp(1.3rem,3.4vw,1.8rem);margin-bottom:.5rem}
+#private .cell p{font-size:.92rem;color:var(--walnut)}
+#private .cell .fine{font-size:.78rem;color:var(--stone);margin-top:.8rem}
+
+/* ══ MEMBERSHIP — the dark chapter ══ */
+#member{background:var(--cocoa,#2B211B);color:var(--ivory);padding-block:var(--air)}
+#member .label{color:var(--bronze)}
+#member h2{font-family:var(--fd);font-size:clamp(2rem,6.2vw,3.9rem);line-height:1.4;
+  margin:1.1rem 0 clamp(2rem,5vw,3rem)}
+#member .tiers{display:grid;gap:1px;background:color-mix(in oklab,var(--bronze) 30%,transparent);
+  border-block:1px solid color-mix(in oklab,var(--bronze) 30%,transparent)}
+@media(min-width:860px){#member .tiers{grid-template-columns:repeat(3,1fr)}}
+#member .tier{background:var(--cocoa,#2B211B);padding:clamp(1.6rem,4vw,2.4rem) clamp(1.2rem,3vw,2rem)}
+#member .tier .nm{font-family:var(--fd);font-size:1.35rem}
+#member .tier .en{font-family:var(--fl);font-size:.78rem;color:var(--bronze);
+  letter-spacing:.22em;text-transform:uppercase;margin-top:.2rem}
+#member .tier ul{list-style:none;margin-top:1.1rem;display:grid;gap:.45rem}
+#member .tier li{font-size:.88rem;opacity:.85;padding-inline-start:1.1rem;position:relative}
+#member .tier li::before{content:"";position:absolute;inset-inline-start:0;top:.68em;
+  width:5px;height:5px;border-radius:50%;background:var(--bronze)}
+#member .go{display:inline-block;margin-top:clamp(1.8rem,4vw,2.4rem);font-size:.88rem;
+  color:var(--ivory);border-bottom:1px solid var(--bronze);padding-bottom:.3rem}
+#member .fine{font-size:.76rem;opacity:.5;margin-top:1rem}
+
+/* ══ TRUST — one line of numbers, spoken once ══ */
+#trust{padding-block:calc(var(--air) * .6);background:var(--ivory);
+  border-block:1px solid color-mix(in oklab,var(--travertine) 62%,transparent)}
+#trust .row3{display:flex;flex-wrap:wrap;gap:clamp(1.4rem,6vw,4rem);align-items:baseline;
+  justify-content:center;text-align:center}
+#trust .v{font-family:var(--fl);font-size:clamp(1.9rem,5.4vw,3rem);color:var(--char);
+  font-variant-numeric:tabular-nums}
+#trust .k{display:block;font-size:.74rem;color:var(--stone);margin-top:.2rem}
+
 @media(prefers-reduced-motion:reduce){#bk .opt,#bk footer .go{transition:none}}
 
 @media(prefers-reduced-motion:reduce){
@@ -585,7 +640,7 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
   <span class="mark" id="nName"></span>
   <span class="set">
     <a href="#story" data-t="nStory"></a><a href="#index" data-t="nIndex"></a>
-    <a href="#gallery" data-t="nGallery"></a><a href="#visit" data-t="nVisit"></a>
+    <a href="#bridal" data-t="nBridal"></a><a href="#gallery" data-t="nGallery"></a><a href="#visit" data-t="nVisit"></a>
   </span>
   <button class="lang" id="langBtn" type="button"><span id="langTxt">EN</span></button>
   <a class="ask" id="ctaNav" href="#"><span data-t="ask"></span></a>
@@ -662,6 +717,64 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
   </div>
 </div></div>
 
+
+
+<section id="trust"><div class="wrap"><div class="row3 rise">
+  <span><span class="v" id="tRate2"></span><span class="k" data-t="tuRate"></span></span>
+  <span><span class="v" id="tRevs2"></span><span class="k" data-t="tuRevs"></span></span>
+  <span><span class="v" id="tFrom2"></span><span class="k" data-t="tuFrom"></span></span>
+</div></div></section>
+
+<section id="bridal"><div class="wrap">
+  <div class="rise">
+    <span class="label" data-t="brdK"></span>
+    <h2 data-t="brdH"></h2>
+    <p class="lead" data-t="brdP"></p>
+    <a class="go" id="ctaBridal" href="#" target="_blank" rel="noopener" data-t="brdGo"></a>
+  </div>
+  <ul class="rites rise">
+    <li><span class="no">01</span><div><div class="nm" data-t="brd1"></div><div class="ds" data-t="brd1d"></div></div></li>
+    <li><span class="no">02</span><div><div class="nm" data-t="brd2"></div><div class="ds" data-t="brd2d"></div></div></li>
+    <li><span class="no">03</span><div><div class="nm" data-t="brd3"></div><div class="ds" data-t="brd3d"></div></div></li>
+    <li><span class="no">04</span><div><div class="nm" data-t="brd4"></div><div class="ds" data-t="brd4d"></div></div></li>
+  </ul>
+</div></section>
+
+<section id="private"><div class="wrap">
+  <div class="rise">
+    <span class="label" data-t="pvK"></span>
+    <h2 class="serif" style="font-size:clamp(2rem,6.2vw,3.9rem);margin:1.1rem 0 0" data-t="pvH"></h2>
+  </div>
+  <div class="duo">
+    <div class="cell rise">
+      <h3 data-t="pv1"></h3><p data-t="pv1p"></p><p class="fine" data-t="pv1f"></p>
+    </div>
+    <div class="cell rise">
+      <h3 data-t="pv2"></h3><p data-t="pv2p"></p><p class="fine" data-t="pv2f"></p>
+    </div>
+  </div>
+</div></section>
+
+<section id="member"><div class="wrap">
+  <span class="label rise" data-t="mbK"></span>
+  <h2 class="rise" data-t="mbH"></h2>
+  <div class="tiers rise">
+    <div class="tier">
+      <div class="nm" data-t="mb1"></div><div class="en">Essential</div>
+      <ul><li data-t="mb1a"></li><li data-t="mb1b"></li><li data-t="mb1c"></li></ul>
+    </div>
+    <div class="tier">
+      <div class="nm" data-t="mb2"></div><div class="en">Signature</div>
+      <ul><li data-t="mb2a"></li><li data-t="mb2b"></li><li data-t="mb2c"></li></ul>
+    </div>
+    <div class="tier">
+      <div class="nm" data-t="mb3"></div><div class="en">Privé</div>
+      <ul><li data-t="mb3a"></li><li data-t="mb3b"></li><li data-t="mb3c"></li></ul>
+    </div>
+  </div>
+  <a class="go rise" id="ctaMember" href="#" target="_blank" rel="noopener" data-t="mbGo"></a>
+  <p class="fine rise" data-t="mbFine"></p>
+</div></section>
 
 <section id="gallery" class="wrap">
   <span class="label rise" data-t="glK"></span>
@@ -793,7 +906,7 @@ var $=function(s){return document.querySelector(s)},
 
 var TXT={
  ar:{lang:"EN",
-  nStory:"الحكاية",nIndex:"الفهرس",nGallery:"المكان",nVisit:"الزيارة",
+  nStory:"الحكاية",nBridal:"العروس",nIndex:"الفهرس",nGallery:"المكان",nVisit:"الزيارة",
   ask:"اطلبي موعدك",scroll:"انزلي",
   stH:"زيارتك عندنا مرتّبة من قبل لا تجين.",
   sg1:"للنساء وحدهنّ",sg2:"بالموعد فقط",sg3:"في {city}",
@@ -832,9 +945,29 @@ var TXT={
   bToday:"اليوم",bTomorrow:"بكرة",bTotal:"الإجمالي التقريبي",bDay:"اليوم المفضل",
   bGuest:"الاسم",bReply:"نرد خلال ساعات العمل — غالباً في أقل من ساعة.",
   bWa1:"السلام عليكم، أبغى أحجز:",bWa2:"اليوم المفضل",bWa3:"الاسم",
-  bNote:"الطلب يُرسل برسالة واتساب عادية من جوالك — ما ننشئ حساب ولا نحفظ بياناتك."},
+  bNote:"الطلب يُرسل برسالة واتساب عادية من جوالك — ما ننشئ حساب ولا نحفظ بياناتك.",
+  tuRate:"تقييم جوجل",tuRevs:"ضيفة قيّمتنا",tuFrom:"الأسعار تبدأ من (ريال)",
+  brdK:"فصل العروس",brdH:"يومكِ الكبير يُحضَّر على مهل",
+  brdP:"نرتّب معك كل شيء قبل الموعد بأسابيع — تجربة كاملة قبل اليوم، وفريق يوصلك أينما كان الحفل.",
+  brdGo:"استشارة عروس على واتساب",
+  brd1:"جلسة تعارف واستشارة",brd1d:"نسمع منك ونجرّب الأفكار قبل أي قرار.",
+  brd2:"بروفة كاملة",brd2d:"شعر ومكياج كما سيكونان في اليوم نفسه.",
+  brd3:"يوم الحفل",brd3d:"فريق مخصص لك وحدك، في الدار أو في القاعة.",
+  brd4:"مرافقة المساء",brd4d:"لمسات التثبيت والتجديد حتى نهاية الحفل — عند الطلب.",
+  pvK:"الخصوصية",pvH:"نصل إليك، أو تكونين وحدك عندنا",
+  pv1:"الخدمة في بيتك",pv1p:"خدمات مختارة نقدمها في منزلك أو في مقر الحفل، بنفس الأدوات ونفس معايير التعقيم.",
+  pv1f:"داخل الرياض — تُؤكَّد التفاصيل والمواعيد على واتساب.",
+  pv2:"الغرفة الخاصة",pv2p:"لمن تفضل العزلة الكاملة: غرفة مستقلة داخل الدار، تُحجز بكاملها لك ولضيفاتك.",
+  pv2f:"بالحجز المسبق فقط.",
+  mbK:"العضوية",mbH:"علاقة، لا بطاقة خصم",
+  mb1:"الأساس",mb1a:"جلسة تصفيف شهرية",mb1b:"أولوية في المواعيد",mb1c:"سعر عضوة على كل الخدمات",
+  mb2:"التوقيع",mb2a:"جلستان شهرياً",mb2b:"استشارة موسمية للشعر والبشرة",mb2c:"طقس عيد الميلاد هدية",
+  mb3:"الخاصة",mb3a:"مواعيد محجوزة لكِ مسبقاً",mb3b:"امتيازات الخدمة المنزلية",mb3c:"الغرفة الخاصة مرتين في الموسم",
+  mbGo:"اسألي عن العضوية",mbFine:"التفاصيل والأسعار تُرسل على واتساب — أرقام هذه الصفحة تجريبية للعرض.",
+  waBridal:"السلام عليكم، أرغب باستشارة عروس.",
+  waMember:"السلام عليكم، أرغب بمعرفة تفاصيل العضوية."},
  en:{lang:"ع",
-  nStory:"Story",nIndex:"Index",nGallery:"Space",nVisit:"Visit",
+  nStory:"Story",nBridal:"Bridal",nIndex:"Index",nGallery:"Space",nVisit:"Visit",
   ask:"Request an appointment",scroll:"Scroll",
   stH:"Your visit is arranged before you arrive.",
   sg1:"Women only",sg2:"By appointment",sg3:"In {city}",
@@ -873,7 +1006,27 @@ var TXT={
   bToday:"Today",bTomorrow:"Tomorrow",bTotal:"Approximate total",bDay:"Preferred day",
   bGuest:"Name",bReply:"We reply during opening hours — usually within the hour.",
   bWa1:"Hello, I would like to book:",bWa2:"Preferred day",bWa3:"Name",
-  bNote:"The request is sent as a normal WhatsApp message from your phone — no account is created and nothing is stored."}
+  bNote:"The request is sent as a normal WhatsApp message from your phone — no account is created and nothing is stored.",
+  tuRate:"Google rating",tuRevs:"guests rated us",tuFrom:"prices from (SAR)",
+  brdK:"The bridal chapter",brdH:"Your day, prepared without hurry",
+  brdP:"We plan everything with you weeks ahead — a full trial before the day, and a team that reaches you wherever the celebration is.",
+  brdGo:"Bridal consultation on WhatsApp",
+  brd1:"Meeting and consultation",brd1d:"We listen and try ideas before any decision.",
+  brd2:"The full trial",brd2d:"Hair and makeup exactly as they will be on the day.",
+  brd3:"The day itself",brd3d:"A team reserved for you alone, at the house or the venue.",
+  brd4:"Evening attendance",brd4d:"Touch-ups through the night — on request.",
+  pvK:"Privacy",pvH:"We come to you, or you have the room to yourself",
+  pv1:"At your home",pv1p:"Selected services brought to your home or venue, with the same tools and the same sterilisation standard.",
+  pv1f:"Within Riyadh — details and timing confirmed on WhatsApp.",
+  pv2:"The private room",pv2p:"For complete seclusion: a separate room inside the house, reserved entirely for you and your guests.",
+  pv2f:"By prior booking only.",
+  mbK:"Membership",mbH:"A relationship, not a discount card",
+  mb1:"Essential",mb1a:"A monthly blow-dry",mb1b:"Priority booking",mb1c:"Member rates on every service",
+  mb2:"Signature",mb2a:"Two sessions a month",mb2b:"A seasonal hair and skin consultation",mb2c:"A birthday ritual, our gift",
+  mb3:"Privé",mb3a:"Appointments held in advance for you",mb3b:"Home-service privileges",mb3c:"The private room twice a season",
+  mbGo:"Ask about membership",mbFine:"Details and prices are sent on WhatsApp — the figures on this page are illustrative.",
+  waBridal:"Hello, I would like a bridal consultation.",
+  waMember:"Hello, I would like the membership details."}
 };
 
 var lang=root.getAttribute("lang")==="en"?"en":"ar";
@@ -992,6 +1145,13 @@ function paint(){
   var msg=(lang==="en"&&C.whatsapp_msg_en)?C.whatsapp_msg_en:C.whatsapp_msg;
   var wa="https://wa.me/"+encodeURIComponent(C.whatsapp)+"?text="+encodeURIComponent(msg||"");
   ["ctaNav","ctaHero","ctaEnd"].forEach(function(id){var e=$("#"+id);if(e)e.href=wa});
+
+  $("#tRate2").textContent=RATE.toFixed(1);
+  $("#tRevs2").textContent=C.reviews_count||"—";
+  $("#tFrom2").textContent=PRICES.length?Math.min.apply(null,PRICES):"—";
+  var waBase="https://wa.me/"+encodeURIComponent(C.whatsapp)+"?text=";
+  $("#ctaBridal").href=waBase+encodeURIComponent(t.waBridal);
+  $("#ctaMember").href=waBase+encodeURIComponent(t.waMember);
 
   $("#vAddr").textContent=F("address")||"—";
   if(C.phone){$("#vPhone").textContent=C.phone;$("#vPhone").href="tel:"+S(C.phone).replace(/\s/g,"")}
