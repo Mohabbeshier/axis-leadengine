@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>صالون نافا · NAVA Salon — جدة</title>
+<meta name="description" content="صالون نافا — صالون وسبا للسيدات في جدة، حي الروضة. الطابق العاشر بإطلالة على المدينة. حجز مباشر عبر واتساب.">
+<meta name="theme-color" content="#17110C">
+<link rel="icon" href="img/logo-avatar.jpg">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="صالون نافا · NAVA Salon — جدة">
+<meta property="og:description" content="صالون وسبا للسيدات · حي الروضة، الطابق العاشر · حجز عبر واتساب">
+<meta property="og:image" content="img/24-lounge-sunset.jpg">
+<meta property="og:locale" content="ar_SA">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400&family=Tajawal:wght@200;300;400;500;700&display=swap">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BeautySalon","name":"صالون نافا","alternateName":"NAVA Salon",
+"image":"img/24-lounge-sunset.jpg","telephone":"+966536464555",
+"address":{"@type":"PostalAddress","streetAddress":"7518 طريق الأمير سعود الفيصل، برج روفان، الدور العاشر","addressLocality":"جدة","addressRegion":"مكة المكرمة","postalCode":"23433","addressCountry":"SA"},
+"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.7","bestRating":"5"},
+"openingHoursSpecification":[
+ {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens":"10:00","closes":"22:00"},
+ {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"12:00","closes":"22:00"}]}
+</script>
+
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   NAVA · Jeddah — bespoke, built on the salon's own photography.
+   Ground and accent are read off their lobby: warm near-black marble,
+   travertine, and the clay-rose their wordmark is carved in.
+   ══════════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#17110C;         /* the marble in shadow            */
+  --ash:#241A13;         /* a raised surface                */
+  --umber:#33251A;       /* hairlines                       */
+  --ivory:#F3EBE0;       /* type                            */
+  --clay:#C08A6A;        /* their carved wordmark           */
+  --gold:#CBA46A;        /* the sunset through the glass    */
+  --stone:#9C8D7F;       /* quiet type                      */
+  --wa:#25D366;
+
+  --fd:"Amiri",serif;                    /* arabic display  */
+  --fe:"Cormorant Garamond",serif;       /* latin display   */
+  --fb:"Tajawal",system-ui,sans-serif;   /* body            */
+
+  --gut:clamp(1.25rem,5vw,4.5rem);
+  --slow:cubic-bezier(.22,.61,.36,1);
+}
+html[lang="en"]{--fd:"Cormorant Garamond",serif}
+
+*{margin:0;padding:0;box-sizing:border-box}
+/* clip, never hidden — hidden makes body a scroll container and silently
+   kills position:sticky on every descendant */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--ivory);font-family:var(--fb);
+  font-weight:300;line-height:1.75;overflow-x:clip;
+  text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--clay);color:var(--ink)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px}
+
+/* tracking is a latin device — it severs joined arabic letters */
+html[lang="en"] .track{letter-spacing:.28em;text-transform:uppercase}
+html[lang="ar"] .track{letter-spacing:normal;word-spacing:.22em}
+.track{font-size:.66rem;font-weight:500;color:var(--clay)}
+
+/* film grain — the photography is 512px wide and grain is what keeps an
+   upscale reading as filmic instead of soft */
+body::after{content:"";position:fixed;inset:0;z-index:400;pointer-events:none;
+  opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ── header ────────────────────────────────────────────────────────── */
+header{position:fixed;top:0;inset-inline:0;z-index:200;
+  display:flex;align-items:center;gap:.9rem;
+  padding:.9rem var(--gut);padding-top:calc(.9rem + env(safe-area-inset-top));
+  transition:background .5s var(--slow),backdrop-filter .5s var(--slow)}
+header.solid{background:color-mix(in oklab,var(--ink) 90%,transparent);
+  backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);
+  border-bottom:1px solid color-mix(in oklab,var(--umber) 70%,transparent)}
+@supports not (backdrop-filter:blur(2px)){header.solid{background:color-mix(in oklab,var(--ink) 97%,transparent)}}
+.wordmark{font-family:var(--fe);font-weight:300;font-size:1.5rem;line-height:1;
+  color:var(--ivory);flex:1;min-width:0}
+.wordmark em{font-style:normal;color:var(--clay)}
+header .lang{font-size:.72rem;font-weight:500;color:var(--stone);
+  padding:.4rem .55rem;border-radius:6px;transition:color .3s}
+header .lang:hover{color:var(--ivory)}
+header .book{font-size:.76rem;font-weight:500;white-space:nowrap;
+  border:1px solid color-mix(in oklab,var(--clay) 55%,transparent);
+  border-radius:999px;padding:.5rem 1.05rem;color:var(--ivory);
+  transition:background .35s var(--slow),border-color .35s var(--slow)}
+header .book:hover{background:color-mix(in oklab,var(--clay) 18%,transparent);border-color:var(--clay)}
+
+/* ── shared scene furniture ────────────────────────────────────────── */
+section{position:relative}
+.wrap{padding-inline:var(--gut)}
+.plate{position:relative;overflow:hidden;background:var(--ash)}
+.plate>img{width:100%;height:100%;object-fit:cover;
+  filter:saturate(1.04) contrast(1.03)}
+.plate .lq{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:blur(18px) saturate(1.2);transform:scale(1.12);z-index:0}
+.plate>img:not(.lq){position:relative;z-index:1;opacity:0;transition:opacity .7s var(--slow)}
+.plate>img.ready{opacity:1}
+
+h2{font-family:var(--fd);font-weight:400;line-height:1.42;
+  font-size:clamp(2rem,7.5vw,3.6rem)}
+html[lang="ar"] h2{line-height:1.5}
+p.body{color:color-mix(in oklab,var(--ivory) 78%,transparent);
+  font-size:clamp(.95rem,3.6vw,1.06rem);max-width:46ch}
+
+/* ── scene 1 · arrival ─────────────────────────────────────────────── */
+#hero{min-height:100svh;display:grid;align-items:end;overflow:hidden}
+#hero .plate{position:absolute;inset:0}
+#hero .plate>img{object-position:center 28%}
+#hero .scrim{position:absolute;inset:0;z-index:2;
+  background:linear-gradient(180deg,rgba(23,17,12,.55) 0%,rgba(23,17,12,.14) 26%,
+             rgba(23,17,12,.58) 56%,rgba(23,17,12,.88) 76%,rgba(23,17,12,.97) 100%)}
+#hero .in{position:relative;z-index:3;padding:0 var(--gut);
+  padding-bottom:calc(3rem + env(safe-area-inset-bottom))}
+#hero .rule{width:52px;height:1px;background:var(--clay);margin-bottom:1.1rem}
+#hero .track{color:color-mix(in oklab,var(--ivory) 88%,transparent)}
+#hero h1{font-family:var(--fe);font-weight:300;line-height:1;
+  font-size:clamp(4.2rem,20vw,9rem);margin:.5rem 0 .1rem;
+  color:var(--ivory)}
+#hero .refined{font-family:var(--fe);font-size:clamp(.9rem,3.6vw,1.15rem);
+  letter-spacing:.42em;text-transform:uppercase;color:var(--gold);
+  padding-inline-start:.42em}
+#hero .ar-sub{font-family:var(--fd);font-size:clamp(1.15rem,4.6vw,1.5rem);
+  color:color-mix(in oklab,var(--ivory) 88%,transparent);margin-top:.9rem}
+#hero .cta{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.8rem;
+  background:var(--wa);color:#06240F;font-weight:700;font-size:.98rem;
+  padding:1rem 1.9rem;border-radius:999px;
+  box-shadow:0 12px 34px -12px rgba(37,211,102,.55);
+  transition:transform .3s var(--slow),box-shadow .3s var(--slow)}
+#hero .cta:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(37,211,102,.65)}
+#hero .cta svg{width:20px;height:20px;fill:currentColor}
+#hero .fine{margin-top:1.05rem;font-size:.78rem;color:var(--stone)}
+.scrollcue{position:absolute;bottom:1.1rem;inset-inline-end:var(--gut);z-index:3;
+  font-size:.6rem;color:var(--stone);opacity:.75}
+html[lang="en"] .scrollcue{writing-mode:vertical-rl;letter-spacing:.3em;
+  text-transform:uppercase}
+html[lang="ar"] .scrollcue{word-spacing:.18em}
+.scrollcue::after{content:"";display:block;width:1px;height:26px;margin:.5rem auto 0;
+  background:linear-gradient(180deg,var(--stone),transparent)}
+html[lang="en"] .scrollcue::after{display:none}
+
+/* ── scene 2 · the floor ───────────────────────────────────────────── */
+#floor{padding-block:clamp(5rem,16vw,9rem)}
+#floor .grid{display:grid;gap:clamp(2rem,7vw,4rem)}
+#floor .plate{aspect-ratio:4/5;border-radius:2px}
+#floor .num{font-family:var(--fe);font-size:.8rem;color:var(--clay)}
+#floor h2{margin:.8rem 0 1.3rem}
+#floor .marks{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.7rem}
+#floor .marks span{font-size:.72rem;color:var(--stone);
+  border:1px solid var(--umber);border-radius:999px;padding:.42rem .95rem}
+@media(min-width:820px){
+  #floor .grid{grid-template-columns:1fr 1fr;align-items:center}
+  #floor .plate{aspect-ratio:3/4}
+}
+
+/* ── scene 3 · services ────────────────────────────────────────────── */
+#svc{padding-block:clamp(4rem,13vw,8rem);background:var(--ash);
+  border-block:1px solid var(--umber)}
+#svc .head{display:flex;align-items:baseline;justify-content:space-between;
+  gap:1rem;margin-bottom:2rem}
+/* 155 services is a wall on a phone. The page shows seven chapters, each
+   opening its own priced sheet — the whole list is there, none of it is
+   in the way. */
+.menu{border-top:1px solid var(--umber)}
+.menu .cat{padding:1.2rem 0}
+.menu .no{font-family:var(--fe);font-size:.75rem;color:var(--clay);
+  min-width:1.9rem;padding-top:.5rem}
+.menu .txt{flex:1;min-width:0}
+.menu .nm{display:block;font-family:var(--fd);
+  font-size:clamp(1.25rem,5vw,1.7rem);line-height:1.35}
+.menu .sub{display:block;font-size:.71rem;color:var(--stone);margin-top:.3rem}
+.menu .pr{font-family:var(--fe);font-size:1rem;color:var(--gold);text-align:end;
+  white-space:nowrap;font-variant-numeric:tabular-nums;padding-top:.35rem}
+/* a price is a number, and it must read the same way in both scripts —
+   without the isolate, bidi reorders "130 – 300 ر.س" by its surroundings */
+.menu .pr,#pl .it .v,.pick .opt .v,.recap div span:last-child{
+  direction:ltr;unicode-bidi:isolate}
+.menu .pr small{display:block;font-family:var(--fb);font-size:.6rem;color:var(--stone)}
+.menu .arw{flex:none;color:var(--clay);font-size:.95rem;padding-top:.55rem}
+html[dir="rtl"] .menu .arw{transform:scaleX(-1)}
+#svc .foot{margin-top:1.6rem;font-size:.8rem;color:var(--stone)}
+
+/* the priced sheet */
+#pl .sheet{max-height:88svh;display:flex;flex-direction:column;padding-bottom:0}
+#pl .plhead{flex:none}
+#pl .kicker{font-size:.66rem;color:var(--clay);margin-bottom:.35rem}
+#pl .find{width:100%;background:var(--ink);border:1px solid var(--umber);
+  border-radius:10px;padding:.7rem .9rem;font-size:.92rem;color:var(--ivory);
+  margin:.2rem 0 1rem}
+#pl .list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  border-top:1px solid var(--umber);overscroll-behavior:contain}
+#pl .it{display:flex;align-items:center;gap:.85rem;width:100%;text-align:start;
+  padding:.8rem 0;color:var(--ivory);
+  border-bottom:1px solid color-mix(in oklab,var(--umber) 65%,transparent)}
+#pl .it .n{flex:1;min-width:0}
+#pl .it .n b{display:block;font-weight:400;font-size:.97rem;line-height:1.4}
+#pl .it .n i{display:block;font-style:normal;font-size:.68rem;color:var(--stone);
+  margin-top:.15rem}
+#pl .it .v{font-family:var(--fe);font-size:.98rem;color:var(--gold);text-align:end;
+  white-space:nowrap;font-variant-numeric:tabular-nums}
+#pl .it .v small{display:block;font-family:var(--fb);font-size:.6rem;color:var(--stone)}
+#pl .it .go{flex:none;width:32px;height:32px;border-radius:50%;font-size:.8rem;
+  border:1px solid var(--umber);color:var(--clay);display:grid;place-items:center;
+  transition:background .3s var(--slow),border-color .3s var(--slow)}
+html[dir="rtl"] #pl .it .go{transform:scaleX(-1)}
+#pl .it:hover .go{border-color:var(--clay);
+  background:color-mix(in oklab,var(--clay) 18%,transparent)}
+.tag{font-size:.55rem;color:var(--ink);background:var(--gold);border-radius:3px;
+  padding:.12rem .32rem;margin-inline-start:.4rem;vertical-align:.12em}
+#pl .none{padding:1.8rem 0;font-size:.86rem;color:var(--stone);text-align:center}
+#pl .plfoot{flex:none;border-top:1px solid var(--umber);font-size:.71rem;
+  color:var(--stone);line-height:1.7;
+  padding:.85rem 0 calc(1.1rem + env(safe-area-inset-bottom))}
+
+/* step 1 of booking: the same list, in picking mode */
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.85rem}
+.chips button{border:1px solid var(--umber);border-radius:999px;
+  padding:.42rem .8rem;font-size:.76rem;color:var(--stone)}
+.chips button[aria-pressed="true"]{background:var(--clay);color:var(--ink);
+  border-color:var(--clay);font-weight:500}
+/* the list runs under the send button; the fade says "there is more"
+   instead of leaving a row sliced in half */
+.pick{max-height:42svh;overflow-y:auto;overscroll-behavior:contain;
+  -webkit-mask-image:linear-gradient(180deg,#000 88%,transparent);
+  mask-image:linear-gradient(180deg,#000 88%,transparent)}
+.pick .opt{display:flex;justify-content:space-between;align-items:center;gap:.8rem;
+  width:100%;text-align:start;padding:.68rem .8rem;font-size:.9rem;
+  border:1px solid var(--umber);border-radius:10px;margin-bottom:.4rem;color:var(--ivory)}
+.pick .opt .v{font-family:var(--fe);color:var(--gold);white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.pick .opt[aria-pressed="true"]{background:var(--clay);color:var(--ink);border-color:var(--clay)}
+.pick .opt[aria-pressed="true"] .v{color:var(--ink)}
+
+/* ── scene 4 · what we work with ───────────────────────────────────── */
+#house{padding-block:clamp(5rem,15vw,9rem)}
+#house .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;
+  margin-top:clamp(1.8rem,5vw,3rem)}
+#house .strip .plate{aspect-ratio:4/5}
+#house .brands{display:flex;flex-wrap:wrap;gap:.55rem 1.6rem;margin-top:1.8rem;
+  font-family:var(--fe);font-size:1.05rem;letter-spacing:.16em;
+  text-transform:uppercase;color:color-mix(in oklab,var(--ivory) 72%,transparent)}
+
+/* ── scene 5 · gallery ─────────────────────────────────────────────── */
+#gal{padding-block:0 clamp(4rem,12vw,7rem)}
+#gal .mosaic{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}
+#gal .mosaic .plate{aspect-ratio:4/5;cursor:zoom-in}
+#gal .mosaic .plate:first-child{grid-column:1/-1;aspect-ratio:1/1}
+@media(min-width:820px){
+  #gal .mosaic{grid-template-columns:repeat(3,1fr)}
+  #gal .mosaic .plate:first-child{grid-column:1/3;aspect-ratio:8/7}
+}
+
+/* ── scene 6 · standing ────────────────────────────────────────────── */
+#rating{padding-block:clamp(4rem,12vw,7rem);text-align:center;
+  border-top:1px solid var(--umber)}
+#rating .score{font-family:var(--fe);font-size:clamp(4rem,17vw,7rem);
+  line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+#rating .stars{color:var(--gold);font-size:1rem;letter-spacing:.28em;margin-top:.6rem}
+#rating .src{margin-top:.9rem;font-size:.82rem;color:var(--stone)}
+
+/* ── scene 7 · visit ───────────────────────────────────────────────── */
+#visit{padding-block:clamp(4rem,12vw,8rem) 0;background:var(--ash);
+  border-top:1px solid var(--umber)}
+#visit .cols{margin-top:2rem;border-top:1px solid var(--umber)}
+#visit dt{font-size:.7rem;color:var(--clay);margin-bottom:.4rem}
+html[lang="en"] #visit dt{letter-spacing:.22em;text-transform:uppercase}
+#visit dd{font-size:.98rem;line-height:1.9}
+#visit dd a{border-bottom:1px solid var(--umber);padding-bottom:2px}
+#visit .plate{aspect-ratio:16/9;margin-top:clamp(2.5rem,8vw,4rem)}
+
+
+/* ── closing ───────────────────────────────────────────────────────── */
+#close{padding-block:clamp(5rem,15vw,9rem) clamp(3rem,9vw,5rem);text-align:center}
+#close .cta{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.8rem;
+  background:var(--wa);color:#06240F;font-weight:700;font-size:1rem;
+  padding:1.05rem 2.1rem;border-radius:999px}
+#close .cta svg{width:20px;height:20px;fill:currentColor}
+footer{padding:1.6rem var(--gut) calc(1.6rem + env(safe-area-inset-bottom));
+  border-top:1px solid var(--umber);display:flex;flex-wrap:wrap;
+  gap:.6rem 1.2rem;align-items:center;justify-content:space-between;
+  font-size:.72rem;color:var(--stone)}
+footer .built{opacity:.72}
+
+/* ── booking dialog ────────────────────────────────────────────────── */
+dialog{border:0;padding:0;background:transparent;max-width:100%;max-height:100%}
+dialog::backdrop{background:rgba(10,7,4,.82);backdrop-filter:blur(6px)}
+.sheet:focus,.sheet:focus-visible{outline:none}
+.sheet{background:var(--ash);color:var(--ivory);width:min(480px,100vw);
+  border:1px solid var(--umber);border-radius:20px 20px 0 0;
+  padding:1.5rem var(--gut) calc(1.5rem + env(safe-area-inset-bottom));
+  position:fixed;inset-inline:0;bottom:0;margin:0 auto;
+  max-height:88svh;overflow-y:auto}
+dialog[open] .sheet{animation:sheetUp .42s var(--slow) both}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+.sheet .bar{display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;margin-bottom:1.2rem}
+.sheet h3{font-family:var(--fd);font-weight:400;font-size:1.4rem}
+.sheet .x{font-size:1.5rem;line-height:1;color:var(--stone);padding:.2rem .5rem}
+.steps{display:flex;gap:.35rem;margin-bottom:1.4rem}
+.steps i{height:2px;flex:1;background:var(--umber);border-radius:2px;
+  transition:background .4s var(--slow)}
+.steps i.on{background:var(--clay)}
+.q{font-size:.82rem;color:var(--stone);margin-bottom:.9rem}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem}
+.opts button{border:1px solid var(--umber);border-radius:10px;
+  padding:.7rem 1.05rem;font-size:.88rem;
+  transition:border-color .3s,background .3s}
+.opts button:hover{border-color:var(--clay)}
+.opts button[aria-pressed="true"]{background:var(--clay);color:var(--ink);
+  border-color:var(--clay);font-weight:500}
+.sheet input{width:100%;background:var(--ink);border:1px solid var(--umber);
+  border-radius:10px;padding:.85rem 1rem;font-size:1rem;color:var(--ivory)}
+.sheet input::placeholder{color:color-mix(in oklab,var(--stone) 80%,transparent)}
+.nav{display:flex;gap:.6rem;margin-top:1.5rem}
+.nav .send{flex:1;background:var(--wa);color:#06240F;font-weight:700;
+  border-radius:999px;padding:.95rem;display:flex;align-items:center;
+  justify-content:center;gap:.5rem}
+.nav .send svg{width:18px;height:18px;fill:currentColor}
+.nav .send[disabled]{opacity:.4;cursor:not-allowed}
+.nav .back{border:1px solid var(--umber);border-radius:999px;padding:.95rem 1.4rem;
+  font-size:.88rem;color:var(--stone)}
+.recap{background:var(--ink);border:1px solid var(--umber);border-radius:12px;
+  padding:1rem 1.1rem;font-size:.9rem}
+.recap div{display:flex;justify-content:space-between;gap:1rem;padding:.28rem 0}
+.recap div span:last-child{color:var(--gold);text-align:end}
+.sheet .fine{margin-top:.9rem;font-size:.72rem;color:var(--stone);text-align:center}
+
+/* lightbox */
+#lb .sheet{background:transparent;border:0;border-radius:0;padding:0;
+  position:static;max-height:none;width:min(760px,100vw)}
+#lb img{width:100%;height:auto;border-radius:4px}
+#lb .x{position:fixed;top:calc(1rem + env(safe-area-inset-top));
+  inset-inline-end:1rem;font-size:2rem;color:var(--ivory);z-index:2}
+
+/* ══ progressive disclosure — one system, four surfaces ═══════════════
+   Every collapsible thing on this page shares the same three parts: a
+   summary row that is always readable, a chevron that turns, and a panel
+   that opens on a grid row (0fr→1fr) instead of a measured pixel height.
+   The grid trick matters here: the panels hold Arabic and English at two
+   different type sizes, so any hard-coded max-height would be wrong in
+   one language or the other. Engines without grid-row interpolation still
+   collapse correctly, they just don't animate. ─────────────────────── */
+a[dir="ltr"]{direction:ltr;unicode-bidi:isolate;display:inline-block}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.disc{border-bottom:1px solid var(--umber)}
+.disc-b{display:flex;align-items:flex-start;gap:1rem;width:100%;
+  text-align:start;color:var(--ivory);
+  transition:padding-inline-start .35s var(--slow)}
+.disc-b:hover{padding-inline-start:.4rem}
+.chev{flex:none;width:24px;height:24px;display:grid;place-items:center;
+  color:var(--clay);transition:transform .44s var(--slow)}
+.chev svg{width:13px;height:13px}
+[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.disc-p{display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows .44s var(--slow)}
+.disc-p>.inner{overflow:hidden;min-height:0}
+.disc-p.open{grid-template-rows:1fr}
+
+/* the peek: six services under an open chapter, then the way to all of them */
+.peek{padding-bottom:1.35rem}
+.peek .p-row{display:flex;align-items:center;gap:.9rem;width:100%;text-align:start;
+  padding:.6rem 0;color:color-mix(in oklab,var(--ivory) 88%,transparent);
+  border-top:1px solid color-mix(in oklab,var(--umber) 55%,transparent)}
+.peek .p-row .nm2{flex:1;min-width:0;font-size:.92rem;line-height:1.5}
+.peek .p-row .v{font-family:var(--fe);font-size:.92rem;color:var(--gold);
+  white-space:nowrap;font-variant-numeric:tabular-nums;
+  direction:ltr;unicode-bidi:isolate}
+.peek .more{display:flex;align-items:center;justify-content:space-between;
+  gap:.8rem;width:100%;margin-top:1rem;padding:.8rem 1.05rem;border-radius:11px;
+  font-size:.83rem;color:var(--ivory);
+  border:1px solid color-mix(in oklab,var(--clay) 45%,transparent);
+  transition:background .35s var(--slow)}
+.peek .more:hover{background:color-mix(in oklab,var(--clay) 15%,transparent)}
+.peek .more .arw2{color:var(--clay);font-size:.95rem}
+html[dir="rtl"] .peek .more .arw2{transform:scaleX(-1)}
+
+/* the visit, as three panels instead of three columns */
+#visit .disc-b{padding:1.15rem 0;align-items:baseline}
+#visit .disc-b .lbl{flex:1;min-width:0}
+#visit .disc-b .lbl b{display:block;font-weight:400;font-size:.7rem;color:var(--clay)}
+html[lang="en"] #visit .disc-b .lbl b{letter-spacing:.22em;text-transform:uppercase}
+#visit .disc-b .lbl span{display:block;margin-top:.35rem;font-size:.95rem;
+  color:color-mix(in oklab,var(--ivory) 82%,transparent)}
+#visit .body2{padding-bottom:1.3rem;font-size:.95rem;line-height:1.95;
+  color:color-mix(in oklab,var(--ivory) 88%,transparent)}
+#visit .body2 a{border-bottom:1px solid var(--umber);padding-bottom:2px}
+
+/* the gallery keeps three frames on show and folds the rest away */
+#gal .rest{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}
+#gal .rest .plate{aspect-ratio:4/5;cursor:zoom-in}
+@media(min-width:820px){#gal .rest{grid-template-columns:repeat(3,1fr)}}
+#gal .fold{display:flex;align-items:center;justify-content:center;gap:.6rem;
+  width:100%;margin-top:1.1rem;padding:.9rem;border-radius:999px;font-size:.84rem;
+  color:var(--ivory);border:1px solid var(--umber);
+  transition:border-color .35s var(--slow)}
+#gal .fold:hover{border-color:var(--clay)}
+
+/* ══ off-canvas drawer, and the same drawer pinned open on a desktop ══ */
+header .burger{flex:none;width:38px;height:38px;display:grid;place-items:center;
+  border-radius:999px;color:var(--ivory);
+  border:1px solid color-mix(in oklab,var(--umber) 95%,transparent);
+  transition:border-color .35s var(--slow),background .35s var(--slow)}
+header .burger:hover{border-color:var(--clay);
+  background:color-mix(in oklab,var(--clay) 12%,transparent)}
+header .burger svg{width:17px;height:17px}
+
+#drawer{position:fixed;inset:0;width:100%;height:100%;max-width:100%;max-height:100%}
+#drawer .panel{position:fixed;inset-block:0;inset-inline-start:0;
+  width:min(86vw,332px);background:var(--ash);overflow-y:auto;
+  border-inline-end:1px solid var(--umber);
+  padding:calc(1.3rem + env(safe-area-inset-top)) 1.45rem
+          calc(1.3rem + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;--from:-100%}
+html[dir="rtl"] #drawer .panel{--from:100%}
+#drawer .panel:focus,#drawer .panel:focus-visible{outline:none}
+#drawer[open] .panel{animation:drawerIn .44s var(--slow) both}
+@keyframes drawerIn{from{transform:translateX(var(--from))}to{transform:none}}
+#drawer .top{display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;margin-bottom:1.5rem}
+#drawer .top .k{font-size:.66rem;color:var(--clay)}
+#drawer .top .x{font-size:1.5rem;line-height:1;color:var(--stone);padding:.2rem .5rem}
+#drawer .idx a{display:flex;align-items:baseline;gap:.8rem;padding:.78rem 0;
+  font-family:var(--fd);font-size:1.08rem;color:var(--ivory);
+  border-bottom:1px solid color-mix(in oklab,var(--umber) 60%,transparent);
+  transition:color .3s var(--slow),padding-inline-start .3s var(--slow)}
+#drawer .idx a:hover{padding-inline-start:.35rem}
+#drawer .idx a i{font-style:normal;font-family:var(--fe);font-size:.68rem;
+  color:var(--clay);min-width:1.3rem}
+#drawer .idx a[aria-current="true"]{color:var(--gold)}
+#drawer .foot{margin-top:auto;padding-top:1.5rem;display:grid;gap:.85rem}
+#drawer .foot .line{font-size:.8rem;color:var(--stone)}
+#drawer .foot .line a{color:var(--ivory)}
+#drawer .foot .cta{display:flex;align-items:center;justify-content:center;gap:.55rem;
+  background:var(--wa);color:#06240F;font-weight:700;font-size:.9rem;
+  padding:.9rem;border-radius:999px}
+#drawer .foot .cta svg{width:17px;height:17px;fill:currentColor}
+
+/* Wide screens get the same markup as a rail that stays put. show() rather
+   than showModal(): no backdrop, no focus trap, the page still scrolls. */
+html.rail #drawer{pointer-events:none}
+html.rail #drawer .panel{pointer-events:auto;animation:none}
+html.rail #drawer::backdrop{background:transparent;backdrop-filter:none}
+@media(min-width:1100px){
+  html.rail-open body{padding-inline-start:332px}
+  html.rail-open header{inset-inline-start:332px}
+}
+
+/* ── motion ────────────────────────────────────────────────────────── */
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes uncover{from{opacity:0;clip-path:inset(7% 0 7% 0)}to{opacity:1;clip-path:inset(0)}}
+@keyframes settle{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+header{animation:settle 1.1s var(--slow) .5s both}
+.in-1{animation:rise 1.1s var(--slow) .35s both}
+.in-2{animation:rise 1.1s var(--slow) .55s both}
+.in-3{animation:rise 1.1s var(--slow) .75s both}
+.in-4{animation:rise 1.1s var(--slow) .95s both}
+#hero .plate>img{animation:uncover 2.4s var(--slow) both}
+
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    .rv{animation:rise .9s linear both;animation-timeline:view();
+      animation-range:entry 10% entry 100%}
+    .uc{animation:uncover 1s linear both;animation-timeline:view();
+      animation-range:entry 0% entry 90%}
+  }
+}
+/* the safety net: once an element reaches the middle band it is painted,
+   regardless of what the scroll timeline resolved to */
+.rv.seen,.uc.seen{animation:none!important;opacity:1!important;
+  transform:none!important;clip-path:none!important}
+/* fallback for engines without scroll-driven animations */
+@supports not (animation-timeline:view()){
+  .rv,.uc{opacity:0;transform:translateY(22px);
+    transition:opacity .85s var(--slow),transform .85s var(--slow)}
+  .rv.seen,.uc.seen{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;
+    transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .rv,.uc{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="wa" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.87 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></symbol><symbol id="chev" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="bars" viewBox="0 0 24 24"><path d="M3 6.5h18M3 12h18M3 17.5h13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol></svg>
+
+<header id="hdr">
+  <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="drawer">
+    <svg aria-hidden="true"><use href="#bars"/></svg><span class="sr" data-t="index"></span>
+  </button>
+  <a class="wordmark" href="#hero">Nava</a>
+  <button class="lang" id="langBtn" type="button">EN</button>
+  <button class="book" type="button" data-open><span data-t="book"></span></button>
+</header>
+
+<!-- ══ 1 · الوصول ══════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="plate"><img id="heroImg" alt="ردهة صالون نافا عند الغروب، جدة من الطابق العاشر" fetchpriority="high"></div>
+  <div class="scrim"></div>
+  <div class="in">
+    <div class="rule in-1"></div>
+    <div class="track in-1" data-t="place"></div>
+    <h1 class="in-2">Nava</h1>
+    <div class="refined in-2">Beauty Refined</div>
+    <div class="ar-sub in-3" data-t="heroSub"></div>
+    <a class="cta in-4" data-open href="#"><svg aria-hidden="true"><use href="#wa"/></svg><span data-t="ctaHero"></span></a>
+    <div class="fine in-4" data-t="heroFine"></div>
+  </div>
+  <div class="scrollcue" data-t="scroll"></div>
+</section>
+
+<!-- ══ 2 · الطابق ══════════════════════════════════════════════════ -->
+<section id="floor" class="wrap">
+  <div class="grid">
+    <div class="plate uc"><img data-src="25-window-orchid.jpg" alt="مكتب استقبال نافا المنحوت وإطلالة جدة من الزجاج" loading="lazy" decoding="async"></div>
+    <div class="rv">
+      <div class="num">01</div>
+      <h2 data-t="floorH"></h2>
+      <p class="body" data-t="floorP"></p>
+      <div class="marks">
+        <span data-t="m1"></span><span data-t="m2"></span><span data-t="m3"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 3 · الخدمات ═════════════════════════════════════════════════ -->
+<section id="svc" class="wrap">
+  <div class="head rv">
+    <h2 data-t="svcH"></h2>
+    <span class="track" data-t="svcK"></span>
+  </div>
+  <div class="menu rv" id="menu"></div>
+  <div class="foot rv" id="svcFoot"></div>
+</section>
+
+<!-- ══ 4 · ما نعمل به ══════════════════════════════════════════════ -->
+<section id="house" class="wrap">
+  <div class="rv">
+    <div class="track" data-t="houseK"></div>
+    <h2 data-t="houseH" style="margin-top:.7rem"></h2>
+    <p class="body" style="margin-top:1.1rem" data-t="houseP"></p>
+    <div class="brands">
+      <span>Kérastase</span><span>Dior</span><span>Color WOW</span>
+    </div>
+  </div>
+  <div class="strip">
+    <div class="plate uc"><img data-src="17-kerastase.jpg" alt="منتجات كيراستاس في نافا" loading="lazy" decoding="async"></div>
+    <div class="plate uc"><img data-src="26-dior-detail.jpg" alt="تفاصيل ديور في نافا" loading="lazy" decoding="async"></div>
+    <div class="plate uc"><img data-src="18-wow.jpg" alt="منتجات كولور واو في نافا" loading="lazy" decoding="async"></div>
+  </div>
+</section>
+
+<!-- ══ 5 · المعرض ══════════════════════════════════════════════════ -->
+<section id="gal" class="wrap">
+  <div class="track rv" style="margin-bottom:1.2rem" data-t="galK"></div>
+  <div class="mosaic" id="mosaic"></div>
+  <div class="disc-p" id="galPanel"><div class="inner">
+    <div class="rest" id="galRest"></div>
+  </div></div>
+  <button class="fold" id="galFold" type="button" aria-expanded="false" aria-controls="galPanel">
+    <span data-t="showAll"></span><span class="chev"><svg aria-hidden="true"><use href="#chev"/></svg></span>
+  </button>
+</section>
+
+<!-- ══ 6 · التقييم ═════════════════════════════════════════════════ -->
+<section id="rating" class="wrap">
+  <div class="rv">
+    <div class="score">4.7</div>
+    <div class="stars" aria-hidden="true">★★★★★</div>
+    <div class="src" data-t="ratingSrc"></div>
+  </div>
+</section>
+
+<!-- ══ 7 · الزيارة ═════════════════════════════════════════════════ -->
+<section id="visit" class="wrap">
+  <h2 class="rv" data-t="visitH"></h2>
+  <div class="cols rv" id="visitCols"></div>
+  <div class="plate uc"><img data-src="24-lounge-sunset.jpg" alt="ردهة نافا عند الغروب" loading="lazy" decoding="async"></div>
+</section>
+
+<!-- ══ 8 · الختام ══════════════════════════════════════════════════ -->
+<section id="close" class="wrap">
+  <h2 class="rv" data-t="closeH"></h2>
+  <p class="body rv" style="margin:1rem auto 0" data-t="closeP"></p>
+  <a class="cta rv" data-open href="#"><svg aria-hidden="true"><use href="#wa"/></svg><span data-t="ctaClose"></span></a>
+</section>
+
+<footer>
+  <span>© <span id="yr"></span> صالون نافا · NAVA Salon — جدة</span>
+  <span class="built">Axis Marketing Agency</span>
+</footer>
+
+<!-- ══ booking ═════════════════════════════════════════════════════ -->
+<dialog id="bk">
+  <form method="dialog" class="sheet" tabindex="-1">
+    <div class="bar">
+      <h3 data-t="bkTitle"></h3>
+      <button class="x" value="close" aria-label="إغلاق">&times;</button>
+    </div>
+    <div class="steps"><i class="on"></i><i></i><i></i></div>
+    <div id="bkBody"></div>
+    <div class="nav">
+      <button type="button" class="back" id="bkBack" hidden data-t="back"></button>
+      <button type="button" class="send" id="bkNext"><span data-t="next"></span></button>
+    </div>
+    <div class="fine" data-t="bkFine"></div>
+  </form>
+</dialog>
+
+<!-- ══ index drawer ════════════════════════════════════════════════ -->
+<dialog id="drawer">
+  <div class="panel" tabindex="-1">
+    <div class="top">
+      <div>
+        <div class="k" data-t="index"></div>
+        <div class="wordmark">Nava</div>
+      </div>
+      <button class="x" id="drawerX" type="button" aria-label="إغلاق">&times;</button>
+    </div>
+    <nav class="idx" id="drawerIdx"></nav>
+    <div class="foot">
+      <div class="line" data-t="drawerHours"></div>
+      <div class="line"><a id="drawerTel" href="#"></a></div>
+      <div class="line"><a id="drawerIg" dir="ltr" href="#" target="_blank" rel="noopener">@navasalon.sa</a></div>
+      <button class="cta" type="button" data-open>
+        <svg aria-hidden="true"><use href="#wa"/></svg><span data-t="book"></span>
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<!-- ══ price sheet ═════════════════════════════════════════════════ -->
+<dialog id="pl">
+  <form method="dialog" class="sheet" tabindex="-1">
+    <div class="plhead">
+      <div class="bar">
+        <div>
+          <div class="kicker" id="plKicker"></div>
+          <h3 id="plTitle"></h3>
+        </div>
+        <button class="x" value="close" aria-label="إغلاق">&times;</button>
+      </div>
+      <input class="find" id="plFind" type="search" autocomplete="off">
+    </div>
+    <div class="list" id="plList"></div>
+    <div class="plfoot" id="plFoot"></div>
+  </form>
+</dialog>
+
+<dialog id="lb">
+  <form method="dialog" class="sheet" tabindex="-1">
+    <button class="x" value="close" aria-label="إغلاق">&times;</button>
+    <img id="lbImg" alt="">
+  </form>
+</dialog>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════
+   NAVA — real data only. Every value below is either published by the
+   salon or confirmed by the owner. Nothing here is invented.
+   ══════════════════════════════════════════════════════════════════════ */
+var CONFIG = {
+  name_ar:"صالون نافا", name_en:"NAVA Salon",
+  wa:"966536464555",
+  phone_display:"٠٥٣ ٦٤٦ ٤٥٥٥",
+  addr_ar:"طريق الأمير سعود الفيصل، حي الروضة — برج روفان، الدور العاشر، جدة",
+  addr_en:"Prince Saud Al Faisal Rd, Ar Rawdah — Roffan Tower, 10th floor, Jeddah",
+  maps:"https://maps.google.com/?q=Nava+Salon+Jeddah",
+  instagram:"https://instagram.com/navasalon.sa",
+  rating:"4.7",
+  /* ── the menu ──────────────────────────────────────────────────────
+     155 services, transcribed from Nava's own published price list
+     (the salon's five price cards). Nothing here is estimated.
+       p:300      one price
+       p:[130,300] a range, low to high, as their card prints it
+       f:1        "from" — the specialist sets the final price
+       d:"50 د"   duration, where their card states one
+     ─────────────────────────────────────────────────────────────── */
+  menu:[
+   {k:"hair", ar:"العناية بالشعر", en:"Hair Services", items:[
+    {a:"غسيل الشعر", e:"Hair wash", p:30},
+    {a:"سشوار", e:"Blowdry", p:[130,300]},
+    {a:"فير", e:"Ferre", p:[180,350]},
+    {a:"تسريحة", e:"Hairstyle", p:[350,600]},
+    {a:"تسريحة كيرلي", e:"Curly hairstyle", p:[500,700]},
+    {a:"تسريحة شعر أطفال", e:"Children styling", p:[200,350]},
+    {a:"تركيب إكسسوارات", e:"Accessories installation", p:[100,500]},
+    {a:"إضافة إكستنشن كلبس", e:"Add extension clips", p:100},
+    {a:"قص شعر كامل", e:"Full hair cut", p:230},
+    {a:"قص أطراف", e:"Trimming", p:160},
+    {a:"قص غرة", e:"Fringe cut", p:50},
+    {a:"قص شعر مكينة", e:"Haircut — clippers", p:300},
+    {a:"كنتور غرة", e:"Fringe highlight", p:230},
+    {a:"هايلايت / لولايت / أومبريه", e:"Highlight / lowlight / ombré", p:[750,2500]},
+    {a:"صبغة شعر كامل", e:"Full hair colour", p:[400,1000]},
+    {a:"صبغة كاملة بدون أمونيا", e:"Full colour, ammonia-free", p:[400,1000]},
+    {a:"صبغة جذور", e:"Roots colour", p:[300,350]},
+    {a:"رينساج", e:"Rinsage", p:400},
+    {a:"تركيب إكستنشن", e:"Hair extensions", p:575, f:1},
+    {a:"صيانة إكستنشن", e:"Extension fix", p:575, f:1},
+    {a:"إزالة إكستنشن", e:"Extensions removal", p:575, f:1},
+    {a:"معالج Dr.AN بي بي تاتش", e:"Dr.AN BB touch treatment", p:[800,3000]},
+    {a:"جلسة Dr.AN المعالج", e:"Dr.AN softening treatment", p:[800,3000]},
+    {a:"معالجات كيراستاس للشعر", e:"Kérastase hair treatment", p:[300,400]},
+    {a:"جلسة أورجانيك تريتمنت", e:"Organic treatment", p:500},
+    {a:"معالج تنعيم K18", e:"K18 therapist session", p:160},
+    {a:"جلسة ترطيب الخلايا الجذعية بالذهب أو الفضة", e:"Stem cell hydration, gold or silver", p:300},
+    {a:"أولابلكس", e:"Olaplex", p:50},
+    {a:"أمبول فيزيودوز", e:"Physiodose ampoule", p:175},
+    {a:"أمبول بوتكس", e:"Botox ampoule", p:200},
+    {a:"أمبول حماية", e:"Protective ampoule", p:200},
+    {a:"ديتوكس لفروة الشعر", e:"Scalp detox", p:300},
+    {a:"تنظيف عميق لفروة الشعر", e:"Hair scalp deep cleaning", p:650}
+   ]},
+   {k:"skin", ar:"العناية بالبشرة", en:"Facial Services", items:[
+    {a:"هيدرافيشل كلاسيك", e:"Classic hydrafacial", p:300},
+    {a:"هيدرافيشل عميق", e:"Deep hydrafacial", p:550},
+    {a:"هيدرافيشل كلاسيك للظهر", e:"Back classic hydrafacial", p:399},
+    {a:"هيدرافيشل لفروة الشعر", e:"Hydrafacial — hair scalp", p:[600,800]},
+    {a:"جلسة تفتيح فيتامين سي", e:"Vitamin C session", p:700},
+    {a:"جلسة الشد بالكولاجين", e:"Collagen tightening session", p:500},
+    {a:"جلسة النظارة بالذهب", e:"Gold glasses session", p:600},
+    {a:"علاج حب الشباب", e:"Acne treatment", p:550}
+   ]},
+   {k:"nails", ar:"العناية بالأظافر", en:"Nail Services", items:[
+    {a:"قص وبرد يد", e:"Cut & file — hands", p:55},
+    {a:"قص وبرد قدم", e:"Cut & file — feet", p:55},
+    {a:"تنظيف كلاسيك لليدين", e:"Classic manicure", p:130},
+    {a:"تنظيف كلاسيك للقدمين", e:"Classic pedicure", p:130},
+    {a:"تنظيف كلاسيك لليدين والقدمين", e:"Classic manicure & pedicure", p:260},
+    {a:"تنظيف نافا لليدين", e:"Nava manicure", p:140},
+    {a:"تنظيف نافا للقدمين", e:"Nava pedicure", p:140},
+    {a:"تنظيف نافا لليدين والقدمين", e:"Nava manicure & pedicure", p:280},
+    {a:"تنظيف روسي لليدين", e:"Russian manicure", p:130},
+    {a:"تنظيف روسي للقدمين", e:"Russian pedicure", p:130},
+    {a:"تنظيف روسي لليدين والقدمين", e:"Russian manicure & pedicure", p:260},
+    {a:"تنظيف لاكجري للعرايس بالذهب لليدين", e:"Luxury gold bridal manicure", p:175, tag:1},
+    {a:"تنظيف لاكجري للعرايس بالذهب للقدمين", e:"Luxury gold bridal pedicure", p:175, tag:1},
+    {a:"تنظيف VIP شانيل / ديور / بيريدو لليدين", e:"VIP manicure — Chanel / Dior / Byredo", p:200},
+    {a:"تنظيف VIP شانيل / ديور / بيريدو للقدمين", e:"VIP pedicure — Chanel / Dior / Byredo", p:200},
+    {a:"تنظيف VIP لليدين والقدمين", e:"VIP manicure & pedicure", p:400},
+    {a:"لون أظافر يد", e:"Hand nails colour", p:35},
+    {a:"لون أظافر قدم", e:"Feet nails colour", p:35},
+    {a:"لون أظافر يد فرنش", e:"Hand nails french colour", p:57},
+    {a:"لون أظافر قدم فرنش", e:"Feet nails french colour", p:57},
+    {a:"لون أظافر شانيل", e:"Nail polish — Chanel", p:70},
+    {a:"لون أظافر ديور", e:"Nail polish — Dior", p:70},
+    {a:"لون أظافر هيرميس", e:"Nail polish — Hermès", p:70},
+    {a:"لون أظافر إنفينيت شاين", e:"Infinite shine nail colour", p:65},
+    {a:"لون جل يد أو قدم", e:"Gel colour, hands or feet", p:200},
+    {a:"لون أظافر يد فرنش جل", e:"Hand nails french gel", p:300},
+    {a:"لون أظافر قدم فرنش جل", e:"Feet nails french gel", p:300},
+    {a:"لون كروم (جل)", e:"Chrome (gel)", p:300},
+    {a:"لون أومبريه (جل)", e:"Ombré (gel)", p:350},
+    {a:"كات آي (جل)", e:"Cat eye (gel)", p:300},
+    {a:"سوفت جل", e:"Soft gel", p:350},
+    {a:"جل أوفرلي", e:"Gel overlay", p:350},
+    {a:"تركيب أظافر جل", e:"Gel nails extension", p:590},
+    {a:"تركيب أظافر أكريلك", e:"Acrylic nails extension", p:590},
+    {a:"تركيب أظافر من الصالون", e:"Artificial nails from salon", p:150},
+    {a:"تركيب أظافر من العميلة", e:"Artificial nails from customer", p:115},
+    {a:"تركيب ظفر واحد", e:"Single artificial nail", p:30},
+    {a:"رسم ظفر واحد", e:"Nail art — one nail", p:20},
+    {a:"رسم كامل أظافر اليدين", e:"Nail art — full hands", p:200},
+    {a:"إعادة تعبئة جل أو أكريلك", e:"Refill — acrylic or gel", p:[350,400]},
+    {a:"إعادة تعبئة جل أوفرلي", e:"Refill — gel overlay", p:350},
+    {a:"إعادة تعبئة لون جل", e:"Refill — gel colour", p:200},
+    {a:"إزالة أكريلك / جل إكستنشن", e:"Acrylic / gel removal", p:200},
+    {a:"إزالة لون جل", e:"Gel colour removal", p:95},
+    {a:"إزالة أظافر صناعية", e:"Artificial nail removal", p:60},
+    {a:"إزالة الأظافر الغارزة", e:"Ingrown nail removal", p:50},
+    {a:"بارافين لليدين", e:"Paraffin — hands", p:150},
+    {a:"بارافين للقدمين", e:"Paraffin — feet", p:150},
+    {a:"بيدكس للقدمين", e:"Pedex for feet", p:230}
+   ]},
+   {k:"lash", ar:"المكياج والرموش", en:"Makeup & Lashes", items:[
+    {a:"مكياج ورموش", e:"Make-up with lashes", p:[400,600]},
+    {a:"مكياج أطفال", e:"Kids make-up", p:[200,350]},
+    {a:"كريم أساس الجسم", e:"Body foundation", p:230},
+    {a:"آيلاينر", e:"Eyeliner", p:100},
+    {a:"رموش من الصالون", e:"Eyelashes from salon", p:175},
+    {a:"رموش طرف", e:"Eyelashes at the edge", p:350},
+    {a:"رفع رموش", e:"Eyelashes lifting", p:300},
+    {a:"إزالة الرموش", e:"Eyelashes removal", p:150},
+    {a:"رموش روسية", e:"Russian eyelashes", p:700},
+    {a:"تعبئة رموش روسية", e:"Refill — Russian eyelashes", p:[300,380]},
+    {a:"رموش أسبوعية", e:"Weekly eyelashes", p:230},
+    {a:"رموش شهرية كلاسيك", e:"Classic monthly eyelashes", p:450},
+    {a:"تعبئة رموش شهرية كلاسيك", e:"Refill — classic monthly", p:[200,280]},
+    {a:"رموش شهرية فوليوم", e:"Volume monthly eyelashes", p:650},
+    {a:"تعبئة رموش شهرية فوليوم", e:"Refill — volume monthly", p:[300,380]},
+    {a:"رموش هايبرد مكس وحواجب", e:"Hybrid mix & eyebrows", p:550},
+    {a:"تعبئة رموش هايبرد مكس وحواجب", e:"Refill — hybrid mix & eyebrows", p:[300,380]},
+    {a:"رفع حواجب", e:"Eyebrows lifting", p:300}
+   ]},
+   {k:"body", ar:"الجسم والحمّام المغربي", en:"Body & Hammam", items:[
+    {a:"مساج استرخائي", e:"Relaxing massage", p:350, d:50},
+    {a:"مساج سويدي", e:"Swedish massage", p:350, d:60},
+    {a:"مساج الحمل", e:"Pregnancy massage", p:400, d:45},
+    {a:"مساج العنق والكتف", e:"Neck & shoulder massage", p:200, d:30},
+    {a:"مساج الظهر", e:"Back massage", p:200, d:30},
+    {a:"مساج القدمين — رفلكسولوجي", e:"Feet massage / reflexology", p:200, d:30},
+    {a:"مساج الأعشاب", e:"Herbal massage", p:530, d:60},
+    {a:"مساج الحجر الساخن", e:"Hot stone massage", p:500, d:60},
+    {a:"مساج الشمع الساخن", e:"Hot wax massage", p:450, d:60},
+    {a:"مساج الأنسجة العميقة", e:"Deep tissue massage", p:400, d:60},
+    {a:"مساج نحت الجسم", e:"Sculpting massage", p:500, d:60},
+    {a:"المساج اللمفاوي", e:"Lymphatic massage", p:500, d:60},
+    {a:"مساج السيلوليت", e:"Cellulite massage", p:650, d:90},
+    {a:"مساج الفيس جم", e:"Face gym massage", p:375, d:40},
+    {a:"حمام مغربي ملكي بالذهب", e:"Royal gold Moroccan bath", p:600},
+    {a:"حمام مغربي ملكي باللؤلؤ", e:"Royal pearls Moroccan bath", p:600},
+    {a:"حمام مغربي بأحماض الفواكه", e:"Fruit acids Moroccan bath", p:600},
+    {a:"حمام مغربي بالفحم", e:"Charcoal Moroccan bath", p:600},
+    {a:"حمام مغربي بالنيلة الزرقاء", e:"Blue indigo Moroccan bath", p:400},
+    {a:"حمام مغربي بالعكر الفاسي", e:"Aker el Fassi Moroccan bath", p:400},
+    {a:"حمام تركي بزهرة البرتقال والفيبرنوم", e:"Orange flower viburnum bath", p:400},
+    {a:"حمام كلاسيك بنكهة — رمان / زبدة الشيا / لافندر / شاي أخضر", e:"Classic bath — pomegranate / shea / lavender / green tea", p:350},
+    {a:"حمام عطري مع ضيافة", e:"Aromatic bath with hospitality", p:200}
+   ]},
+   {k:"micro", ar:"المايكرو والتجميل الدائم", en:"Microblading", items:[
+    {a:"مايكروبليدنق حواجب شعرة شعرة", e:"Microblading eyebrows", p:1800},
+    {a:"مايكروبليدنق حواجب شعرة شعرة مع التظليل", e:"Microblading eyebrows with shadow", p:2099},
+    {a:"رتوش مايكرو حواجب", e:"Micro eyebrow retouch", p:350},
+    {a:"مايكروبقمنتيشن للشفايف — جلسة تأسيسية", e:"Lip micropigmentation — first session", p:1800},
+    {a:"مايكروبقمنتيشن للشفايف — جلسة ثانية", e:"Lip micropigmentation — second session", p:1500},
+    {a:"رتوش مايكرو شفايف", e:"Micro lip retouch", p:350},
+    {a:"رسم آيلاينر للعين", e:"Eyeliner drawing", p:1200},
+    {a:"رسم شامة مع الرتوش", e:"Skin nevus with retouch", p:300},
+    {a:"رتوش — ٦ شهور فأقل", e:"Retouch — 6 months or less", p:600},
+    {a:"رتوش — ١٢ شهر فأقل", e:"Retouch — 12 months or less", p:1000},
+    {a:"رتوش — أكثر من ١٢ شهر", e:"Retouch — over 12 months", p:1500}
+   ]},
+   {k:"care", ar:"العناية الشخصية", en:"Personal Care", items:[
+    {a:"فتلة حواجب", e:"Eyebrows fatla", p:85},
+    {a:"واكس حواجب", e:"Eyebrows wax", p:100},
+    {a:"موس حواجب", e:"Eyebrows razor", p:80},
+    {a:"صبغة حواجب", e:"Eyebrows colour", p:80},
+    {a:"تشقير حواجب", e:"Eyebrows bleaching", p:80},
+    {a:"فتلة وجه", e:"Face fatla", p:130},
+    {a:"واكس وجه", e:"Face wax", p:160},
+    {a:"تشقير وجه كامل", e:"Full face bleaching", p:150},
+    {a:"واكس ذقن", e:"Chin wax", p:60},
+    {a:"فتلة شفاه عليا", e:"Upper lip fatla", p:50},
+    {a:"واكس شفاه عليا", e:"Upper lip wax", p:55},
+    {a:"فل واكس بكيني", e:"Full bikini wax", p:600},
+    {a:"واكس الجسم", e:"Body wax", p:800}
+   ]}
+  ],
+  gallery:["19-book.jpg","20-refined.jpg","21-rollers.jpg","22-fan.jpg",
+           "23-dior-polish.jpg","27-massage.jpg","28-spa-towels.jpg"],
+  lqip:{"17-kerastase.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABMDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAMEBQEC/8QAIxAAAQUAAQIHAAAAAAAAAAAAAQACAwQRIQUxEhNBUYGh0f/EABYBAQEBAAAAAAAAAAAAAAAAAAEAA//EABgRAQEAAwAAAAAAAAAAAAAAAAABEUFh/9oADAMBAAIRAxEAPwCOtEX4AN5V6eRvTRBnMsr83NwZ+4sa5PPWsQNhcWaORnc6taV1e7ZrtDvMDSXeMHsfb6WPW2dKMumVxJ0kouTECVw31RBTzRusyNe+IPMQBaCOxPO/K99J6VFDKLLmuEmnGnMGoiJVYtupV3OJLRpREUX/2Q==", "18-wow.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABIDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAMEBQEC/8QAJxAAAQMCBQIHAAAAAAAAAAAAAQACAwQRBRITITFBoQYUIiNRYbH/xAAXAQADAQAAAAAAAAAAAAAAAAAAAgMB/8QAGREAAgMBAAAAAAAAAAAAAAAAAAECESES/9oADAMBAAIRAxEAPwCLxXOyDEaenZu2MZ3D7PHb9VTD6KOTEBK2MPjtcA8Be6UCvxGrk1Hab/bAPUEWBXMMq4qOmkbI4g5i0OtfjopvFhaOvSCakGs+0LwMxsN9kUDppnuLvMtGY3tfhEaFo0cGBZRagjJIO4A3uOOxVyho6Z0TmOjBDrnf5REkmUilVmLLhMgleGN9Icbb9ERFvTF4R//Z", "19-book.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABMDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAQDAf/EACgQAAICAQMCBAcAAAAAAAAAAAECAAMRBBMxElEFIUKxI0GBgpGh8f/EABYBAQEBAAAAAAAAAAAAAAAAAAEAA//EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIRAxEAPwCbQ4otdLawfSwz7S7VKo0watg6dxz9RJqabbX61UdOOeAQPnKaVsKEqAyg4w37mFbq6qsVIMeke0TB/EqQxA6vLtxEClo0zbYodypcZGW7f2b1/AO3vPZ3UeQ/MRGhw6gA42kH2iIiSf/Z", "20-refined.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABMDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAMEBQH/xAAlEAACAgEDBAEFAAAAAAAAAAABAgADEQQSMQUTISKxFSNBQlH/xAAWAQEBAQAAAAAAAAAAAAAAAAADAQL/xAAYEQEBAQEBAAAAAAAAAAAAAAAAARIxQv/aAAwDAQACEQMRAD8Ai0YGVQqefMl6hc9S/bYqRK+nazvhWqKjYfIHJMUUl7W02qZlAOUBPsRj4glbXT91+iqsYBSw4AiWK209dap31XaMYxxEmauozemKr6JN1TBlbJZv2nNTav1FGcMFPrkc5/HwYiavE9LLLS7bt6+f6IiIO6XEf//Z", "21-rollers.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABMDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAMEBQH/xAAjEAABBAEEAgMBAAAAAAAAAAABAAIDETEEEhMhUYEiQWGR/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEE/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAMAwEAAhEDEQA/AK+njG3c7A7J8LT0kmnbBIYXbpQKuq/iztdHIzQR8TJCXGyWd0P1RDhjlilgnldK0AuDus+lnaIsceb8op+j3i/OUQddJTSR6WgyWNrWxur4gA228IiAeKQ72Bjmn7FIiK1I/9k=", "22-fan.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABIDASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAAUCAwQG/8QAIhAAAgEEAgMAAwAAAAAAAAAAAQIDAAQREgUhEzFBIlFx/8QAFwEAAwEAAAAAAAAAAAAAAAAAAAECA//EABkRAQADAQEAAAAAAAAAAAAAAAABETEhQf/aAAwDAQACEQMRAD8A6OQuGETrHN4nUZ2127/VQouSuHvUS4keRcY/IDNU5LiFop9CsgGDgVAunZLktrqwIIA+VG8aVUW9G0ibH37pWmMNJGrkxZYAnDilSHPxMPmu9B6ALf3sVJ5B3kvpmcgtuclR17+UpV+lOM0vCiKvhU4AGcnulKUyf//Z", "23-dior-polish.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABIDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAUCBP/EACcQAAICAQIFAwUAAAAAAAAAAAECAAMRBAUSEyExURQVcUFhgrHB/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAID/8QAGBEBAAMBAAAAAAAAAAAAAAAAAAERITH/2gAMAwEAAhEDEQA/AKVS1anSCwdA4yc9sfeTdRtens61ZGRkFPHnB/kzcE26haVdzzCGdSegHia9ctesR7nKrj5wPGJi3rHIdvtBI51R+VOf1Er+v0B686uI1Kbu1FyXNawVkzhZOauyxk5h4ePsW7CIiFTx0ez6z6Kh/KIiLTT/2Q==", "24-lounge-sunset.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABMDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAIEBQED/8QAJBAAAQQBAwQDAQAAAAAAAAAAAgABAxEEEiExBRNBUTJhscH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAgT/xAAYEQEBAQEBAAAAAAAAAAAAAAAAAQISYf/aAAwDAQACEQMRAD8A88TG2jjMXbgb8WtIOlx9whIuOaZUWlN+0YjYxyDr+m9163V6LqmuYyBhdnrzvws2WjXjC6jjxhmyCN01fiKWfkPJmSHpq3/iKg5MEkc5FG4u8j6b1XsoT5LYRx9yISdwb5b7t6pEVZibWaU7GTk5bu6IieYOq//Z", "25-window-orchid.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABIDASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAUEAgP/xAAmEAACAgIABQMFAAAAAAAAAAABAgADBBEFEhMhMTJRcRQiUqGx/8QAFwEAAwEAAAAAAAAAAAAAAAAAAAIDAf/EABcRAQEBAQAAAAAAAAAAAAAAAAEAESH/2gAMAwEAAhEDEQA/AKdnA8E2sB1FGh4b595LHDsZM7pKwYkns3cr7SgeK1M1jJkK32DWh8yegJz2yavFpABJ0T2/Um5UNvR8NFdl+q1o69Iic3cvWs253zH+xDSMZbwc10lwd8vka1MmFUbLFeuwdm9AOi2oiKmM46dtr1uXYmq3z+URENsy/9k=", "26-dior-detail.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABMDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAMEBf/EACMQAAICAgIBBAMAAAAAAAAAAAECAAMEERIhQQUiMVEkcoH/xAAXAQADAQAAAAAAAAAAAAAAAAABAgMA/8QAFxEBAQEBAAAAAAAAAAAAAAAAAAECEf/aAAwDAQACEQMRAD8Ah9RP5N37mZTYL2W832tbEbYfU1c2t3fIvA9iseh2T/JWuQtUvEu1etA8d6kMxbVZT4xDEAMR4MSS7mLWHL4P1EoTqfF9QpXHspsdxztBJHyR5l1bqGuAwyDXWexsjfURBY0q2DjkbYsD53qIiAz/2Q==", "27-massage.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABMDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAIDBAX/xAAlEAABAwMDAwUAAAAAAAAAAAABAAIDERIxBEFRBRMiIXGBsdH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAgP/xAAXEQEBAQEAAAAAAAAAAAAAAAAAAREC/9oADAMBAAIRAxEAPwDjR6gjRuhrmI/awxxuebW5WuXSTGWPRxs88F4w7fPCTV0pMUYspmQipP4oaTlHtsj8SYARs8m75RZTJGDQsuPPKJhq4dQlcKOcaHaqp7zxda8kHYoirImWqy+p9WivsiIhr//Z", "28-spa-towels.jpg": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABUOEBIQDRUSERIYFhUZHzQiHx0dH0AuMCY0TENQT0tDSUhUXnlmVFlyWkhJaY9qcnyAh4iHUWWUn5ODnXmEh4L/2wBDARYYGB8cHz4iIj6CVklWgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoL/wAARCAAYABMDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAIEBQP/xAAkEAACAgEDAgcAAAAAAAAAAAABAgADEQQhMQUSEyIyUWGywf/EABgBAAMBAQAAAAAAAAAAAAAAAAABAgME/8QAFxEBAQEBAAAAAAAAAAAAAAAAAAERMf/aAAwDAQACEQMRAD8AXeZ3+aj9ZhaOk2OQJtNU1aF7bq1zX6c77jEr6ahK6lNLBrW5B3M59byKx0xBxiJ0vIruZbXKuORniIZT2Kj2t4RFqW2d26k4GD+x0+16ryQxQhT2kjONoiVeJnULAHcsxyT7mIiMP//Z"}
+};
+
+var T = {
+  ar:{
+    book:"احجزي", place:"جدة · حي الروضة — الطابق العاشر",
+    index:"الفهرس",
+    nav:{hero:"الوصول", floor:"الطابق", svc:"الخدمات", house:"ما نعمل به",
+         gal:"المعرض", visit:"الزيارة"},
+    full:"القائمة كاملة", showAll:"عرض بقية الصور", showLess:"طيّ الصور",
+    drawerHours:"يومياً حتى ١٠ مساءً",
+    addrShort:"حي الروضة · جدة", hoursShort:"يومياً حتى ١٠ مساءً",
+    heroSub:"صالون وسبا للسيدات",
+    ctaHero:"احجزي تجربتك", ctaClose:"ابدئي الحجز الآن",
+    heroFine:"الحجز برسالة واتساب — بدون تطبيق وبدون تسجيل",
+    scroll:"انزلي",
+    floorH:"عشرة أدوار فوق الروضة.",
+    floorP:"جدارٌ من الزجاج يمتدّ من الأرض إلى السقف، ورخامٌ يعكس ضوء الغروب على جدة. اخترنا هذا الطابق لسببٍ واحد: أن يكون الوقت الذي تقضينه هنا مختلفاً عن أي مكانٍ آخر في المدينة.",
+    m1:"للسيدات فقط", m2:"بموعد مسبق", m3:"مواقف متاحة",
+    svcH:"الخدمات", svcK:"القائمة",
+    svcFoot:"الأسعار من قائمة نافا المعتمدة. ما يعتمد على طول الشعر أو حالته يُوضَّح لكِ قبل البدء، لا بعده.",
+    plKicker:"قائمة الأسعار", inSar:"بالريال السعودي",
+    plNote:"الأسعار من قائمة نافا المعتمدة.",
+    findPh:"ابحثي عن خدمة…",
+    noneFound:"ما لقينا خدمة بهذا الاسم.",
+    from:"من", sar:"ر.س", mins:"دقيقة", newTag:"جديد",
+    consult:"تُحدَّد مع الاختصاصية",
+    /* arabic counts 3–10 as a plural and 11+ as a singular — "8 خدمة" is
+       the tell of a translated page, and this page is not one */
+    count:function(n){
+      if(n === 1) return "خدمة واحدة";
+      if(n === 2) return "خدمتان";
+      return n + (n <= 10 ? " خدمات" : " خدمة");
+    },
+    notes:{
+      nails:"الأسعار لا تشمل أدوات تنظيف الأظافر — ٣٥ ر.س.",
+      lash:"الريفيل بعد أسبوعين يشترط بقاء ٥٠٪ من الرموش، لبعض الأنواع.",
+      hair:"صبغات الشعر والإكستنشن تُسعَّر حسب الطول والكثافة — نؤكّد السعر قبل البدء."
+    },
+    pickCat:"اختاري القسم",
+    houseK:"ما نعمل به",
+    houseH:"لا نساوم على ما يلمس شعرك.",
+    houseP:"كل ما يُستخدم هنا مُنتقى، لا مُتاح فقط. نعمل بخطوط عالمية معتمدة، ولكل نوع شعرٍ بروتوكوله الخاص.",
+    galK:"من داخل نافا",
+    ratingSrc:"تقييم نافا على خرائط قوقل",
+    visitH:"الزيارة",
+    lAddr:"العنوان", lHours:"أوقات العمل", lContact:"للتواصل",
+    hours:"السبت – الخميس · ١٠ ص – ١٠ م<br>الجمعة · ١٢ ظ – ١٠ م",
+    mapLink:"افتحي الموقع على الخريطة",
+    closeH:"موعدك يبدأ برسالة.",
+    closeP:"اكتبي لنا ما ترغبين به واليوم المناسب لكِ، ونرتّب الباقي.",
+    bkTitle:"حجز موعد", back:"رجوع", next:"التالي",
+    bkFine:"رسالة عادية من جوالك — بدون حساب وبدون بيانات محفوظة",
+    q1:"أي خدمة ترغبين بها؟", q2:"اليوم المفضل؟", q3:"اسمك الكريم؟",
+    days:["اليوم","غداً","خلال هذا الأسبوع","نهاية الأسبوع"],
+    namePh:"الاسم", send:"إرسال عبر واتساب",
+    rService:"الخدمة", rDay:"اليوم", rName:"الاسم", rPrice:"السعر",
+    ask:"بالاستفسار",
+    msg:function(s,p,d,n){return "السلام عليكم 🌿\nمعكم "+n+"، أرغب بحجز موعد في صالون نافا.\n\n• الخدمة: "+s+"\n• السعر حسب القائمة: "+p+"\n• اليوم المفضل: "+d+"\n\nممكن تفيدوني بالأوقات المتاحة؟ وشكراً لكم."}
+  },
+  en:{
+    book:"Book", place:"Jeddah · Ar Rawdah — 10th floor",
+    index:"Index",
+    nav:{hero:"Arrival", floor:"The floor", svc:"Services", house:"What we work with",
+         gal:"Gallery", visit:"Visit"},
+    full:"The full list", showAll:"Show the rest", showLess:"Fold them away",
+    drawerHours:"Daily until 10 PM",
+    addrShort:"Ar Rawdah · Jeddah", hoursShort:"Daily until 10 PM",
+    heroSub:"A salon & spa for women",
+    ctaHero:"Book your experience", ctaClose:"Start your booking",
+    heroFine:"Booking is one WhatsApp message — no app, no sign-up",
+    scroll:"Scroll",
+    floorH:"Ten floors above Ar Rawdah.",
+    floorP:"A wall of glass from floor to ceiling, and marble that carries the sunset across Jeddah. We chose this floor for one reason: so the time you spend here is unlike anywhere else in the city.",
+    m1:"Women only", m2:"By appointment", m3:"Parking available",
+    svcH:"Services", svcK:"The menu",
+    svcFoot:"Prices are Nava's own published list. Anything that depends on hair length or condition is confirmed with you before we begin, not after.",
+    plKicker:"Price list", inSar:"in Saudi riyals",
+    plNote:"Prices are Nava's own published list.",
+    findPh:"Search a service…",
+    noneFound:"No service by that name.",
+    from:"from", sar:"SAR", mins:"min", newTag:"New",
+    consult:"Set with your specialist",
+    count:function(n){return n + (n === 1 ? " service" : " services")},
+    notes:{
+      nails:"Prices do not include nail cleaning tools — 35 SAR.",
+      lash:"A refill after two weeks requires 50% of the lashes to remain, on certain types.",
+      hair:"Colour and extensions are priced by length and density — we confirm before we begin."
+    },
+    pickCat:"Choose a category",
+    houseK:"What we work with",
+    houseH:"We don't compromise on what touches your hair.",
+    houseP:"Everything used here is chosen, not merely available. We work with certified international lines, and every hair type has its own protocol.",
+    galK:"Inside Nava",
+    ratingSrc:"Nava's rating on Google Maps",
+    visitH:"Visit",
+    lAddr:"Address", lHours:"Opening hours", lContact:"Contact",
+    hours:"Sat – Thu · 10 AM – 10 PM<br>Fri · 12 PM – 10 PM",
+    mapLink:"Open in Maps",
+    closeH:"Your appointment begins with a message.",
+    closeP:"Tell us what you'd like and the day that suits you — we'll arrange the rest.",
+    bkTitle:"Book an appointment", back:"Back", next:"Next",
+    bkFine:"An ordinary message from your phone — no account, nothing stored",
+    q1:"Which service?", q2:"Preferred day?", q3:"Your name?",
+    days:["Today","Tomorrow","This week","The weekend"],
+    namePh:"Name", send:"Send on WhatsApp",
+    rService:"Service", rDay:"Day", rName:"Name", rPrice:"Price",
+    ask:"On request",
+    msg:function(s,p,d,n){return "Hello 🌿\nThis is "+n+", I'd like to book an appointment at Nava Salon.\n\n• Service: "+s+"\n• Listed price: "+p+"\n• Preferred day: "+d+"\n\nCould you share the available times? Thank you."}
+  }
+};
+
+function openDlg(d){ d.showModal(); var sh = d.querySelector(".sheet"); if(sh) sh.focus() }
+var $  = function(s,r){return (r||document).querySelector(s)};
+var $$ = function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+var lang = "ar", t = T.ar;
+
+/* ── images: local files, one size each; LQIP keeps a chapter from ever
+      rendering as empty ground while the real frame decodes ───────── */
+function dress(img,file,eager){
+  var wrap = img.parentElement;
+  var lq = CONFIG.lqip[file];
+  if(lq && !$(".lq",wrap)){
+    var p = new Image();
+    p.className = "lq"; p.src = lq; p.alt = ""; p.setAttribute("aria-hidden","true");
+    wrap.insertBefore(p,wrap.firstChild);
+  }
+  img.addEventListener("load",function(){img.classList.add("ready")},{once:true});
+  if(eager){img.loading="eager";img.fetchPriority="high"}
+  img.src = "img/" + file;
+  if(img.complete) img.classList.add("ready");
+}
+
+dress($("#heroImg"),"24-lounge-sunset.jpg",true);
+$$("[data-src]").forEach(function(im){dress(im,im.getAttribute("data-src"),false)});
+
+/* ── the one disclosure behaviour ──────────────────────────────────────
+   Every collapsible thing on the page is wired through here, so a panel
+   cannot end up with a turned chevron and a closed body, or an
+   aria-expanded that disagrees with what the eye sees. */
+function disclose(btn,panel,onOpen){
+  btn.setAttribute("aria-expanded","false");
+  btn.addEventListener("click",function(){
+    setDisc(btn,panel,btn.getAttribute("aria-expanded") !== "true");
+    if(onOpen) onOpen(btn.getAttribute("aria-expanded") === "true");
+  });
+}
+function setDisc(btn,panel,open){
+  btn.setAttribute("aria-expanded",open ? "true" : "false");
+  panel.classList.toggle("open",open);
+}
+
+/* gallery — three frames stay out, the rest fold away behind one control */
+var GAL_SHOWN = 3;
+function plate(file,into){
+  var f = document.createElement("div");
+  f.className = "plate uc";
+  var im = document.createElement("img");
+  im.alt = ""; im.loading = "lazy"; im.decoding = "async";
+  f.appendChild(im); into.appendChild(f);
+  dress(im,file,false);
+  f.addEventListener("click",function(){
+    $("#lbImg").src = "img/" + file;
+    openDlg($("#lb"));
+  });
+}
+CONFIG.gallery.forEach(function(file,i){
+  plate(file, i < GAL_SHOWN ? $("#mosaic") : $("#galRest"));
+});
+var galOpen = false;
+(function(){
+  var fold = $("#galFold"), panel = $("#galPanel");
+  if(CONFIG.gallery.length <= GAL_SHOWN){ fold.hidden = true; return }
+  disclose(fold,panel,function(open){
+    galOpen = open;
+    $("span",fold).textContent = open ? t.showLess : t.showAll;
+  });
+})();
+
+/* ── services ──────────────────────────────────────────────────────────
+   The currency is stated once, in the sheet header, instead of 155 times
+   down the column — which is how their own printed card reads too. ── */
+function nameOf(it){ return lang === "ar" ? it.a : it.e }
+
+function priceOf(it){
+  if(it.f)                return {v:t.from + " " + it.p, u:t.consult};
+  if(Array.isArray(it.p)) return {v:it.p[0] + " – " + it.p[1], u:""};
+  return {v:String(it.p), u:it.d ? it.d + " " + t.mins : ""};
+}
+function lowOf(cat){
+  return cat.items.reduce(function(m,it){
+    var v = Array.isArray(it.p) ? it.p[0] : it.p;
+    return v < m ? v : m;
+  }, Infinity);
+}
+function catName(c){ return lang === "ar" ? c.ar : c.en }
+
+var PEEK = 6;              /* enough to show the register, not the whole card */
+var openChapter = null;    /* an accordion: one chapter at a time */
+
+function paintMenu(){
+  var m = $("#menu"); m.innerHTML = "";
+  CONFIG.menu.forEach(function(c,i){
+    var wrap = document.createElement("div");
+    wrap.className = "disc";
+
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "cat disc-b";
+    b.innerHTML =
+      '<span class="no">' + String(i+1).padStart(2,"0") + '</span>' +
+      '<span class="txt"><span class="nm"></span><span class="sub"></span></span>' +
+      '<span class="pr"><small></small></span>' +
+      '<span class="chev"><svg aria-hidden="true"><use href="#chev"/></svg></span>';
+    $(".nm",b).textContent  = catName(c);
+    $(".sub",b).textContent = t.count(c.items.length) + " · "
+                            + (lang === "ar" ? c.en : c.ar);
+    $(".pr small",b).textContent = t.from;
+    $(".pr",b).appendChild(document.createTextNode(lowOf(c) + " " + t.sar));
+
+    var panel = document.createElement("div");
+    panel.className = "disc-p";
+    panel.id = "peek-" + c.k;
+    b.setAttribute("aria-controls", panel.id);
+    var peek = document.createElement("div");
+    peek.className = "peek";
+    panel.innerHTML = '<div class="inner"></div>';
+    $(".inner",panel).appendChild(peek);
+
+    c.items.slice(0,PEEK).forEach(function(it){
+      var pr  = priceOf(it);
+      var row = document.createElement("button");
+      row.type = "button"; row.className = "p-row";
+      row.innerHTML = '<span class="nm2"></span><span class="v"></span>';
+      $(".nm2",row).textContent = nameOf(it);
+      $(".v",row).textContent   = pr.v;
+      row.addEventListener("click",function(){ pick(c,it,pr) });
+      peek.appendChild(row);
+    });
+
+    var more = document.createElement("button");
+    more.type = "button"; more.className = "more";
+    more.innerHTML = '<span></span><span class="arw2" aria-hidden="true">→</span>';
+    $("span",more).textContent = t.full + " · " + t.count(c.items.length);
+    more.addEventListener("click",function(){ openList(c.k) });
+    peek.appendChild(more);
+
+    /* accordion: opening one chapter closes the one before it */
+    disclose(b,panel,function(open){
+      if(!open){ if(openChapter === c.k) openChapter = null; return }
+      CONFIG.menu.forEach(function(o){
+        if(o.k === c.k) return;
+        var ob = $("#menu [aria-controls='peek-" + o.k + "']");
+        var op = $("#peek-" + o.k);
+        if(ob && op) setDisc(ob,op,false);
+      });
+      openChapter = c.k;
+    });
+    if(openChapter === c.k) setDisc(b,panel,true);
+
+    wrap.appendChild(b); wrap.appendChild(panel);
+    m.appendChild(wrap);
+  });
+  $("#svcFoot").textContent = t.svcFoot;
+}
+
+/* one place decides what a chosen service means, whether it was chosen
+   from the peek, from the full sheet, or from the booking step */
+function pick(c,it,pr){
+  state.cat = c.k; state.service = nameOf(it);
+  state.price = pr.v + " " + t.sar;
+  if($("#pl").open) $("#pl").close();
+  step(1);
+  openDlg($("#bk"));
+}
+
+/* ── the priced sheet ──────────────────────────────────────────────── */
+var openCat = null;
+
+function catBy(k){
+  return CONFIG.menu.filter(function(c){return c.k === k})[0];
+}
+
+function paintList(){
+  var c = catBy(openCat); if(!c) return;
+  var q    = $("#plFind").value.trim().toLowerCase();
+  var list = $("#plList"); list.innerHTML = "";
+  var hit  = 0;
+
+  c.items.forEach(function(it){
+    if(q && (it.a + " " + it.e).toLowerCase().indexOf(q) === -1) return;
+    hit++;
+    var p   = priceOf(it);
+    var row = document.createElement("button");
+    row.type = "button"; row.className = "it";
+    row.innerHTML =
+      '<span class="n"><b></b><i></i></span>' +
+      '<span class="v"><small></small></span>' +
+      '<span class="go" aria-hidden="true">→</span>';
+    $(".n b",row).textContent = nameOf(it);
+    if(it.tag){
+      var tg = document.createElement("span");
+      tg.className = "tag"; tg.textContent = t.newTag;
+      $(".n b",row).appendChild(tg);
+    }
+    $(".n i",row).textContent = lang === "ar" ? it.e : it.a;
+    $(".v small",row).textContent = p.u;
+    $(".v",row).insertBefore(document.createTextNode(p.v), $(".v small",row));
+    row.setAttribute("aria-label", nameOf(it) + " — " + p.v + " " + t.sar);
+    row.addEventListener("click",function(){ pick(c,it,p) });
+    list.appendChild(row);
+  });
+
+  if(!hit){
+    var none = document.createElement("div");
+    none.className = "none"; none.textContent = t.noneFound;
+    list.appendChild(none);
+  }
+  $("#plTitle").textContent  = catName(c);
+  $("#plKicker").textContent = t.plKicker + " · " + t.inSar;
+  $("#plFind").placeholder   = t.findPh;
+  $("#plFoot").textContent   = t.notes[c.k] || t.plNote;
+}
+
+function openList(k){
+  openCat = k;
+  $("#plFind").value = "";
+  paintList();
+  openDlg($("#pl"));
+  $("#plList").scrollTop = 0;
+}
+$("#plFind").addEventListener("input", paintList);
+/* a search field inside a dialog form would submit and close it */
+$("#plFind").addEventListener("keydown",function(e){
+  if(e.key === "Enter") e.preventDefault();
+});
+
+/* ── the visit, as three panels ────────────────────────────────────────
+   Address, hours and contact were three columns that a phone stacked into
+   a wall of small print. Each is now a summary you can read at a glance
+   and a panel that holds the detail. The first is open: an address is the
+   one thing a visitor always wants. */
+/* these three are independent panels, not an accordion — a visitor may
+   want the address and the hours out at the same time. The map is what
+   survives a language switch, so a repaint restores exactly what was open. */
+var visitOpen = {addr:true, hours:false, contact:false};
+
+function paintVisit(){
+  var host = $("#visitCols"); host.innerHTML = "";
+  [
+   {k:"addr", lbl:t.lAddr, sum:t.addrShort, body:
+     '<a href="' + CONFIG.maps + '" target="_blank" rel="noopener">'
+     + (lang === "ar" ? CONFIG.addr_ar : CONFIG.addr_en) + '</a><br>'
+     + '<a href="' + CONFIG.maps + '" target="_blank" rel="noopener">' + t.mapLink + '</a>'},
+   {k:"hours", lbl:t.lHours, sum:t.hoursShort, body:t.hours},
+   {k:"contact", lbl:t.lContact, sum:CONFIG.phone_display, body:
+     '<a href="https://wa.me/' + CONFIG.wa + '" target="_blank" rel="noopener">'
+     + CONFIG.phone_display + '</a><br>'
+     + '<a dir="ltr" href="' + CONFIG.instagram + '" target="_blank" rel="noopener">@navasalon.sa</a>'}
+  ].forEach(function(row){
+    var wrap = document.createElement("div"); wrap.className = "disc";
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "disc-b";
+    b.innerHTML = '<span class="lbl"><b></b><span></span></span>'
+                + '<span class="chev"><svg aria-hidden="true"><use href="#chev"/></svg></span>';
+    $(".lbl b",b).textContent    = row.lbl;
+    $(".lbl span",b).textContent = row.sum;
+    var panel = document.createElement("div");
+    panel.className = "disc-p"; panel.id = "visit-" + row.k;
+    b.setAttribute("aria-controls",panel.id);
+    panel.innerHTML = '<div class="inner"><div class="body2"></div></div>';
+    $(".body2",panel).innerHTML = row.body;
+    disclose(b,panel,function(open){ visitOpen[row.k] = open });
+    if(visitOpen[row.k]) setDisc(b,panel,true);
+    wrap.appendChild(b); wrap.appendChild(panel);
+    host.appendChild(wrap);
+  });
+}
+
+/* ── the drawer ────────────────────────────────────────────────────── */
+var CHAPTERS = ["hero","floor","svc","house","gal","visit"];
+
+function paintDrawer(){
+  var idx = $("#drawerIdx"); idx.innerHTML = "";
+  CHAPTERS.forEach(function(k,i){
+    var a = document.createElement("a");
+    a.href = "#" + k;
+    a.innerHTML = '<i></i><span></span>';
+    $("i",a).textContent = String(i+1).padStart(2,"0");
+    $("span",a).textContent = t.nav[k];
+    a.addEventListener("click",function(){ if(!isRail()) closeDrawer() });
+    idx.appendChild(a);
+  });
+  $("#drawerTel").textContent = CONFIG.phone_display;
+  $("#drawerTel").href = "https://wa.me/" + CONFIG.wa;
+  $("#drawerIg").href  = CONFIG.instagram;
+}
+
+var RAIL = window.matchMedia("(min-width:1100px)");
+function isRail(){ return RAIL.matches }
+
+function openDrawer(){
+  var d = $("#drawer");
+  document.documentElement.classList.toggle("rail",isRail());
+  if(isRail()){
+    if(!d.open) d.show();
+    document.documentElement.classList.add("rail-open");
+  } else if(!d.open){
+    d.showModal(); $(".panel",d).focus();
+  }
+  $("#burger").setAttribute("aria-expanded","true");
+}
+function closeDrawer(){
+  var d = $("#drawer");
+  document.documentElement.classList.remove("rail-open");
+  if(d.open && !isRail()) d.close();
+  if(isRail() && d.open) d.close();
+  $("#burger").setAttribute("aria-expanded","false");
+}
+$("#burger").addEventListener("click",function(){
+  $("#burger").getAttribute("aria-expanded") === "true" ? closeDrawer() : openDrawer();
+});
+$("#drawerX").addEventListener("click",closeDrawer);
+$("#drawer").addEventListener("click",function(e){ if(e.target === this) closeDrawer() });
+$("#drawer").addEventListener("close",function(){
+  document.documentElement.classList.remove("rail-open");
+  $("#burger").setAttribute("aria-expanded","false");
+});
+/* a rail on a desktop, an overlay on a phone — the same markup either way */
+RAIL.addEventListener("change",function(){
+  document.documentElement.classList.toggle("rail",isRail());
+  closeDrawer();
+  if(isRail()) openDrawer();
+});
+
+/* which chapter the reader is actually in */
+var spy = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(!e.isIntersecting) return;
+    $$("#drawerIdx a").forEach(function(a){
+      a.setAttribute("aria-current", a.getAttribute("href") === "#" + e.target.id ? "true" : "false");
+    });
+  });
+},{rootMargin:"-45% 0px -45% 0px"});
+CHAPTERS.forEach(function(k){ var el = document.getElementById(k); if(el) spy.observe(el) });
+
+/* ── language ──────────────────────────────────────────────────────── */
+function paint(){
+  t = T[lang];
+  var html = document.documentElement;
+  html.lang = lang; html.dir = lang === "ar" ? "rtl" : "ltr";
+  $$("[data-t]").forEach(function(el){
+    var v = t[el.getAttribute("data-t")];
+    if(typeof v === "string") el.textContent = v;
+  });
+  $("#langBtn").textContent = lang === "ar" ? "EN" : "عربي";
+  paintVisit();
+  paintDrawer();
+  var fold = $("#galFold");
+  if(fold && !fold.hidden) $("span",fold).textContent = galOpen ? t.showLess : t.showAll;
+  document.title = (lang === "ar" ? CONFIG.name_ar : CONFIG.name_en) + " — "
+    + (lang === "ar" ? "جدة" : "Jeddah");
+  paintMenu();
+  if($("#pl").open) paintList();
+  if($("#bk").open) step(state.i);
+}
+$("#langBtn").addEventListener("click",function(){
+  lang = lang === "ar" ? "en" : "ar"; paint();
+});
+
+/* ── booking ───────────────────────────────────────────────────────── */
+var state = {i:0, cat:"", service:"", price:"", day:"", name:""};
+
+function step(i){
+  state.i = i;
+  var b = $("#bkBody"), n = $("#bkNext"), back = $("#bkBack");
+  $$(".steps i").forEach(function(el,k){el.classList.toggle("on",k <= i)});
+  back.hidden = i === 0;
+  b.innerHTML = "";
+
+  function opts(q,list,key){
+    b.innerHTML = '<div class="q">' + q + '</div><div class="opts"></div>';
+    var box = $(".opts",b);
+    list.forEach(function(v){
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.textContent = v;
+      btn.setAttribute("aria-pressed", state[key] === v ? "true" : "false");
+      btn.addEventListener("click",function(){
+        state[key] = v;
+        $$("button",box).forEach(function(o){o.setAttribute("aria-pressed","false")});
+        btn.setAttribute("aria-pressed","true");
+        n.disabled = false;
+      });
+      box.appendChild(btn);
+    });
+    n.disabled = !state[key];
+  }
+
+  if(i === 0){
+    /* the same 155 services, narrowed by category — a flat list of 155
+       buttons inside a sheet is not a choice, it's a search task */
+    b.innerHTML = '<div class="q">' + t.q1 + '</div>'
+                + '<div class="chips"></div><div class="pick"></div>';
+    var chips = $(".chips",b), pick = $(".pick",b);
+    if(!state.cat) state.cat = CONFIG.menu[0].k;
+
+    function drawPick(){
+      pick.innerHTML = "";
+      catBy(state.cat).items.forEach(function(it){
+        var p    = priceOf(it);
+        var nm   = nameOf(it);
+        var full = p.v + " " + t.sar;
+        var o = document.createElement("button");
+        o.type = "button"; o.className = "opt";
+        o.innerHTML = '<span class="l"></span><span class="v"></span>';
+        $(".l",o).textContent = nm;
+        $(".v",o).textContent = p.v;
+        o.setAttribute("aria-pressed", state.service === nm ? "true" : "false");
+        o.addEventListener("click",function(){
+          state.service = nm; state.price = full;
+          $$(".opt",pick).forEach(function(x){x.setAttribute("aria-pressed","false")});
+          o.setAttribute("aria-pressed","true");
+          n.disabled = false;
+        });
+        pick.appendChild(o);
+      });
+      pick.scrollTop = 0;
+    }
+
+    CONFIG.menu.forEach(function(c){
+      var ch = document.createElement("button");
+      ch.type = "button"; ch.textContent = catName(c);
+      ch.setAttribute("aria-pressed", state.cat === c.k ? "true" : "false");
+      ch.addEventListener("click",function(){
+        state.cat = c.k;
+        $$("button",chips).forEach(function(x){x.setAttribute("aria-pressed","false")});
+        ch.setAttribute("aria-pressed","true");
+        drawPick();
+      });
+      chips.appendChild(ch);
+    });
+
+    drawPick();
+    n.disabled = !state.service;
+    $("span",n).textContent = t.next;
+  } else if(i === 1){
+    opts(t.q2, t.days, "day");
+    $("span",n).textContent = t.next;
+  } else {
+    b.innerHTML = '<div class="q">' + t.q3 + '</div>'
+      + '<input id="bkName" type="text" autocomplete="name" placeholder="' + t.namePh + '">'
+      + '<div class="recap" style="margin-top:1rem">'
+      +   '<div><span>' + t.rService + '</span><span>' + state.service + '</span></div>'
+      +   '<div><span>' + t.rPrice + '</span><span>' + state.price + '</span></div>'
+      +   '<div><span>' + t.rDay + '</span><span>' + state.day + '</span></div>'
+      + '</div>';
+    var inp = $("#bkName");
+    inp.value = state.name;
+    inp.addEventListener("input",function(){
+      state.name = inp.value.trim(); n.disabled = state.name.length < 2;
+    });
+    n.disabled = state.name.length < 2;
+    $("span",n).textContent = t.send;
+  }
+}
+
+$("#bkNext").addEventListener("click",function(){
+  if(state.i < 2){ step(state.i + 1); return }
+  var msg = t.msg(state.service, state.price, state.day, state.name);
+  window.open("https://wa.me/" + CONFIG.wa + "?text=" + encodeURIComponent(msg), "_blank");
+  $("#bk").close();
+});
+$("#bkBack").addEventListener("click",function(){ if(state.i > 0) step(state.i - 1) });
+$$("[data-open]").forEach(function(el){
+  el.addEventListener("click",function(e){ e.preventDefault(); step(0); openDlg($("#bk")) });
+});
+
+/* ── header state ──────────────────────────────────────────────────── */
+var hdr = $("#hdr");
+addEventListener("scroll",function(){
+  hdr.classList.toggle("solid", scrollY > 40);
+},{passive:true});
+
+/* ── reveal fallback where scroll-driven animations are unsupported ── */
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("seen"); io.unobserve(e.target) } });
+},{rootMargin:"-30% 0px -30% 0px"});
+$$(".rv,.uc").forEach(function(el){io.observe(el)});
+
+$("#yr").textContent = new Date().getFullYear();
+paint();
+if(isRail()){ document.documentElement.classList.add("rail"); openDrawer() }
+</script>
+</body>
+</html>
