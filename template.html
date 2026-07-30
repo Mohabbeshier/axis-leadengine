@@ -9,7 +9,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400&family=Tajawal:wght@200;300;400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400&family=Tajawal:wght@200;300;400;500&display=swap"></noscript>
 
@@ -73,7 +74,7 @@ img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 ::selection{background:var(--bronze);color:var(--ivory)}
-:focus-visible{outline:1px solid var(--walnut);outline-offset:6px}
+:focus-visible{outline:1px solid var(--bronze);outline-offset:6px}
 h1,h2,h3{font-weight:400;line-height:1.16;letter-spacing:-.005em}
 html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3{line-height:1.42;letter-spacing:0}
 .serif{font-family:var(--fd)}
@@ -120,47 +121,6 @@ html[lang="ar"] .label{letter-spacing:normal;word-spacing:.28em}
 .plate img.dead{display:none}
 
 
-/* ══════════════════════════════════════════════════════════════════════
-   STONE — the material, drawn rather than photographed.
-   Four layers: a bedding wash, two veining passes at different angles and
-   scales, and a raking light. Nothing is fetched, nothing can 404, and it
-   is on-palette by construction.
-   ══════════════════════════════════════════════════════════════════════ */
-.stone{position:relative;overflow:hidden;isolation:isolate;
-  background:
-    /* raking daylight from the start edge */
-    linear-gradient(105deg,rgba(255,252,247,.72) 0%,rgba(255,252,247,0) 46%),
-    /* soft bloom where the light lands */
-    radial-gradient(72% 54% at 18% 12%,rgba(255,253,250,.60),transparent 62%),
-    /* deep bedding */
-    linear-gradient(168deg,var(--travertine) 0%,var(--surface) 38%,
-                    var(--travertine) 66%,#CFC0B0 100%)}
-.stone::before{content:"";position:absolute;inset:-20%;pointer-events:none;z-index:1;
-  /* veining: two repeating gradients at odd angles read as bedding planes */
-  background:
-    repeating-linear-gradient(97deg,
-      rgba(123,97,77,.10) 0 1px, transparent 1px 7px,
-      rgba(168,136,99,.07) 7px 8px, transparent 8px 23px),
-    repeating-linear-gradient(101deg,
-      rgba(123,97,77,.05) 0 2px, transparent 2px 41px);
-  mix-blend-mode:multiply;opacity:.9;
-  animation:bed 40s ease-in-out infinite alternate}
-@keyframes bed{from{transform:translate3d(0,0,0) scale(1)}
-               to{transform:translate3d(-1.2%,1%,0) scale(1.05)}}
-.stone::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
-  /* the grain of cut stone */
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
-  opacity:.085;mix-blend-mode:multiply}
-/* a hairline of bronze where two blocks of stone meet */
-.stone .seam{position:absolute;inset-block:0;inset-inline-start:38%;width:1px;z-index:3;
-  background:linear-gradient(180deg,transparent,rgba(168,136,99,.5) 22%,
-             rgba(168,136,99,.5) 78%,transparent)}
-/* the hero cut: darker, so ivory type sits on it with certainty */
-#hero .stone{background:
-    linear-gradient(105deg,rgba(255,252,247,.30) 0%,rgba(255,252,247,0) 44%),
-    radial-gradient(76% 56% at 22% 14%,rgba(255,250,242,.34),transparent 60%),
-    linear-gradient(168deg,#6E5B4B 0%,#8A7462 34%,#5E4E41 72%,#3B322B 100%)}
-#hero .stone::before{opacity:.55}
 
 /* ── the loading sequence: a bronze rule draws, the name settles, it lifts ── */
 #veil{position:fixed;inset:0;z-index:500;background:var(--ivory);
@@ -191,8 +151,6 @@ html[lang="ar"] .label{letter-spacing:normal;word-spacing:.28em}
   .uncover{animation:uncoverIn linear both;animation-timeline:view();
     animation-range:entry 6% cover 52%}
   @keyframes uncoverIn{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
-  .lineIn{animation:lineDraw linear both;animation-timeline:view();animation-range:entry 10% cover 34%}
-  @keyframes lineDraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
   .par img{animation:parY linear both;animation-timeline:view();animation-range:cover}
   @keyframes parY{from{transform:scale(1.16) translateY(-4.5%)}
                   to{transform:scale(1.16) translateY(4.5%)}}
@@ -220,8 +178,6 @@ nav.float{position:fixed;top:0;inset-inline:0;z-index:200;padding:clamp(1rem,3vw
 nav.float.away{opacity:0;transform:translateY(-14px);pointer-events:none}
 nav .mark{font-family:var(--fd);font-size:1.06rem;flex:1;min-width:0;color:var(--char);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-/* over the opening plate the mark is ivory; it inverts once the page is white */
-#hero ~ * nav .mark{color:var(--char)}
 nav.float{color:var(--char);
   transition:opacity .6s var(--slow),transform .6s var(--slow),
              background .6s var(--slow),backdrop-filter .6s var(--slow)}
@@ -244,21 +200,77 @@ nav .set a:hover::after,nav .set a.on::after{transform:scaleX(1)}
 @media(min-width:1000px){nav .set{display:flex}}
 nav .lang{font-size:.72rem;color:var(--walnut);letter-spacing:.1em}
 nav .ask{font-size:.78rem;color:var(--char);border-bottom:1px solid var(--bronze);padding-bottom:.15rem}
+/* the journey's ground is dark for nine screens; charcoal type on it was
+   unreadable in the first render. While the scroll is inside the journey
+   the nav reads ivory, and when it surfaces there it surfaces dark — the
+   beige glass returns only when the page itself turns ivory again. */
+nav.float.indark .mark,nav.float.indark .lang,nav.float.indark .ask,
+nav.float.indark .set a{color:var(--ivory)}
+nav.float.surfaced.indark{background:color-mix(in oklab,#14100C 84%,transparent);
+  border-bottom:1px solid color-mix(in oklab,#3A2F26 70%,transparent)}
 
-/* ══ HERO — one photograph, one name, nothing else ══ */
-#hero{min-height:100svh;display:grid;align-items:end;overflow:hidden;background:var(--surface)}
-#hero .open{position:absolute;inset:0;z-index:0}
-#hero .open::after{content:"";position:absolute;inset:0;z-index:2;
-  background:linear-gradient(180deg,rgba(28,22,16,.34) 0%,rgba(28,22,16,.06) 30%,
-             rgba(28,22,16,.44) 72%,rgba(28,22,16,.76) 100%)}
-#hero .in{padding-bottom:clamp(4.5rem,12vh,8rem)}
+/* ══ JOURNEY — one continuous camera move through every photograph ══
+   Full system documented in docs/journey-experience.md. Short version:
+   a tall (100svh × scene count) section with a position:sticky frame —
+   the exact mechanism already proven by THE HELD SCENE below, reused
+   rather than reinvented — holding either a WebGL corridor (desktop,
+   capable hardware, no reduced-motion) or a CSS parallax stack
+   (everything else, including every phone this page is actually opened
+   on cold from WhatsApp). Both read the same JOURNEY scene data, so
+   nobody — fast device or slow — sees a placeholder. */
+#journey{position:relative;background:#0E0B08;
+  height:calc(var(--jy-n, 9) * 100svh)}
+#journey .jy-frame{position:sticky;top:0;height:100svh;overflow:hidden;
+  display:grid;place-items:end start}
+#jyCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;
+  transition:opacity 1.2s var(--slow)}
+#jyCanvas.ready{opacity:1}
+#journey .grade{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 100%,rgba(14,11,8,.05),rgba(14,11,8,.62) 100%),
+             linear-gradient(180deg,rgba(14,11,8,.5) 0%,rgba(14,11,8,0) 26%,
+                              rgba(14,11,8,0) 62%,rgba(14,11,8,.6) 100%)}
+#journey .grain{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='4'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay}
+#journey .bloom{position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(60% 46% at 78% 18%,rgba(255,238,214,.16),transparent 60%);
+  mix-blend-mode:screen;opacity:0;transition:opacity 1.6s var(--slow)}
+#journey .bloom.on{opacity:1}
 
+/* the CSS-fallback corridor: N full-screen frames, cross-faded and
+   drifted (Ken Burns) as they enter — same idiom as .uncover/.rise
+   elsewhere on this page, not a new animation vocabulary */
+#jyFallback{position:absolute;inset:0}
+#jyFallback .jf{position:absolute;inset:0;opacity:0;
+  transition:opacity 1.4s var(--slow)}
+#jyFallback .jf.on{opacity:1;z-index:1}
+#jyFallback .jf img{width:100%;height:100%;object-fit:cover;
+  filter:saturate(.94) contrast(1.03) brightness(.92);
+  transform:scale(1.06);transition:transform 7s linear}
+#jyFallback .jf.on img{transform:scale(1.16)}
 
-#hero .in{position:relative;z-index:2;text-align:start;width:min(1440px,100% - var(--gut)*2);
-  margin-inline:auto;padding-block:clamp(6rem,16vh,10rem)}
-#hero .in::before{content:"";display:block;width:clamp(46px,9vw,84px);height:1px;
+#journey .in{position:relative;z-index:4;text-align:start;
+  width:min(1440px,100% - var(--gut)*2);margin-inline:auto;
+  padding-block:clamp(6rem,16vh,10rem);
+  transition:opacity .6s var(--slow),filter .6s var(--slow);pointer-events:none}
+#journey .in .h-ask{pointer-events:auto}
+/* the name is the arrival's line, not a caption stapled over every room —
+   once the walk continues past it, only the small kicker and the progress
+   rule stay on screen, so the photography is not fighting the wordmark */
+#journey .in.faded{opacity:0;filter:blur(2px);transition-duration:.9s}
+#journey .in::before{content:"";display:block;width:clamp(46px,9vw,84px);height:1px;
   background:rgba(247,243,238,.6);margin-bottom:clamp(1.4rem,4vh,2.4rem);
   animation:settle 1.6s var(--slow) 1.5s both}
+/* a running header label, independent of the grid .in sits in — pinned
+   clear of the fixed nav rather than fighting it for the same row */
+#journey .jy-k{position:absolute;z-index:4;
+  top:calc(clamp(1rem,3vw,2rem)*2 + env(safe-area-inset-top));
+  inset-inline-start:var(--gut);
+  font-size:.72rem;color:var(--ivory);opacity:0;
+  transition:opacity .5s var(--slow)}
+html[lang="en"] #journey .jy-k{letter-spacing:.34em;text-transform:uppercase}
+html[lang="ar"] #journey .jy-k{word-spacing:.28em}
+#journey .jy-k.on{opacity:1}
 .h-place{font-size:.76rem;color:var(--ivory);opacity:.92}
 html[lang="en"] .h-place{letter-spacing:.4em;text-transform:uppercase}
   .h-name{font-family:var(--fd);color:var(--ivory);margin-top:1.4rem;max-width:13ch;
@@ -267,14 +279,23 @@ html[lang="ar"] .h-name{line-height:1.36}
 .h-sub{margin-top:1.5rem;color:var(--ivory);opacity:.88;font-size:.9rem;font-weight:300;max-width:34ch}
 .h-ask{display:inline-block;margin-top:clamp(2.2rem,5vh,3.2rem);color:var(--ivory);
   font-size:.88rem;padding-bottom:.35rem}
-.h-scroll{position:absolute;bottom:clamp(1.2rem,3.4vh,2.4rem);inset-inline-end:var(--gut);z-index:2;
+.h-scroll{position:absolute;bottom:clamp(1.2rem,3.4vh,2.4rem);inset-inline-end:var(--gut);z-index:4;
   color:var(--ivory);font-size:.6rem;opacity:.72;text-align:center;
   transition:opacity .6s var(--slow)}
-#hero .h-scroll{animation:settle 1.6s var(--slow) 2.8s both}
+#journey .h-scroll{animation:settle 1.6s var(--slow) 2.8s both}
+/* the entrance keyframe's fill-mode:both pins opacity:1 after it plays,
+   which silently outranks a later inline style.opacity — a class beats
+   it back the same way the animation won in the first place */
+#journey .h-scroll.faded{opacity:0!important}
 .h-scroll i{display:block;width:1px;height:38px;background:currentColor;margin:.7rem auto 0;
   transform-origin:50% 0;animation:drop 2.6s var(--slow) infinite}
 @keyframes drop{0%{transform:scaleY(0);opacity:0}30%{opacity:1}
                 60%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1) translateY(38px);opacity:0}}
+/* the journey's own progress rule, echoing #veilbar's idiom */
+#jyProgress{position:absolute;inset-inline:var(--gut);bottom:clamp(1.2rem,3.4vh,2.4rem);
+  height:1px;background:rgba(247,243,238,.22);z-index:4;max-width:220px}
+#jyProgress i{display:block;height:100%;background:var(--bronze);width:0%;
+  transition:width .2s linear}
 
 /* ══ statement — type occupies the screen ══ */
 .statement{padding:var(--air) 0}
@@ -291,12 +312,8 @@ html[lang="ar"] .h-name{line-height:1.36}
 .spread{display:grid;gap:clamp(1.6rem,4vw,4rem);align-items:end;padding-bottom:var(--air)}
 @media(min-width:900px){
   .spread{grid-template-columns:repeat(12,1fr)}
-  .spread .art{grid-column:1/8}
   .spread .say{grid-column:9/13;padding-bottom:clamp(1rem,6vw,5rem)}
-  .spread.flip .art{grid-column:6/13}
-  .spread.flip .say{grid-column:1/5}
 }
-.spread .art{aspect-ratio:4/5;border-radius:clamp(28px,3vw,40px);overflow:hidden}
 .spread .say h3{font-family:var(--fd);font-size:clamp(1.75rem,4.6vw,2.9rem);margin:1.1rem 0 1.1rem}
 .spread .say p{color:var(--walnut);font-size:.94rem}
 
@@ -322,36 +339,22 @@ html[lang="ar"] .h-name{line-height:1.36}
 .row[aria-pressed="true"] .mark{opacity:1;transform:none}
 .row[aria-pressed="true"] .nm{color:var(--walnut)}
 
-/* ── a full-bleed plate between chapters ── */
-.bleed{height:clamp(58svh,70vh,86svh);overflow:hidden;margin-block:var(--air)}
-.bleed.first{height:clamp(72svh,86vh,100svh);margin-top:0}
-.bleed .plate{height:100%}
-
-/* ── numbers, spoken quietly ── */
-.count{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(2rem,5vw,4rem) 1rem;
-  padding-block:var(--air);border-top:1px solid var(--travertine)}
-@media(min-width:800px){.count{grid-template-columns:repeat(4,1fr)}}
-.count .v{font-family:var(--fl);font-size:clamp(2.4rem,6vw,4.4rem);color:var(--char);
-  line-height:1;font-variant-numeric:tabular-nums}
-.count .k{margin-top:.7rem;color:var(--stone);font-size:.76rem}
-@property --n{syntax:"<integer>";initial-value:0;inherits:false}
-.tally{counter-reset:n var(--n)}
-.tally::after{content:counter(n)}
-@supports (animation-timeline: view()){
-  .tally{animation:tallyGo .1s linear both;animation-timeline:view();
-    animation-range:entry 18% entry 88%}
-  @keyframes tallyGo{to{--n:var(--to)}}
-}
-
 /* ── gallery: staggered, never a grid of equal squares ── */
+/* an editorial rhythm that holds for any count this section receives —
+   a salon's six real photos or the journey's nine frames. Each row pairs
+   a wide frame with a narrow one and swaps sides on the next row; one
+   frame per row carries the aspect-ratio, its neighbour stretches to
+   match, and an odd frame left at the end goes full-bleed. */
 .gal{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(.8rem,2vw,2rem);
   padding-bottom:var(--air)}
 .gal figure{overflow:hidden;border-radius:clamp(28px,3vw,40px)}
-.gal figure:nth-child(1){grid-column:1/10;aspect-ratio:5/4}
-.gal figure:nth-child(2){grid-column:4/13;aspect-ratio:16/10;margin-top:clamp(1.5rem,6vw,6rem)}
+.gal figure:nth-child(4n+1){grid-column:1/8;aspect-ratio:5/4}
+.gal figure:nth-child(4n+2){grid-column:8/13}
+.gal figure:nth-child(4n+3){grid-column:1/6}
+.gal figure:nth-child(4n){grid-column:6/13;aspect-ratio:16/10}
+.gal figure:last-child:nth-child(odd){grid-column:1/13;aspect-ratio:16/9}
 @media(max-width:760px){
-  .gal figure:nth-child(1){grid-column:1/13;aspect-ratio:5/4}
-  .gal figure:nth-child(2){grid-column:1/13;aspect-ratio:4/3}
+  .gal figure{grid-column:1/13!important;aspect-ratio:4/3!important}
 }
 
 /* ── a single voice, large ── */
@@ -419,74 +422,6 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
 #lb img{max-width:94vw;max-height:88vh;object-fit:contain;border-radius:clamp(20px,2vw,28px)}
 #lb .x{position:fixed;top:calc(1rem + env(safe-area-inset-top));inset-inline-end:1rem;
   color:var(--ivory);font-size:.76rem;letter-spacing:.2em}
-
-
-/* ══════════════════════════════════════════════════════════════════════
-   THE HELD SCENE
-   The one place the page stops. The plate is pinned for three screens
-   while the lines of the ritual replace one another over it. Scrolling
-   here changes what is said, not where you are — which is the only reason
-   to take a visitor's scroll away from them.
-   ══════════════════════════════════════════════════════════════════════ */
-#held{position:relative;height:300svh;margin-block:var(--air)}
-#held .frame{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
-#held .frame .plate{position:absolute;inset:0}
-#held .frame .plate::after{content:"";position:absolute;inset:0;z-index:2;
-  background:linear-gradient(180deg,rgba(28,22,16,.30),rgba(28,22,16,.62))}
-#held .lines{position:relative;z-index:3;width:min(1180px,90vw);color:var(--ivory);text-align:start}
-#held .lines b{display:block;font-family:var(--fd);font-weight:400;
-  font-size:clamp(1.9rem,6.4vw,4.4rem);line-height:1.4;opacity:0}
-#held .lines{position:relative;min-height:clamp(9rem,26vh,15rem)}
-#held .lines b{position:absolute;inset-block-start:0;inset-inline:0}
-#held .no{display:block;font-family:var(--fl);font-size:.8rem;color:var(--bronze);
-  margin-bottom:1.4rem;opacity:0;position:relative}
-@supports (animation-timeline: view()){
-  /* A named timeline on the tall section. The lines live inside the sticky
-     frame, which does not itself move, so their own view() timeline would
-     never advance; and `contain` collapses to zero length whenever the
-     subject is taller than the viewport — which is the whole point of this
-     section. Both mistakes were in the first version of this block. */
-  #held{view-timeline-name:--held;view-timeline-axis:block}
-  #held .lines b{animation:heldLine linear both;animation-timeline:--held}
-  #held .lines b:nth-child(2){animation-range:cover 8% cover 40%}
-  #held .lines b:nth-child(3){animation-range:cover 38% cover 70%}
-  #held .lines b:nth-child(4){animation-range:cover 68% cover 100%}
-  @keyframes heldLine{
-    0%{opacity:0;transform:translateY(26px);filter:blur(6px)}
-    22%,78%{opacity:1;transform:none;filter:none}
-    100%{opacity:0;transform:translateY(-20px);filter:blur(6px)}}
-  #held .no{animation:heldNo linear both;animation-timeline:--held;
-    animation-range:cover 4% cover 14%}
-  @keyframes heldNo{from{opacity:0}to{opacity:.9}}
-  #held .frame .plate img{animation:heldPush linear both;animation-timeline:--held;
-    animation-range:cover 0% cover 100%}
-  @keyframes heldPush{from{transform:scale(1.02)}to{transform:scale(1.16)}}
-}
-@supports not (animation-timeline: view()){
-  #held{height:auto}
-  #held .frame{position:relative;height:auto;padding-block:var(--air)}
-  #held .lines{min-height:0}
-  #held .lines b{opacity:1;position:relative!important;margin-bottom:1.2rem}
-  #held .no{opacity:.9}
-}
-
-/* ══ the grid breaks once ══
-   The plate runs off the start edge and the section's word sits across it. */
-.broken{position:relative;margin-block:var(--air);
-  padding-inline-end:var(--gut)}
-.broken .art{width:min(88%,980px);aspect-ratio:4/5;overflow:hidden;
-  border-start-end-radius:clamp(28px,4vw,44px);border-end-end-radius:clamp(28px,4vw,44px);
-  margin-inline-start:calc(var(--gut) * -1)}
-@media(min-width:900px){.broken .art{width:min(62%,860px);aspect-ratio:1}}
-.broken .over{position:absolute;inset-inline-end:var(--gut);bottom:clamp(1.4rem,6vw,4rem);
-  z-index:3;text-align:end;max-width:min(92%,620px)}
-.broken .over h3{font-family:var(--fd);font-size:clamp(2rem,8vw,5.4rem);line-height:1.28;
-  color:var(--char);mix-blend-mode:multiply}
-.broken .over span{display:block;font-size:.76rem;color:var(--walnut);margin-bottom:.7rem}
-@media(min-width:900px){
-  .broken .over{bottom:auto;top:50%;translate:0 -50%}
-}
-
 
 
 /* ══ THE MENU — a room of its own ══ */
@@ -673,18 +608,24 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
   <a class="ask" id="ctaNav" href="#"><span data-t="ask"></span></a>
 </nav>
 
-<section id="hero">
-  <div class="open plate"><img id="p0" alt="" decoding="async" fetchpriority="high"></div>
-  <div class="in">
-    <p class="h-place b1" id="hPlace"></p>
-    <h1 class="h-name b2" id="hName"></h1>
-    <p class="h-sub b3" id="hSub"></p>
-    <a class="h-ask b4" id="ctaHero" href="#"><span data-t="ask"></span></a>
+<section id="journey" aria-label="A walk through the space">
+  <div class="jy-frame">
+    <div id="jyCanvasWrap"><canvas id="jyCanvas"></canvas></div>
+    <div id="jyFallback"></div>
+    <div class="grade"></div>
+    <div class="bloom" id="jyBloom"></div>
+    <div class="grain"></div>
+    <p class="jy-k" id="jyK"></p>
+    <div class="in">
+      <p class="h-place b1" id="hPlace"></p>
+      <h1 class="h-name b2" id="hName"></h1>
+      <p class="h-sub b3" id="hSub"></p>
+      <a class="h-ask b4" id="ctaHero" href="#"><span data-t="ask"></span></a>
+    </div>
+    <div id="jyProgress" aria-hidden="true"><i id="jyProgressBar"></i></div>
+    <div class="h-scroll b4" id="jyScrollCue"><span data-t="scroll"></span><i></i></div>
   </div>
-  <div class="h-scroll b4"><span data-t="scroll"></span><i></i></div>
 </section>
-
-<div class="bleed first plate par uncover"><img id="pB" alt="" loading="eager" decoding="async"></div>
 
 <section id="story" class="statement"><div class="wrap">
   <h2 class="serif rise drag" data-t="stH"></h2>
@@ -692,27 +633,6 @@ footer .n{font-family:var(--fd);color:var(--char);font-size:.95rem}
     <span data-t="sg1"></span><span data-t="sg2"></span><span data-t="sg3"></span>
   </div>
 </div></section>
-
-<div class="broken">
-  <figure class="art plate par uncover"><img id="p1" alt="" loading="lazy" decoding="async"></figure>
-  <div class="over rise">
-    <span class="label" data-t="ch1"></span>
-    <h3 class="serif" data-t="s1h"></h3>
-  </div>
-</div>
-<div class="wrap" style="padding-bottom:var(--air)">
-  <p class="rise" style="max-width:52ch;margin-inline-start:auto;text-align:end;color:var(--walnut)" data-t="s1p"></p>
-</div>
-
-<section id="held">
-  <div class="frame">
-    <div class="plate"><img id="p2" alt="" loading="lazy" decoding="async"></div>
-    <div class="lines">
-      <span class="no">01 — 03</span>
-      <b data-t="r1"></b><b data-t="r2"></b><b data-t="r3"></b>
-    </div>
-  </div>
-</section>
 
 <section id="index" class="wrap">
   <span class="label rise" data-t="ixK"></span>
@@ -947,21 +867,15 @@ var $=function(s){return document.querySelector(s)},
 var TXT={
  ar:{lang:"EN",
   nStory:"قصتنا",nBridal:"العروس",nMenu:"القائمة",nPrice2:"الخدمات والأسعار",nMember:"العضوية",nIndex:"الفهرس",nGallery:"المكان",nVisit:"الزيارة",
-  ask:"اطلبي موعدك",scroll:"انزلي",
+  ask:"اطلبي موعدك",scroll:"انزلي",jyAria:"جولة في المكان",
   stH:"كل التفاصيل جاهزة قبل وصولك.",
   sg1:"للنساء وحدهنّ",sg2:"بالموعد فقط",sg3:"في {city}",
-  ch1:"الخطوة الأولى",
-  s1h:"وصولك",
-  s1p:"مكانك جاهز من قبل ما توصلين. ما نحجز فوق طاقتنا، فما فيه انتظار — وقتك لك وحدك.",
-  ch2:"الخطوة الثانية",
+  ch2:"الخطوة الأولى",
   s2h:"الاستشارة",
   s2p:"قبل ما نبدأ نسمع منك: شعرك، بشرتك، والمناسبة. ونقول لك بصراحة إيش يناسبك وإيش ما يناسبك، حتى لو كان الجواب خدمة أرخص.",
-  r1:"نسمعك أول، قبل أي اقتراح.",
-  r2:"نشتغل بهدوء، وبأدوات معقّمة أمامك.",
-  r3:"وتعرفين السعر والخطة قبل ما نبدأ.",
-  ch3:"الخطوة الثالثة",s3h:"الجلسة",
+  ch3:"الخطوة الثانية",s3h:"الجلسة",
   s3p:"الأدوات تتعقّم قدّامك، والمنتجات نختارها مرة وما نبدلها بأرخص منها. تقدرين تشوفين كل خطوة قبل ما تتم.",
-  ch4:"الخطوة الرابعة",s4h:"قبل ما تمشين",
+  ch4:"الخطوة الثالثة",s4h:"قبل ما تمشين",
   s4p:"نتفق على المتابعة: متى ترجعين، وكيف تحافظين على النتيجة في البيت. والسعر اللي شفتيه في القائمة هو اللي تدفعينه.",
   ixK:"الفهرس",ixH:"الخدمات والأسعار",
   ixNote:"اختاري اللي يناسبك ويوصلنا طلبك جاهزاً على واتساب — بدون مكالمات.",
@@ -1008,21 +922,15 @@ var TXT={
   waMember:"السلام عليكم، أرغب بمعرفة تفاصيل العضوية."},
  en:{lang:"ع",
   nStory:"Our story",nBridal:"Bridal",nMenu:"Menu",nPrice2:"Services & prices",nMember:"Membership",nIndex:"Index",nGallery:"Space",nVisit:"Visit",
-  ask:"Request an appointment",scroll:"Scroll",
+  ask:"Request an appointment",scroll:"Scroll",jyAria:"A walk through the space",
   stH:"Your visit is arranged before you arrive.",
   sg1:"Women only",sg2:"By appointment",sg3:"In {city}",
-  ch1:"Step one",
-  s1h:"Arriving",
-  s1p:"You walk in and your place is ready. We never overbook, so there is no wait and no crowd — the time you booked is yours alone.",
-  ch2:"Step two",
+  ch2:"Step one",
   s2h:"The consultation",
   s2p:"Before anything begins we listen: your hair, your skin, the occasion. Then we tell you plainly what suits you and what does not — even when the honest answer is a cheaper service.",
-  r1:"We begin by listening, not by recommending.",
-  r2:"Then we work slowly, with tools sterilised in front of you.",
-  r3:"And we finish with an agreement, not an invoice.",
-  ch3:"Step three",s3h:"The appointment",
+  ch3:"Step two",s3h:"The appointment",
   s3p:"Tools are sterilised in front of you, and the products are chosen once and never quietly swapped for something cheaper. You can see every step before it happens.",
-  ch4:"Step four",s4h:"Before you leave",
+  ch4:"Step three",s4h:"Before you leave",
   s4p:"We agree on what comes next: when to return, and how to keep the result at home. And the price you saw on the list is the price you pay.",
   ixK:"Index",ixH:"Services and prices",
   ixNote:"Choose what suits you and the request arrives written on WhatsApp — no call, no waiting.",
@@ -1077,27 +985,16 @@ function priceOf(s){return parseInt(S(s.price).replace(/[^\d]/g,""),10)||0}
 function nameOf(s){return S((lang==="en"&&s.name_en)?s.name_en:s.name)}
 function descOf(s){return S((lang==="en"&&s.desc_en)?s.desc_en:s.desc)}
 
-/* Every photograph passes through the same grade in CSS, so a mixed
-   library still reads as one campaign. Real salon photographs, when the
-   pipeline has them, arrive here and are graded identically. */
-var STOCK=[
- "https://images.unsplash.com/photo-1613323885789-e2212e15c326?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8M3x8bG9uZyUyMHNoaW55JTIwaGFpciUyMGJhY2t8ZW58MXwxfHx8MTc4NTMwNzYwN3ww&ixlib=rb-4.1.0&w=1400&q=80&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1682450285233-1fb10d4a4616?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTN8fGhhaXIlMjB0ZXh0dXJlJTIwd2F2ZXMlMjBjbG9zZXVwfGVufDF8MXx8fDE3ODUzMDc2MDl8MA&ixlib=rb-4.1.0&w=1000&q=80&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1560264641-1b5191cc63e2?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8Mnx8aGFpciUyMHRleHR1cmUlMjB3YXZlcyUyMGNsb3NldXB8ZW58MXwxfHx8MTc4NTMwNzYwOXww&ixlib=rb-4.1.0&w=1400&q=80&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1692221307059-8819db116d92?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTZ8fGV5ZWJyb3dzJTIwY2xvc2V1cCUyMGJlYXV0eXxlbnwxfDF8fHwxNzg1MzA3NjEzfDA&ixlib=rb-4.1.0&w=1000&q=80&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1682450285233-1fb10d4a4616?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTN8fGhhaXIlMjB0ZXh0dXJlJTIwd2F2ZXMlMjBjbG9zZXVwfGVufDF8MXx8fDE3ODUzMDc2MDl8MA&ixlib=rb-4.1.0&w=900&q=80&fm=jpg&fit=crop",
- "https://images.unsplash.com/photo-1613057388812-029549dc3d39?ixid=M3wxMDA5Mzc4fDB8MXxzZWFyY2h8MTl8fGV5ZWxhc2glMjBleHRlbnNpb25zJTIwY2xvc2V1cHxlbnwxfDF8fHwxNzg1MzA3NjE1fDA&ixlib=rb-4.1.0&w=900&q=80&fm=jpg&fit=crop"];
-var LQIP=["data:image/jpeg;base64,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", "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYYXBwbAQAAABtbnRyUkdCIFhZWiAH5gABAAEAAAAAAABhY3NwQVBQTAAAAABBUFBMAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWFwcGzs/aOOOIVHw220vU962hgvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApkZXNjAAAA/AAAADBjcHJ0AAABLAAAAFB3dHB0AAABfAAAABRyWFlaAAABkAAAABRnWFlaAAABpAAAABRiWFlaAAABuAAAABRyVFJDAAABzAAAACBjaGFkAAAB7AAAACxiVFJDAAABzAAAACBnVFJDAAABzAAAACBtbHVjAAAAAAAAAAEAAAAMZW5VUwAAABQAAAAcAEQAaQBzAHAAbABhAHkAIABQADNtbHVjAAAAAAAAAAEAAAAMZW5VUwAAADQAAAAcAEMAbwBwAHkAcgBpAGcAaAB0ACAAQQBwAHAAbABlACAASQBuAGMALgAsACAAMgAwADIAMlhZWiAAAAAAAAD21QABAAAAANMsWFlaIAAAAAAAAIPfAAA9v////7tYWVogAAAAAAAASr8AALE3AAAKuVhZWiAAAAAAAAAoOAAAEQsAAMi5cGFyYQAAAAAAAwAAAAJmZgAA8qcAAA1ZAAAT0AAACltzZjMyAAAAAAABDEIAAAXe///zJgAAB5MAAP2Q///7ov///aMAAAPcAADAbv/bAIQACAkJCw4LDxAQDxQWFBYUHhsZGRseLCAiICIgLEMqMSoqMSpDO0g7NztIO2pTSkpTanpnYmd6lIWFlLqxuvPz/wEICQkLDgsPEBAPFBYUFhQeGxkZGx4sICIgIiAsQyoxKioxKkM7SDs3O0g7alNKSlNqemdiZ3qUhYWUurG68/P//8AAEQgAJQAcAwEiAAIRAQMRAf/EAGoAAQADAQEAAAAAAAAAAAAAAAcABQYEAxAAAgIBBAAFBQAAAAAAAAAAAQIDEQAEBRIxBiFScYEUJEFhsQEAAgMBAAAAAAAAAAAAAAAAAgQAAQMFEQADAQEAAAAAAAAAAAAAAAAAAQIRA//aAAwDAQACEQMRAD8AR1gVRma1firQwSlAjuF7Zc0O4j7eRbItSb9sAdfqLmdRQ43/AGrOKvo3WIYmU1rHDbd70GtFRSU/obybLcrgBoTIJUK2GDAqRj+CaF90LyKwanCo8RTzQwm3QIbsDs4C6wusjNJHQ4nnfZvr5ONO7maWOUMqmXj5ce1wu3TTPPq3kftmuj6qrKqKi2mg4cuU0zt8Lxh9z0yNfHizfK4zNJ54QbS5gl5NGeSkUR+K7zfLu2nYXyI/RGXMVm4B0pacetkb6qT3ytdAbyZM6lCklfIKOePI5MmZI1P/2Q==", "data:image/jpeg;base64,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", "data:image/jpeg;base64,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", "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYYXBwbAQAAABtbnRyUkdCIFhZWiAH5gABAAEAAAAAAABhY3NwQVBQTAAAAABBUFBMAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWFwcGzs/aOOOIVHw220vU962hgvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApkZXNjAAAA/AAAADBjcHJ0AAABLAAAAFB3dHB0AAABfAAAABRyWFlaAAABkAAAABRnWFlaAAABpAAAABRiWFlaAAABuAAAABRyVFJDAAABzAAAACBjaGFkAAAB7AAAACxiVFJDAAABzAAAACBnVFJDAAABzAAAACBtbHVjAAAAAAAAAAEAAAAMZW5VUwAAABQAAAAcAEQAaQBzAHAAbABhAHkAIABQADNtbHVjAAAAAAAAAAEAAAAMZW5VUwAAADQAAAAcAEMAbwBwAHkAcgBpAGcAaAB0ACAAQQBwAHAAbABlACAASQBuAGMALgAsACAAMgAwADIAMlhZWiAAAAAAAAD21QABAAAAANMsWFlaIAAAAAAAAIPfAAA9v////7tYWVogAAAAAAAASr8AALE3AAAKuVhZWiAAAAAAAAAoOAAAEQsAAMi5cGFyYQAAAAAAAwAAAAJmZgAA8qcAAA1ZAAAT0AAACltzZjMyAAAAAAABDEIAAAXe///zJgAAB5MAAP2Q///7ov///aMAAAPcAADAbv/bAIQACAkJCw4LDxAQDxQWFBYUHhsZGRseLCAiICIgLEMqMSoqMSpDO0g7NztIO2pTSkpTanpnYmd6lIWFlLqxuvPz/wEICQkLDgsPEBAPFBYUFhQeGxkZGx4sICIgIiAsQyoxKioxKkM7SDs3O0g7alNKSlNqemdiZ3qUhYWUurG68/P//8AAEQgAJQAcAwEiAAIRAQMRAf/EAGoAAQADAQEAAAAAAAAAAAAAAAcABQYEAxAAAgIBBAAFBQAAAAAAAAAAAQIDEQAEBRIxBiFScYEUJEFhsQEAAgMBAAAAAAAAAAAAAAAAAgQAAQMFEQADAQEAAAAAAAAAAAAAAAAAAQIRA//aAAwDAQACEQMRAD8AR1gVRma1firQwSlAjuF7Zc0O4j7eRbItSb9sAdfqLmdRQ43/AGrOKvo3WIYmU1rHDbd70GtFRSU/obybLcrgBoTIJUK2GDAqRj+CaF90LyKwanCo8RTzQwm3QIbsDs4C6wusjNJHQ4nnfZvr5ONO7maWOUMqmXj5ce1wu3TTPPq3kftmuj6qrKqKi2mg4cuU0zt8Lxh9z0yNfHizfK4zNJ54QbS5gl5NGeSkUR+K7zfLu2nYXyI/RGXMVm4B0pacetkb6qT3ytdAbyZM6lCklfIKOePI5MmZI1P/2Q==", "data:image/jpeg;base64,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"];
-var POOL=(C.photos&&C.photos.length)?C.photos.concat(STOCK):STOCK;
-function pick(i){return POOL[i%POOL.length]}
+/* Imagery now comes from exactly two places: the salon's own harvested
+   photos (POOL) and the journey frames. The old Unsplash stock set and
+   its inlined LQIP blobs left with the sections that showed them. */
+var POOL=(C.photos||[]);
 
 var RATE=parseFloat(C.rating)||0;
 var PRICES=(C.services||[]).map(priceOf).filter(function(n){return n>0});
 var PKEY="axis-pick-"+location.pathname,PICK={};
 try{PICK=JSON.parse(localStorage.getItem(PKEY)||"{}")||{}}catch(e){PICK={}}
 function savePick(){try{localStorage.setItem(PKEY,JSON.stringify(PICK))}catch(e){}}
-function tally(el,n){if(!el)return;el.style.setProperty("--to",n);
-  if(!CSS.supports("animation-timeline: view()"))el.style.setProperty("--n",n)}
 
 var DAYS_AR=["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
 var DAYS_EN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
@@ -1175,7 +1072,9 @@ function paint(){
 
   var name=F("salon_name"),city=F("city");
   document.title=name+" — "+city;
-  $("#vName").textContent=name;$("#nName").textContent=name;
+  var jsec=$("#journey");if(jsec)jsec.setAttribute("aria-label",t.jyAria);
+  var vn=$("#vName");if(vn)vn.textContent=name; // the veil removes itself 2.4s after load
+  $("#nName").textContent=name;
   $("#hName").textContent=name;$("#fName").textContent=name;
   $("#hPlace").textContent=city;$("#fCity").textContent=city;
   $("#hSub").textContent=F("tagline").split("·").map(function(x){return x.trim()})
@@ -1202,7 +1101,280 @@ function paint(){
   if(r&&r.text){$("#voice").hidden=false;$("#vq").textContent="“"+S(r.text)+"”";
     $("#vc").textContent=S(r.who)}
   drawRows();drawDock();drawHours();
+  if(window.__jyPaint)window.__jyPaint();
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   THE JOURNEY
+   Full design rationale, the fallback contract and the honesty note on
+   what "2.5D" means here (a real WebGL dolly through nine textured
+   planes with a shared parallax/dust/curtain system — not photogrammetry)
+   are in docs/journey-experience.md. In this file: one array of scene
+   data, and two renderers that read it — a Three.js corridor for capable,
+   motion-consenting desktops, and the plain cross-fade/Ken-Burns stack
+   every other visitor gets, including the phone this page is actually
+   opened on. Never both, so nobody pays for images they will not see.
+   ══════════════════════════════════════════════════════════════════════ */
+var JY_BASE="/_journey/";
+var JOURNEY=[
+ {key:"arrival",   w:1402,h:1122, fx:["bloom"],
+  ar:"الوصول",       en:"Arrival"},
+ {key:"reception", w:1536,h:1024, fx:["bloom","curtain"],
+  ar:"الاستقبال",    en:"Reception"},
+ {key:"ritual",    w:1023,h:1537, fx:[],
+  ar:"بداية الطقس",  en:"The ritual begins"},
+ {key:"spa",       w:1023,h:1537, fx:[],
+  ar:"الجلسة",       en:"The session"},
+ {key:"treatment", w:1023,h:1015, fx:[],
+  ar:"غرفة العلاج",  en:"Treatment room"},
+ {key:"massage",   w:1023,h:1537, fx:["curtain","bloom"],
+  ar:"الاسترخاء",    en:"Relaxation"},
+ {key:"beauty",    w:1023,h:1537, fx:["bloom"],
+  ar:"لمسة الجمال",  en:"Beauty"},
+ {key:"cafe",      w:1086,h:1448, fx:[],
+  ar:"ركن القهوة",   en:"Coffee lounge"},
+ {key:"finale",    w:1086,h:1448, fx:["bloom","curtain"],
+  ar:"قبل أن تغادري", en:"Before you leave"}
+];
+root.style.setProperty("--jy-n",JOURNEY.length);
+
+(function(){
+  var section=$("#journey");if(!section)return;
+  var frame=section.querySelector(".jy-frame");
+  var kEl=$("#jyK"),barEl=$("#jyProgressBar"),bloomEl=$("#jyBloom"),cueEl=$("#jyScrollCue");
+  var inEl=section.querySelector(".in");
+  var current=-1;
+
+  function label(i){var s=JOURNEY[i];return(i+1<10?"0":"")+(i+1)+" · "+(lang==="ar"?s.ar:s.en)}
+  function setChapter(i){
+    i=Math.max(0,Math.min(JOURNEY.length-1,i));
+    if(i!==current){current=i;bloomEl.classList.toggle("on",JOURNEY[i].fx.indexOf("bloom")>-1)}
+    kEl.textContent=label(i);kEl.classList.add("on");
+  }
+  window.__jyPaint=function(){if(current>-1)setChapter(current)};
+  function setProgress(p){
+    barEl.style.width=(p*100).toFixed(1)+"%";
+    cueEl.classList.toggle("faded",p>0.025);
+    inEl.classList.toggle("faded",p>0.07);
+  }
+
+  function coarseSmallDevice(){
+    return matchMedia("(pointer:coarse)").matches&&matchMedia("(max-width:760px)").matches;
+  }
+  function lowPower(){
+    return(navigator.deviceMemory&&navigator.deviceMemory<4)||
+          (navigator.hardwareConcurrency&&navigator.hardwareConcurrency<4);
+  }
+  function hasWebGL(){
+    try{var c=document.createElement("canvas");
+      return !!(window.WebGLRenderingContext&&(c.getContext("webgl")||c.getContext("experimental-webgl")));
+    }catch(e){return false}
+  }
+  var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var useCinema=hasWebGL()&&!reduced&&!coarseSmallDevice()&&!lowPower()&&("IntersectionObserver" in window);
+
+  /* ── the fallback: nine cross-fading, Ken-Burns frames ───────────────
+     Real img elements with real srcset — the same discipline as every
+     other plate on this page — driven by the same progress math a phone
+     already runs for #dock and the nav-withdraw below. */
+  function buildFallback(){
+    $("#jyCanvasWrap").hidden=true;
+    var host=$("#jyFallback");
+    var frames=JOURNEY.map(function(s,i){
+      var d=document.createElement("div");d.className="jf";
+      var img=document.createElement("img");img.alt="";img.decoding="async";
+      img.loading=i===0?"eager":"lazy";
+      if(i===0)img.setAttribute("fetchpriority","high");
+      img.srcset=[640,900,1300].map(function(w){return JY_BASE+s.key+"-"+w+".jpg "+w+"w"}).join(", ");
+      img.sizes="100vw";img.src=JY_BASE+s.key+"-900.jpg";dead(img);
+      d.appendChild(img);host.appendChild(d);return d;
+    });
+    frames[0].classList.add("on");setChapter(0);
+    var marks=JOURNEY.map(function(_,i){
+      var m=document.createElement("div");m.setAttribute("aria-hidden","true");
+      m.style.cssText="position:absolute;inset-inline:0;height:100svh;top:"+(i*100)+"svh;pointer-events:none";
+      section.appendChild(m);return m;
+    });
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var i=marks.indexOf(e.target);
+        frames.forEach(function(f,k){f.classList.toggle("on",k===i)});
+        setChapter(i);
+      });
+    },{threshold:0.55});
+    marks.forEach(function(m){io.observe(m)});
+    addEventListener("scroll",function(){
+      var r=section.getBoundingClientRect();
+      setProgress(Math.min(1,Math.max(0,-r.top/(r.height-innerHeight))));
+    },{passive:true});
+  }
+
+  /* ── the cinema path: Three.js + GSAP/ScrollTrigger + Lenis, loaded
+     only here — a phone that fails useCinema never fetches a byte of
+     them. Any load failure (ad-blocker, offline CDN) falls back the
+     same as a phone would. ─────────────────────────────────────────── */
+  function loadScript(src){
+    return new Promise(function(res,rej){
+      var s=document.createElement("script");
+      s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);
+    });
+  }
+  function buildCinema(){
+    Promise.all([
+      loadScript("https://unpkg.com/three@0.160.0/build/three.min.js"),
+      loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"),
+      loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"),
+      loadScript("https://unpkg.com/lenis@1.1.13/dist/lenis.min.js")
+    ]).then(runCinema).catch(buildFallback);
+  }
+
+  function runCinema(){
+    if(!window.THREE||!window.gsap||!window.Lenis){buildFallback();return}
+    var THREE=window.THREE;gsap.registerPlugin(ScrollTrigger);
+    var canvas=$("#jyCanvas");
+    var renderer;
+    try{
+      renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,
+        powerPreference:"high-performance",preserveDrawingBuffer:true});
+    }catch(e){buildFallback();return}
+    renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));
+    if("outputColorSpace" in renderer)renderer.outputColorSpace=THREE.SRGBColorSpace;
+
+    var scene=new THREE.Scene();scene.background=new THREE.Color(0x0e0b08);
+    var DIST=2,SPACING=6.4;
+    var camera=new THREE.PerspectiveCamera(42,1,0.1,100);
+    camera.position.set(0,0,DIST);
+    var visH=2*Math.tan(THREE.MathUtils.degToRad(camera.fov)/2)*DIST;
+
+    var loader=new THREE.TextureLoader();
+    var planes=JOURNEY.map(function(s,i){
+      var tex=loader.load(JY_BASE+s.key+"-1600.jpg");
+      if("colorSpace" in tex)tex.colorSpace=THREE.SRGBColorSpace;
+      var h=visH*1.14,w=h*(s.w/s.h);
+      var segX=s.fx.indexOf("curtain")>-1?28:1;
+      var geo=new THREE.PlaneGeometry(w,h,segX,1);
+      var mesh=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({map:tex,toneMapped:false}));
+      mesh.position.set((i%2?1:-1)*visH*0.09,0,-i*SPACING);
+      scene.add(mesh);return mesh;
+    });
+
+    var dustGeo=new THREE.BufferGeometry();
+    var N=130,pos=new Float32Array(N*3);
+    for(var i=0;i<N;i++){
+      pos[i*3]=(Math.random()-0.5)*visH*2.4;
+      pos[i*3+1]=(Math.random()-0.5)*visH*1.3;
+      pos[i*3+2]=-Math.random()*(JOURNEY.length*SPACING);
+    }
+    dustGeo.setAttribute("position",new THREE.BufferAttribute(pos,3));
+    var dustMat=new THREE.PointsMaterial({color:0xF3E6D2,size:visH*0.006,transparent:true,
+      opacity:0,depthWrite:false,blending:THREE.AdditiveBlending});
+    var dust=new THREE.Points(dustGeo,dustMat);scene.add(dust);
+
+    function resize(){
+      var w=frame.clientWidth,h=frame.clientHeight;
+      if(!w||!h)return;
+      renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();
+    }
+    resize();addEventListener("resize",resize);
+
+    var clock=new THREE.Clock(),raf1;
+    function render(){
+      raf1=requestAnimationFrame(render);
+      var t=clock.getElapsedTime();
+      camera.position.x+=Math.sin(t*0.55)*visH*0.0006;
+      camera.position.y+=Math.sin(t*0.4)*visH*0.0004;
+      var pa=dustGeo.attributes.position.array;
+      for(var k=1;k<pa.length;k+=3){pa[k]+=visH*0.0009;if(pa[k]>visH*1.3)pa[k]=-visH*1.3}
+      dustGeo.attributes.position.needsUpdate=true;
+      planes.forEach(function(m,idx){
+        if(JOURNEY[idx].fx.indexOf("curtain")===-1)return;
+        var g=m.geometry.attributes.position,arr=g.array,half=m.geometry.parameters.width/2;
+        for(var k2=0;k2<arr.length;k2+=3){
+          var xN=arr[k2]/half;
+          arr[k2+2]=xN<-0.5?Math.sin(t*0.5+xN*3)*visH*0.01:0;
+        }
+        g.needsUpdate=true;
+      });
+      renderer.render(scene,camera);
+    }
+    render();
+    canvas.classList.add("ready");
+
+    /* html{scroll-behavior:smooth} and Lenis cannot coexist: every position
+       Lenis sets becomes a browser-animated glide, and Lenis then reads
+       back mid-glide values and fights them — measured here as scrollTo
+       calls landing at 0, 999 or 1698 of a 16538 limit depending on when
+       the read raced the glide. Lenis brings its own easing; the native
+       one must be off while it drives. The CSS fallback path never runs
+       this line, so it keeps native smooth anchors. */
+    root.style.scrollBehavior="auto";
+    var lenis=new Lenis({duration:1.1,smoothWheel:true,syncTouch:false});
+    gsap.ticker.add(function(time){lenis.raf(time*1000)});
+    gsap.ticker.lagSmoothing(0);
+    lenis.on("scroll",ScrollTrigger.update);
+    window.__lenis=lenis; // exposed for QA harnesses only; nothing in this page reads it back
+
+    /* Lenis caches the page's scroll limit when it is constructed — which
+       here is before a single below-the-fold image has arrived. Measured
+       consequence: the page "ended" at ~1700px of its real ~18000, and a
+       mouse wheel could never reach the booking section at all. Re-measure
+       whenever the document actually changes size. */
+    if("ResizeObserver" in window){
+      new ResizeObserver(function(){lenis.resize();ScrollTrigger.refresh()})
+        .observe(document.body);
+    }else{
+      addEventListener("load",function(){lenis.resize();ScrollTrigger.refresh()});
+    }
+
+    /* Lenis is the authoritative scroll driver once active: every RAF tick
+       it re-asserts window.scrollTo(0, its own internal position), which is
+       exactly how a smooth-scroll library has to work — and exactly why a
+       native anchor jump (nav links, the menu dialog, the footer, #dock,
+       every href="#id" already on this page, all pre-dating Lenis) lands
+       for one frame and then gets pulled straight back to wherever Lenis
+       last thought the page was. The fix is not to fight Lenis, it's to
+       tell it: an eased lenis.scrollTo() measured unstable here too (still
+       fighting something mid-ease), so this jumps immediately rather than
+       gliding — correctness over a second, smaller flourish. */
+    $$('a[href^="#"]').forEach(function(a){
+      var id=a.getAttribute("href");
+      if(id.length<2||!document.querySelector(id))return;
+      a.addEventListener("click",function(e){
+        e.preventDefault();
+        if(lenis.resize)lenis.resize(); // dimensions drift as images below finish loading
+        lenis.scrollTo(id,{immediate:true});
+      });
+    });
+
+    /* ScrollTrigger only calls onUpdate once scrolling actually begins — at
+       progress 0 that left the kicker, the dust and the camera all in their
+       raw constructed state for however long a visitor paused before their
+       first scroll. buildFallback() already primes frame 0 on its own; this
+       is the cinema path's equivalent first paint. */
+    function paintAt(p){
+      setProgress(p);
+      var f=p*(JOURNEY.length-1);
+      var i=Math.min(JOURNEY.length-2,Math.floor(f)),local=f-Math.floor(f);
+      setChapter(Math.round(f));
+      camera.position.z=DIST-f*SPACING;
+      var dir=planes[i].position.x<0?1:-1;
+      camera.rotation.y=dir*0.045*Math.sin(local*Math.PI);
+      dustMat.opacity=0.4*Math.min(1,Math.sin(Math.max(0.02,p)*Math.PI)*1.35);
+    }
+    ScrollTrigger.create({
+      trigger:section,start:"top top",end:"bottom bottom",scrub:0.55,
+      onUpdate:function(self){paintAt(self.progress)}
+    });
+    paintAt(0);
+
+    document.addEventListener("visibilitychange",function(){
+      if(document.hidden)cancelAnimationFrame(raf1);else render();
+    });
+  }
+
+  if(useCinema)buildCinema();else buildFallback();
+})();
 
 /* imagery.
    A 1MB 1800px frame inside a pinned scene, marked lazy, arrives after the
@@ -1213,14 +1385,8 @@ function paint(){
 function widen(u,w){return u.replace(/([?&])w=\d+/,"$1w="+w)}
 function dress(el,url,eager){
   if(!el)return;
-  var gi=POOL.indexOf(url);
-  if(gi>-1&&LQIP[gi]&&el.parentElement){
-    var pe=el.parentElement;
-    pe.style.backgroundImage="url("+LQIP[gi]+")";
-    pe.style.backgroundSize="cover";pe.style.backgroundPosition="center";
-    el.style.opacity="0";el.style.transition="opacity .9s cubic-bezier(.19,1,.22,1)";
-    el.addEventListener("load",function(){el.style.opacity="1"},{once:true});
-  }
+  el.style.opacity="0";el.style.transition="opacity .9s cubic-bezier(.19,1,.22,1)";
+  el.addEventListener("load",function(){el.style.opacity="1"},{once:true});
   el.setAttribute("srcset",[640,900,1300,1800].map(function(w){
     return widen(url,w)+" "+w+"w"}).join(", "));
   el.setAttribute("sizes","100vw");
@@ -1229,14 +1395,26 @@ function dress(el,url,eager){
   if(eager)el.setAttribute("fetchpriority","high");
   dead(el);
 }
-[["#p0",0,true],["#pB",4,true],["#p1",1,false],["#p2",2,true],["#p3",3,false]].forEach(function(x){
-  dress($(x[0]),pick(x[1]),x[2]);
-});
-[4,5].forEach(function(i){
-  var f=document.createElement("figure");f.className="plate par uncover";
-  var m=document.createElement("img");m.alt="";m.decoding="async";
-  dress(m,pick(i),false);f.appendChild(m);$("#gal").appendChild(f);
-});
+/* the revisit grid: a real salon's own harvested Google photos, when the
+   pipeline has them, always outrank the illustrative journey stills —
+   evidence beats atmosphere. Only when there is no real photo yet does
+   the grid fall back to the same nine frames the journey walked through,
+   so "revisit the space" never points at an empty section. */
+if(C.photos&&C.photos.length){
+  C.photos.slice(0,6).forEach(function(url){
+    var f=document.createElement("figure");f.className="plate par uncover";
+    var m=document.createElement("img");m.alt="";m.decoding="async";
+    dress(m,url,false);f.appendChild(m);$("#gal").appendChild(f);
+  });
+}else if(typeof JOURNEY!=="undefined"){
+  JOURNEY.forEach(function(s){
+    var f=document.createElement("figure");f.className="plate par uncover";
+    var m=document.createElement("img");m.alt="";m.loading="lazy";m.decoding="async";
+    m.srcset=["640","900","1300"].map(function(w){return JY_BASE+s.key+"-"+w+".jpg "+w+"w"}).join(", ");
+    m.sizes="100vw";m.src=JY_BASE+s.key+"-900.jpg";dead(m);
+    f.appendChild(m);$("#gal").appendChild(f);
+  });
+}
 
 function swap(fn){
   if(document.startViewTransition&&!matchMedia("(prefers-reduced-motion: reduce)").matches){
@@ -1450,14 +1628,20 @@ $("#lb").addEventListener("click",function(e){if(e.target===this)this.close()});
 $("#lb").addEventListener("close",function(){$("#lbImg").removeAttribute("src")});
 
 /* navigation withdraws while you read, returns when you look up */
-var lastY=0;
-addEventListener("scroll",function(){
+var lastY=0,jySec=$("#journey");
+function onScroll(){
   var y=scrollY,h=innerHeight;
-  $("#dock").classList.toggle("up",y>h*.9);
+  var jyEnd=jySec?jySec.offsetTop+jySec.offsetHeight:0;
+  /* the dock waits until the walk is over - its ivory gradient over the
+     corridor's final rooms undid the dark grade it floats above */
+  $("#dock").classList.toggle("up",y>jyEnd-h*.4);
   $("#nav").classList.toggle("away",y>lastY&&y>h*.6);
   $("#nav").classList.toggle("surfaced",y>h*.85);
+  $("#nav").classList.toggle("indark",y<jyEnd-h*.55);
   lastY=y;
-},{passive:true});
+}
+addEventListener("scroll",onScroll,{passive:true});
+onScroll();  // the classes must be right before the first scroll ever happens
 
 
 (function(){

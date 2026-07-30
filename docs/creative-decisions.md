@@ -160,11 +160,38 @@ instrumented page measurements in this session, and the live page.
 | 099 | Screenshots were taken through a harness that silently cropped, exploded and froze the page — three false conclusions drawn from it. | Harness rebuilt and self-checking. | tooling | Harness reports scroll position | **verified** |
 | 100 | No documentation existed, so every decision was re-litigated from scratch. | This file plus art-direction, image-manifest, ux-flow, qa-report, demo-content. | /docs | Files exist and are current | in progress |
 
+## 11 · The journey — a cinematic corridor replaces the sparse photographic spine
+
+| # | Problem | Correction | Where | Verification | Status |
+|---|---|---|---|---|---|
+| 101 | One of ten supplied AI-generated spa photos carried legible fabricated poster text ("EXLCTING" / non-language gibberish) — a tell that reads as broken, independent of the provenance question. | Cropped the frame to exclude the poster; kept the bed/lamp/machine composition. | assets/journey, treatment scene | Render, poster region absent | **verified** |
+| 102 | A real Instagram photo (navasalon.sa's own bench) arrived in the same batch as the AI stock set — reusing it in the *generic* template would misattribute one real business's actual space to every other harvested salon it's shown to. | Excluded from the shared /_journey pool; that frame stays only where it was already disclosed (Nava's own bespoke page). | sites/_journey | File list, manifest | **verified** |
+| 103 | Lenis (smooth scroll) re-asserts its own scroll position every frame — a native anchor jump (nav, menu dialog, footer, #dock, every existing href="#id") landed for one frame and then snapped back to wherever Lenis last thought the page was. | Anchor clicks routed through `lenis.scrollTo(id,{immediate:true})`; `lenis.resize()` called first since dimensions drift as below-the-fold images finish loading. | nav / footer / #dock / menu | scrollY read at 3 timestamps after a real click, before/after the fix | **verified** |
+| 104 | CDP screenshots taken after any scroll came back solid-color blank, while the pre-scroll frame captured correctly — no JS error, no layout error, just missing canvas content. | Traced to the explicit `clip` rectangle on `Page.captureScreenshot` conflicting with a forced device-scale-factor; dropped `clip`, crop client-side instead. | verification tooling | Byte-size diff (19KB blank vs 3–6MB real) reproduced 6 times before the fix, zero times after | **verified** |
+| 105 | GSAP ScrollTrigger only calls `onUpdate` once scrolling begins — the chapter label, dust and camera sat in raw constructed state for however long a visitor paused before their first scroll. | `paintAt(0)` called once immediately after `ScrollTrigger.create`, matching what the CSS fallback already did for its own first frame. | journey engine | Kicker text read at rest, before any scroll | **verified** |
+| 106 | The full-size salon-name headline stayed parked over all nine rooms, competing with the photography for the entire scroll instead of just the arrival beat. | `.in` (name/tagline/CTA) fades past 7% progress. | #journey .in | Screenshot at ~0%, 50%, 90% progress | **verified** |
+| 107 | The chapter kicker, once separated from the fading `.in` so it could persist, landed at the very top of the sticky frame and visually collided with the fixed nav bar. | Taken out of grid flow; `position:absolute`, anchored below the nav's own height. | #journey .jy-k | `getBoundingClientRect()` at rest | **verified** |
+| 108 | A CSS entrance animation with `fill-mode:both` permanently pinned the scroll-cue's opacity at 1 once it finished playing — a later `style.opacity` write from JS was silently outranked by the animation's own end-state. | Toggled via a class (`.faded{opacity:0!important}`) instead of fighting the animation through inline style. | .h-scroll | Computed opacity before/after a scroll, both render paths | **verified** |
+| 109 | `paint()` wrote unconditionally to `#vName`, a child of the loading veil the page deliberately removes 2.4s after load (decision context: "the veil is animation-only; take it out so it can never hold a tap"). Every language switch after that point threw and aborted mid-repaint. Pre-existing in the template — surfaced by this build's own regression pass, not introduced by it. | Null-guarded the write. | paint() | Language click at 4s post-load, repeated across both render paths | **verified** |
+| 110 | No documentation existed for the journey system, its fallback contract, or the honesty note on what "2.5D" means here. | docs/journey-experience.md. | /docs | File exists | **verified** |
+
+## 12 · The comprehensive pass — everything the journey surgery left behind
+
+| # | Problem | Correction | Where | Verification | Status |
+|---|---|---|---|---|---|
+| 111 | The story spreads still read "step two / three / four" after the journey absorbed step one — a numbering that dangled from a deleted section. | Renumbered one–three in both languages; dead keys (ch1, s1h, s1p, r1–r3) removed. | TXT | Labels read off the rendered page: "Step one/two/three" | **verified** |
+| 112 | `.gal` styled exactly two figures; the nine journey frames (or six real photos) after them collapsed into single-column slivers. | A repeating 4n rhythm — wide/narrow pairs swapping sides, one aspect-ratio per row, odd last frame full-bleed — valid for any count. | #gallery | Measured widths 57/40 alternating, 9th = 100%, rows of 2 | **verified** |
+| 113 | ~27.5KB of dead payload shipped with every generated page: the drawn-stone block, the counters system, `.art`/`.lineIn`/`#hero` rules, and the entire Unsplash STOCK + base64 LQIP arrays for sections that no longer exist. | All removed; POOL is now just the salon's own photos. | CSS + JS | Template 112.4KB → 84.9KB; zero references remain (grep) | **verified** |
+| 114 | The counters excision left a stray `}` that silently unbalanced the stylesheet — every rule after it, including the new gallery grid, was being dropped by the parser. | Brace removed; brace-count parity now part of the verification pass. | CSS | 313/313 braces; gallery grid applies | **verified** |
+| 115 | Nav wordmark rendered charcoal on the dark corridor at rest (unreadable), then a beige glass bar sat over eight dark screens; the dock's ivory gradient interrupted the finale. | An `indark` state driven by scroll position: transparent + ivory text at top, dark glass while inside the journey, beige glass after; dock deferred until the walk ends. | nav / #dock | Class + computed-color assertions at top, mid-journey, after | **verified** |
+| 116 | `html{scroll-behavior:smooth}` and Lenis both animated every scroll: positions landed at 0, 999 or 1698 of a 16538 limit depending on when a read raced the glide — wheel and anchors were both broken on the cinema path. | Native smooth disabled the moment Lenis takes over (its own easing replaces it); the CSS fallback path keeps native smooth. Plus a ResizeObserver so Lenis/ScrollTrigger re-measure as images land. | runCinema | scrollTo(3000) lands at exactly 3000, sync and stable | **verified** |
+| 117 | Focus ring was walnut-on-dark (invisible over the journey); the journey's aria-label was hardcoded English. | Bronze ring on both grounds; `jyAria` bilingual, set by paint(). | a11y | Computed + attribute read in both languages | **verified** |
+
 ---
 
 ## Count
 
-- verified: 27
+- verified: 44
 - partial: 20
 - pending: 52
 - in progress: 1
