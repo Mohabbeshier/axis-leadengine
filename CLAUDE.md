@@ -181,12 +181,11 @@ cents. If you're about to test something, use
 
 3. **Instagram activity check (`pipeline.py::check_social`)** depends
    on Apify's `instagram-scraper` actor, which costs real money per
-   call and was never live-tested end to end in this project. Budget
-   for it before turning it on for every daily batch — or reconsider
-   whether it should gate at all, given only ~22% of Al Malqa salons
-   even had a discoverable Instagram link (see Test 2 numbers above).
-   Currently `pipeline.py::verify()` still calls it; confirm this is
-   worth its cost before the first real daily run.
+   call and was never live-tested end to end in this project. It is
+   now OFF by default — `verify()` only calls it when `ENABLE_IG_CHECK=1`
+   is set in the environment; otherwise `social_active` is None (which
+   the judge treats as enrichment, never a gate). Decide whether it's
+   worth its cost before ever setting that flag.
 
 4. **Netlify**: connected to this GitHub repo directly (not via API
    token — Mohab's Netlify account is GitHub-SSO-linked and the

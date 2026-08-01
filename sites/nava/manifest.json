@@ -1,0 +1,14 @@
+{
+  "name": "صالون نافا · NAVA Salon",
+  "short_name": "Nava",
+  "description": "صالون وسبا للسيدات — حي الروضة، جدة. ١٥٥ خدمة بأسعار معلنة وحجز عبر واتساب.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F3E9DC",
+  "theme_color": "#40312C",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    { "src": "img/logo.png", "sizes": "440x197", "type": "image/png", "purpose": "any" }
+  ]
+}

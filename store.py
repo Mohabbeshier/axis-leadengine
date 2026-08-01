@@ -19,15 +19,28 @@ KEEP = ("place_id", "business_name", "category", "city", "area", "address",
 
 
 def seen_place_ids():
-    """Every place_id we've ever touched — so nothing is processed twice."""
+    """Every place_id we've ever touched — so nothing is processed twice.
+
+    Paginated: Supabase caps a single response at max-rows (1000 by
+    default) regardless of the limit param. A single request would
+    silently truncate once the pool passes that — and a truncated
+    dedupe set means re-processing leads we already have."""
     ids = set()
     for table in ("leads", "leads_discarded"):
         try:
-            r = requests.get(f"{URL}/rest/v1/{table}", headers=H,
-                             params={"select": "place_id", "limit": "50000"},
-                             timeout=60)
-            r.raise_for_status()
-            ids |= {x["place_id"] for x in r.json() if x.get("place_id")}
+            offset, page = 0, 1000
+            while True:
+                r = requests.get(f"{URL}/rest/v1/{table}", headers=H,
+                                 params={"select": "place_id",
+                                         "limit": str(page),
+                                         "offset": str(offset)},
+                                 timeout=60)
+                r.raise_for_status()
+                rows = r.json()
+                ids |= {x["place_id"] for x in rows if x.get("place_id")}
+                if len(rows) < page:
+                    break
+                offset += page
         except Exception as e:
             print(f"  warn: could not read {table}: {e}")
     return ids

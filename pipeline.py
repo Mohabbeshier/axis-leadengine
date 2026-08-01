@@ -7,7 +7,7 @@ A check that errors returns None ("unknown") and routes to needs_review.
 It never silently passes.
 """
 
-import os, re, json, smtplib, datetime as dt
+import os, re, json, time, smtplib, datetime as dt
 from urllib.parse import urlparse
 import requests
 
@@ -51,8 +51,29 @@ def _age_days(iso):
 
 
 def _actor(slug, payload, timeout=600):
-    r = requests.post(f"{APIFY}/{slug}/run-sync-get-dataset-items"
-                      f"?token={APIFY_TOKEN}", json=payload, timeout=timeout)
+    """Async start + poll — NEVER the run-sync endpoint. A sync call that
+    times out on the client still bills for a run you can't see (two
+    orphaned runs cost $0.336 learning this; see CLAUDE.md). The timeout
+    bounds the polling, not the request."""
+    start = requests.post(f"{APIFY}/{slug}/runs",
+                          params={"token": APIFY_TOKEN},
+                          json=payload, timeout=60)
+    start.raise_for_status()
+    run = start.json()["data"]
+    run_id, ds_id = run["id"], run["defaultDatasetId"]
+    for _ in range(max(1, timeout // 10)):
+        time.sleep(10)
+        try:
+            st = requests.get(f"https://api.apify.com/v2/actor-runs/{run_id}",
+                              params={"token": APIFY_TOKEN},
+                              timeout=30).json()["data"]
+        except Exception:
+            continue                     # poll blip ≠ orphaned run; try again
+        if st["status"] in ("SUCCEEDED", "FAILED", "ABORTED", "TIMED-OUT"):
+            break
+    r = requests.get(f"https://api.apify.com/v2/datasets/{ds_id}/items",
+                     params={"token": APIFY_TOKEN, "clean": "true",
+                             "limit": 1000}, timeout=120)
     r.raise_for_status()
     return r.json()
 

@@ -200,6 +200,8 @@ def keep(p):
     if (p.get("reviewsCount") or 0) < 50:
         return False
     phone = re.sub(r"\D", "", p.get("phone") or "")
+    if phone.startswith("00"):
+        phone = phone[2:]        # 009665… is the same mobile as +9665…
     is_mobile = phone.startswith("9665") or (phone.startswith("05") and len(phone) == 10)
     if not is_mobile:
         return False

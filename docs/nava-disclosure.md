@@ -1,4 +1,14 @@
-# Progressive disclosure — the Nava page
+# Progressive disclosure — the Nava page (superseded)
+
+**2026-07-31 — superseded by `docs/nava-journey.md`.** Mohab rejected this
+entire layout — "a premium landing page," not what he asked for — and the
+page was rebuilt from zero as a cinematic scroll journey. None of the
+accordion/drawer/gallery-fold markup this document describes still exists
+in `sites/nava/index.html`. Kept here as a record of what the second
+version was and why, not as current documentation — read the new file for
+how the page actually works today.
+
+---
 
 One system, four surfaces. Everything collapsible on the page is built from
 the same three parts and wired through the same two functions, so a panel can

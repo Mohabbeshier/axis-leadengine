@@ -5,8 +5,9 @@ harvest-once architecture: discovery is a one-time cost, this file
 spends money only on the 10 businesses it is actually about to contact.
 
   1. pull top N un-sent leads by quality_score from Supabase
-  2. light re-check: still open, has recent review activity
-     (small API cost — only on today's N, never the whole pool)
+     (rows a previous run already judged and failed are excluded —
+     re-judging a known-bad lead every day is pure spend)
+  2. channel checks from the stored row (pipeline.verify — no re-scrape)
   3. Claude judge -> verified / needs_review
   4. Claude writes services + outreach message
   5. build the demo site, commit, push (Netlify builds on push)
@@ -42,27 +43,20 @@ def log(m):
 
 def fetch_batch(n):
     """Best un-sent leads, ranked by the score harvest.py computed.
-    Pulls 3x the target so judge/verify rejections still leave enough."""
+    Pulls 3x the target so judge/verify rejections still leave enough.
+
+    fully_verified filter: fresh harvest rows have it NULL (pulled),
+    rows a previous daily run judged and REJECTED have it false
+    (excluded — re-running verify+judge on a known-bad lead every
+    single day is recurring spend for zero information)."""
     r = requests.get(f"{SUPA_URL}/rest/v1/leads", headers=H, timeout=30,
                      params={"send_status": "is.null",
                              "quality_score": "gt.0",
+                             "or": "(fully_verified.is.null,fully_verified.eq.true)",
                              "order": "quality_score.desc,reviews_count.desc",
                              "limit": str(n * 3)})
     r.raise_for_status()
     return r.json()
-
-
-def recheck_activity(rec):
-    """Light single-place re-fetch: is it still open, still getting
-    reviews. This is the only per-lead discovery-adjacent cost in the
-    daily job, and it only ever runs on today's ~30 candidates, never
-    the pool of hundreds."""
-    try:
-        r = requests.get(f"https://www.google.com/maps/place/?q=place_id:"
-                         f"{rec['place_id']}", timeout=10)
-        return r.status_code == 200          # coarse liveness check only
-    except Exception:
-        return None
 
 
 def main():
