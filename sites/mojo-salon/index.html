@@ -66,8 +66,12 @@ header.solid{background:color-mix(in oklab, var(--cream) 88%, transparent); back
 .wordmark b{font-family:var(--fd); font-weight:800; font-size:1.05rem; color:var(--gold-dark)}
 .wordmark span{font-family:var(--fd); font-size:.5rem; font-weight:600; color:var(--stone); word-spacing:.25em; margin-top:.1rem}
 header nav{display:none}
-header .lang,header .share{width:34px; height:34px; border-radius:50%; display:grid; place-items:center;
-  border:1px solid rgba(46,32,21,.18); font-size:.72rem; font-weight:700; color:var(--ink); background:transparent}
+header .lang,header .share{width:38px; height:38px; border-radius:50%; display:grid; place-items:center;
+  border:1px solid rgba(46,32,21,.18); font-size:.72rem; font-weight:700; color:var(--ink); background:transparent;
+  position:relative}
+header .lang::after,header .share::after{content:""; position:absolute; inset:-4px}
+.wordmark{position:relative}
+.wordmark::after{content:""; position:absolute; inset:-9px -6px}
 header .share svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.7}
 header .book{background:var(--gold-dark); color:var(--cream-strong); border:0; border-radius:999px;
   padding:.55rem 1.1rem; font-size:.82rem; font-weight:700}
@@ -113,13 +117,15 @@ header .book{background:var(--gold-dark); color:var(--cream-strong); border:0; b
 .cat-card{border-radius:var(--r); overflow:hidden; position:relative; background:var(--mocha);
   box-shadow:0 14px 28px -18px rgba(42,27,16,.4)}
 .cat-card img{width:100%; height:230px; object-fit:cover; opacity:.82}
-.cat-card .ov{position:absolute; inset:0; background:linear-gradient(180deg, transparent 30%, rgba(24,15,8,.88) 100%);
+.cat-card .ov{position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(24,15,8,.05) 0%, rgba(24,15,8,.55) 45%, rgba(24,15,8,.94) 100%);
   display:flex; flex-direction:column; justify-content:flex-end; padding:1.1rem 1.2rem}
-.cat-card h3{color:var(--cream-strong); font-size:1.15rem; font-weight:800}
-.cat-card p{color:var(--blush); font-size:.8rem; margin-top:.35rem; max-width:30ch}
-.cat-card .ask{margin-top:.8rem; display:inline-flex; align-items:center; gap:.4rem; align-self:flex-start;
-  background:rgba(246,239,228,.12); border:1px solid rgba(246,239,228,.35); color:var(--cream-strong);
-  border-radius:999px; padding:.5rem 1rem; font-size:.76rem; font-weight:700; text-decoration:none}
+.cat-card h3{color:var(--cream-strong); font-size:1.15rem; font-weight:800; text-shadow:0 1px 8px rgba(24,15,8,.5)}
+.cat-card p{color:#EFE3D2; font-size:.82rem; margin-top:.35rem; max-width:30ch; text-shadow:0 1px 6px rgba(24,15,8,.5)}
+.cat-card .ask{margin-top:.85rem; display:inline-flex; align-items:center; gap:.4rem; align-self:flex-start;
+  background:rgba(246,239,228,.16); border:1px solid rgba(246,239,228,.45); color:var(--cream-strong);
+  border-radius:999px; padding:.65rem 1.1rem; font-size:.78rem; font-weight:700; text-decoration:none;
+  min-height:44px; box-sizing:border-box; align-items:center}
 .cat-card .ask svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:2}
 
 /* ── loyalty ──────────────────────────────────────────────────────────── */
@@ -129,8 +135,10 @@ header .book{background:var(--gold-dark); color:var(--cream-strong); border:0; b
 .loy table{width:100%; border-collapse:collapse; margin-top:1.1rem; font-size:.82rem}
 .loy th{font-family:var(--fd); font-weight:700; font-size:.68rem; color:var(--gold); padding:.5rem .3rem;
   border-bottom:1px solid rgba(246,239,228,.2)}
-.loy td{padding:.6rem .3rem; text-align:center; border-bottom:1px solid rgba(246,239,228,.1)}
+.loy td{padding:.65rem .3rem; text-align:center; border-bottom:1px solid rgba(246,239,228,.1)}
 .loy tr:last-child td{border-bottom:0}
+.loy td b{font-family:var(--fd); font-weight:800; font-size:1.05rem; color:var(--gold)}
+.loy-note{text-align:center; font-size:.68rem; color:var(--quiet-deep); margin:.7rem 0 0}
 .offers{display:flex; flex-direction:column; gap:.6rem; margin-top:1.3rem}
 .offer{display:flex; gap:.6rem; align-items:flex-start; background:rgba(246,239,228,.07);
   border:1px solid rgba(246,239,228,.16); border-radius:12px; padding:.75rem .9rem}
@@ -153,7 +161,8 @@ header .book{background:var(--gold-dark); color:var(--cream-strong); border:0; b
 .open-chip.off{color:#8a5a3a} .open-chip.off i{background:#B08585}
 .links-row{display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.6rem}
 .chip{display:inline-flex; align-items:center; gap:.35rem; border:1px solid rgba(46,32,21,.18); border-radius:999px;
-  padding:.4rem .85rem; font-size:.76rem; font-weight:700; text-decoration:none; color:var(--ink)}
+  padding:.55rem 1rem; font-size:.78rem; font-weight:700; text-decoration:none; color:var(--ink);
+  min-height:44px; box-sizing:border-box; background:rgba(251,246,238,.55)}
 .chip svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8}
 
 /* ── honesty ──────────────────────────────────────────────────────────── */
@@ -361,12 +370,13 @@ dialog[open]{animation:dlgIn .3s ease}
     <div class="loy reveal">
       <h3>خصمك يكبر مع نقاطك</h3>
       <table>
-        <tr><th>رصيد النقاط</th><th>الخصم</th><th>الحد الأقصى</th></tr>
-        <tr><td>300</td><td>٢٪</td><td>200 ريال</td></tr>
-        <tr><td>600</td><td>٣٪</td><td>300 ريال</td></tr>
-        <tr><td>900</td><td>٤٪</td><td>400 ريال</td></tr>
-        <tr><td>1200</td><td>٥٪</td><td>500 ريال</td></tr>
+        <tr><th>رصيد النقاط</th><th>الخصم</th><th>الحد الأقصى للخصم</th></tr>
+        <tr><td>٣٠٠</td><td><b>٢٠٪</b></td><td>٢٠٠ ريال</td></tr>
+        <tr><td>٦٠٠</td><td><b>٣٠٪</b></td><td>٣٠٠ ريال</td></tr>
+        <tr><td>٩٠٠</td><td><b>٤٠٪</b></td><td>٤٠٠ ريال</td></tr>
+        <tr><td>١٢٠٠</td><td><b>٥٠٪</b></td><td>٥٠٠ ريال</td></tr>
       </table>
+      <p class="loy-note">تطبق الشروط والأحكام</p>
       <div class="offers">
         <div class="offer">
           <span class="ic"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span>
