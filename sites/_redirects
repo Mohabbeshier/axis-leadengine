@@ -1,0 +1,5 @@
+# Cloudflare Pages redirects (mirrors netlify.toml — Netlify's [[redirects]]
+# block is Netlify-only and is silently ignored by Cloudflare Pages).
+# Old links used /sites/<slug>/ before the publish directory was set to
+# "sites" — keep them alive on whichever host serves this.
+/sites/*  /:splat  301
