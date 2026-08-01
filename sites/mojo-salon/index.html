@@ -63,8 +63,13 @@ header{position:fixed; top:0; inset-inline:0; z-index:200; display:flex; align-i
 header.solid{background:color-mix(in oklab, var(--cream) 88%, transparent); backdrop-filter:blur(10px);
   box-shadow:0 1px 0 rgba(46,32,21,.08)}
 .wordmark{display:flex; flex-direction:column; align-items:center; line-height:1; text-decoration:none; margin-inline-end:auto}
-.wordmark b{font-family:var(--fd); font-weight:800; font-size:1.05rem; color:var(--gold-dark)}
-.wordmark span{font-family:var(--fd); font-size:.5rem; font-weight:600; color:var(--stone); word-spacing:.25em; margin-top:.1rem}
+.wordmark b{font-family:var(--fd); font-weight:800; font-size:1.05rem; color:var(--gold-dark); transition:color .3s}
+.wordmark span{font-family:var(--fd); font-size:.5rem; font-weight:600; color:var(--stone); word-spacing:.25em; margin-top:.1rem; transition:color .3s}
+/* over the dark hero the header has no plate — flip everything to light,
+   otherwise the wordmark is dark-brown on a dark photo and disappears */
+header:not(.solid) .wordmark b{color:var(--cream-strong); text-shadow:0 1px 10px rgba(24,15,8,.55)}
+header:not(.solid) .wordmark span{color:var(--gold)}
+header:not(.solid) .lang,header:not(.solid) .share{color:var(--cream-strong); border-color:rgba(246,239,228,.45)}
 header nav{display:none}
 header .lang,header .share{width:38px; height:38px; border-radius:50%; display:grid; place-items:center;
   border:1px solid rgba(46,32,21,.18); font-size:.72rem; font-weight:700; color:var(--ink); background:transparent;
