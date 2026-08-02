@@ -1,0 +1,13 @@
+{
+  "name": "صالون موجو النسائي — MOJO Salon",
+  "short_name": "MOJO",
+  "start_url": "./",
+  "display": "standalone",
+  "theme_color": "#2A1B10",
+  "background_color": "#F6EFE4",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    { "src": "img/storefront-640.webp", "sizes": "640x427", "type": "image/webp" }
+  ]
+}
