@@ -34,8 +34,7 @@
   --gold-deep:#96702F;   /* gold in shadow — labels, numerals */
   --gold-dark:#5A300F;   /* the deepest cladding brown */
   --mocha:#2A1B10;       /* the storefront cladding — never black */
-  --ash:#3A2818;
-  --umber:#6E5340; --umber-l:rgba(46,32,21,.14);
+  --umber-l:rgba(46,32,21,.14);
   --cream:#F6EFE4; --cream-strong:#FBF6EE; --blush:#EFE3D2; --ivory:#F7F0E6;
   --ink:#2E2015; --stone:#6B5744; --quiet-deep:#C9B79E;
   --green:#7E9270; --green-dark:#5F7052;
@@ -136,7 +135,6 @@ header.on-light .book{background:var(--gold-dark)}
 .cta.wa{background:var(--green-dark);color:#F4F7F1;box-shadow:0 14px 30px -16px rgba(95,112,82,.8)}
 .cta.wa svg{fill:currentColor}
 .cta.ghost{border:1px solid rgba(246,239,228,.42);color:var(--cream-strong)}
-.cta.ghost.on-cream{border-color:var(--umber-l);color:var(--ink)}
 .cta:active{transform:scale(.98)}
 /* the money button gets one slow sheen pass */
 .sheen::after{content:"";position:absolute;top:0;bottom:0;width:38%;
@@ -655,7 +653,7 @@ header .lang:focus-visible,header .share:focus-visible,#idxBtn:focus-visible{out
 @keyframes statPop{0%{transform:scale(1)}40%{transform:scale(1.16)}100%{transform:scale(1)}}
 
 /* 3 · gold hairlines draw themselves when revealed */
-.rulet,.hs .rule,.ch-head .rule{transform-origin:right}
+.rulet,.hs .rule{transform-origin:right}
 html[dir="ltr"] .rulet,html[dir="ltr"] .hs .rule{transform-origin:left}
 .fx .rulet{transform:scaleX(0);transition:transform .9s var(--slow) .15s}
 .fx .reveal.in .rulet,.fx .rulet.in{transform:scaleX(1)}
@@ -800,7 +798,7 @@ html[dir="ltr"] .rulet,html[dir="ltr"] .hs .rule{transform-origin:left}
 <div id="prog" aria-hidden="true"><i></i></div>
 
 <header id="hdr">
-  <a class="wordmark" href="#top" aria-label="MOJO Salon"><b>MOJO</b><span>SALON</span></a>
+  <a class="wordmark" href="#hero" aria-label="MOJO Salon"><b>MOJO</b><span>SALON</span></a>
   <nav data-t-aria="aNav">
     <a href="#chExp" data-t="navExp"></a>
     <a href="#mg" data-t="navMg"></a>
