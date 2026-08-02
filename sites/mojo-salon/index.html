@@ -178,8 +178,18 @@ header.on-light .book{background:var(--gold-dark)}
   padding-block:clamp(4.5rem,13vh,8rem)}
 .hs[data-scene="1"] .in{justify-content:center;align-items:flex-end;text-align:end}
 .hs[data-scene="2"] .in{justify-content:flex-end;align-items:flex-start}
-.h-card{position:relative;padding:clamp(1.5rem,4vw,3rem);max-width:min(100%,46rem)}
-.h-frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+/* scene 0 is the storefront: the sign is dead centre and the headline was
+   landing straight on top of it — two competing pieces of type in the same
+   place. Push the crop up so the sign clears the text zone... */
+.hs[data-scene="0"] img{object-position:center 18%}
+/* ...and give the card its own glass plate so the copy never fights the
+   photograph, whatever the crop does at other aspect ratios. */
+.h-card{position:relative;padding:clamp(1.5rem,4vw,2.4rem);max-width:min(100%,46rem);isolation:isolate}
+.h-card::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:18px;
+  background:linear-gradient(165deg,rgba(24,15,8,.62),rgba(24,15,8,.82));
+  backdrop-filter:blur(10px) saturate(.92);-webkit-backdrop-filter:blur(10px) saturate(.92);
+  border:1px solid rgba(208,165,129,.2)}
+.h-frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:none}
 .h-frame rect{fill:none;stroke:rgba(208,165,129,.55);stroke-width:1.2;
   vector-effect:non-scaling-stroke;stroke-dasharray:100;stroke-dashoffset:100;
   animation:draw 2.2s var(--slow) .5s forwards}
@@ -632,12 +642,134 @@ dialog.closing .sheet{animation:sheetOut .26s ease forwards}
   .v-card{border:1px solid #999;background:#fff}
 }
 
+/* ══ round 2 ══════════════════════════════════════════════════════════ */
+/* 35 · anchors clear the fixed header instead of hiding under it */
+section[id]{scroll-margin-top:74px}
+/* 30 · one consistent focus ring everywhere */
+:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px;border-radius:6px}
+header .lang:focus-visible,header .share:focus-visible,#idxBtn:focus-visible{outline-offset:2px}
+
+/* 1 · the count-up lands with a pop so the motion is legible at 7/5/9 */
+.stat b{display:inline-block;transition:transform .45s var(--slow),color .45s}
+.stat b.pop{animation:statPop .5s var(--slow)}
+@keyframes statPop{0%{transform:scale(1)}40%{transform:scale(1.16)}100%{transform:scale(1)}}
+
+/* 3 · gold hairlines draw themselves when revealed */
+.rulet,.hs .rule,.ch-head .rule{transform-origin:right}
+html[dir="ltr"] .rulet,html[dir="ltr"] .hs .rule{transform-origin:left}
+.fx .rulet{transform:scaleX(0);transition:transform .9s var(--slow) .15s}
+.fx .reveal.in .rulet,.fx .rulet.in{transform:scaleX(1)}
+
+/* 4 · section headings reveal word by word */
+.ch h2 .w,.imm-text h2 .w{display:inline-block;opacity:0;transform:translateY(18px);
+  transition:opacity .7s var(--slow),transform .7s var(--slow)}
+.ch h2.go .w,.imm-text h2.go .w{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .ch h2 .w,.imm-text h2 .w{opacity:1!important;transform:none!important}
+}
+
+/* 5,6 · parallax layers */
+.imm-media img,.ebm-wrap img{will-change:transform}
+
+/* 7 · the scroll cue retires once you have left the hero */
+.scrollcue{transition:opacity .4s ease}
+.scrollcue.gone{opacity:0}
+
+/* 8,9,10 · stagger */
+.fx .stag{opacity:0;transform:translateY(20px);
+  transition:opacity .65s var(--slow),transform .65s var(--slow)}
+.fx .stag.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.fx .stag{opacity:1!important;transform:none!important}}
+
+/* 11 · the index button carries a live progress ring */
+#idxBtn{position:relative}
+#idxRing{position:absolute;inset:-3px;transform:rotate(-90deg);pointer-events:none}
+#idxRing circle{fill:none;stroke-width:2;stroke-linecap:round}
+#idxRing .bg{stroke:var(--umber-l)}
+#idxRing .fg{stroke:var(--gold-deep);stroke-dasharray:1 1000}
+
+/* 12 · calculator numerals tween */
+#calcPct{display:inline-block;transition:transform .3s var(--slow)}
+#calcPct.pop{animation:statPop .45s var(--slow)}
+
+/* 13 · the counter-travelling second ticker row */
+.tk-row.rev{margin-top:.55rem;opacity:.62}
+.tk-row.rev .tk-item{font-size:clamp(.9rem,2.8vw,1.15rem);color:var(--gold-lit)}
+@media(prefers-reduced-motion:reduce){.tk-row.rev{display:none}}
+
+/* 14 · the sticky bar rises in */
+#stickyBk{transform:translateY(115%)}
+#stickyBk.up{transform:translateY(0)}
+#stickyBk.up.hide{transform:translateY(115%)}
+
+/* 15,16 · greeting + live countdown */
+.greet{font-size:.78rem;color:var(--gold-lit);margin-bottom:.25rem}
+.count-live{display:block;font-size:.76rem;color:var(--stone);margin-top:.35rem}
+
+/* 17 · copy button */
+.copy-btn{display:inline-flex;align-items:center;gap:.4rem;font-size:.74rem;
+  color:var(--gold-deep);border:1px solid color-mix(in oklab,var(--gold-deep) 40%,transparent);
+  border-radius:999px;padding:.5rem .85rem;min-height:44px;transition:background .3s,color .3s}
+.copy-btn.ok{color:var(--green-dark);border-color:rgba(126,146,112,.5)}
+
+/* 21,22 · the live booking summary */
+.bk-sum{display:flex;gap:.4rem;flex-wrap:wrap;padding:.7rem 1.2rem 0}
+.bk-sum button{font-size:.72rem;border:1px solid var(--umber-l);border-radius:999px;
+  padding:.3rem .7rem;color:var(--stone);background:var(--cream);min-height:32px}
+.bk-sum button b{color:var(--ink);font-weight:700}
+.bk-sum:empty{display:none}
+
+/* 24 · recent search chips */
+.recent-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.7rem;align-items:center}
+.recent-row .lbl{font-size:.72rem;color:var(--stone)}
+.recent-row button{font-size:.74rem;border:1px solid var(--umber-l);border-radius:999px;
+  padding:.55rem .9rem;color:var(--gold-deep);min-height:44px}
+.recent-row:empty{display:none}
+
+/* 25 · keyboard-highlighted search row */
+.svc-hit.kb{background:var(--blush);outline:2px solid var(--gold-deep);outline-offset:-2px}
+
+/* 26 · resume banner */
+.resume{display:flex;align-items:center;gap:.7rem;background:#F3E7D5;
+  border:1px solid color-mix(in oklab,var(--gold-deep) 30%,transparent);
+  border-radius:14px;padding:.8rem 1rem;margin-top:1.2rem;font-size:.85rem}
+.resume button{margin-inline-start:auto;font-weight:700;color:var(--gold-dark);min-height:44px;
+  display:inline-flex;align-items:center;padding-inline:.5rem}
+.resume[hidden]{display:none}
+
+/* 27 · FAQ */
+.faq{margin-top:1.6rem;display:flex;flex-direction:column;gap:.55rem}
+.faq details{background:var(--cream-strong);border:1px solid var(--umber-l);border-radius:14px;
+  overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:.95rem 1.05rem;font-size:.9rem;font-weight:700;
+  display:flex;align-items:center;gap:.6rem;min-height:48px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .chev{margin-inline-start:auto;color:var(--gold-deep);transition:transform .3s}
+.faq details[open] summary .chev{transform:rotate(90deg)}
+.faq .a{padding:0 1.05rem 1rem;font-size:.85rem;color:var(--stone);line-height:1.7}
+
+/* 29 · skeleton shimmer under photos until they decode */
+.imm-media,.ebm-wrap,.hz-media,.visit-media,.svc-card .th{
+  background:linear-gradient(100deg,var(--blush) 30%,#F5E9DA 50%,var(--blush) 70%);
+  background-size:220% 100%;animation:shim 1.6s linear infinite}
+.imm-media.ld,.ebm-wrap.ld,.hz-media.ld,.visit-media.ld,.svc-card .th.ld{animation:none;background:none}
+@keyframes shim{to{background-position:-220% 0}}
+@media(prefers-reduced-motion:reduce){
+  .imm-media,.ebm-wrap,.hz-media,.visit-media,.svc-card .th{animation:none}
+}
+
+/* 31 · save data / reduced data: drop the decorative motion layers */
+@media(prefers-reduced-data:reduce){
+  .sheen::after,#cur,.tk-row.rev{display:none}
+}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;
     transition-duration:.01ms!important}
   .sheen::after{display:none}
   .h-frame rect{stroke-dashoffset:0}
+  .fx .rulet{transform:none}
 }
 </style>
 </head>
@@ -692,6 +824,7 @@ dialog.closing .sheet{animation:sheetOut .26s ease forwards}
       <div class="in">
         <div class="h-card">
           <svg class="h-frame" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="0.6" y="0.6" width="98.8" height="98.8" pathLength="100"/></svg>
+          <div class="greet" id="greet"></div>
           <div class="kicker" data-t="heroK"></div>
           <div class="rule"></div>
           <h1 class="ar-head" data-t="heroH"></h1>
@@ -795,12 +928,20 @@ dialog.closing .sheet{animation:sheetOut .26s ease forwards}
       <span class="hint" data-t="svcHint"></span>
       <button type="button" class="text-cta" id="svcUnsure" data-t="svcUnsure"></button>
     </div>
+    <div class="recent-row" id="recentRow"></div>
+    <div class="resume" id="resumeBar" hidden>
+      <span id="resumeTxt"></span>
+      <button type="button" id="resumeGo" data-t="resumeGo"></button>
+    </div>
     <div class="svc-car reveal"><div class="svc-track" id="svcGrid"></div></div>
   </div>
 </section>
 
 <!-- ══ ticker ══ -->
-<div class="ticker" aria-hidden="true"><div class="tk-row" id="tkA"></div></div>
+<div class="ticker" aria-hidden="true">
+  <div class="tk-row" id="tkA"></div>
+  <div class="tk-row rev" id="tkB"></div>
+</div>
 
 <!-- ══ 6 · LOYALTY ══ -->
 <section class="ch" id="loy">
@@ -887,17 +1028,26 @@ dialog.closing .sheet{animation:sheetOut .26s ease forwards}
               <svg viewBox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               <span data-t="mapLink"></span>
             </a>
+            <a class="chip" id="appleMap" href="https://maps.apple.com/?q=MOJO+Salon+Al+Majmaah" target="_blank" rel="noopener" hidden>
+              <span data-t="appleMap"></span>
+            </a>
+            <button type="button" class="copy-btn" id="copyAddr" data-t="copyAddr"></button>
           </div>
         </div>
         <div class="v-card b">
           <span class="v-lbl" data-t="lHours"></span>
           <span class="v-val" data-t="vHours"></span>
+          <span class="count-live" id="countLive"></span>
         </div>
         <div class="v-card c">
           <span class="v-lbl" data-t="lContact"></span>
           <div class="links-row">
             <a class="chip wa" href="https://wa.me/966557715152" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24"><use href="#wa"/></svg><span data-t="waLabel"></span>
+            </a>
+            <a class="chip" href="tel:+966551122972">
+              <svg viewBox="0 0 24 24"><path d="M4 5.5c0-.6.4-1 1-1h2.2c.5 0 .9.3 1 .8l.7 2.7c.1.4 0 .9-.4 1.2l-1.3 1.1a12 12 0 0 0 5.2 5.2l1.1-1.3c.3-.3.7-.5 1.2-.4l2.7.7c.5.1.8.5.8 1V19c0 .6-.4 1-1 1h-1C8.9 20 4 15.1 4 9V5.5z"/></svg>
+              <span data-t="callLabel"></span>
             </a>
             <a class="chip" href="https://www.instagram.com/mojo_salon" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
@@ -914,6 +1064,8 @@ dialog.closing .sheet{animation:sheetOut .26s ease forwards}
           <a class="cta wa sheen" data-open data-src="visit" href="#"><svg aria-hidden="true"><use href="#wa"/></svg><span data-t="ctaClose"></span></a>
         </div>
       </div>
+      <div class="faq reveal" id="faq"></div>
+
       <div class="honest reveal">
         <svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
         <span data-t="honest"></span>
@@ -938,6 +1090,10 @@ dialog.closing .sheet{animation:sheetOut .26s ease forwards}
     <a href="#chVisit"><i>07</i><span data-t="navVisit"></span></a>
   </nav>
   <button type="button" id="idxBtn" aria-expanded="false" aria-controls="idxPanel">
+    <svg id="idxRing" viewBox="0 0 52 52" aria-hidden="true">
+      <circle class="bg" cx="26" cy="26" r="24"/>
+      <circle class="fg" cx="26" cy="26" r="24"/>
+    </svg>
     <span class="sr" data-t="idxLabel"></span><span aria-hidden="true">▲</span>
   </button>
 </div>
@@ -957,6 +1113,7 @@ dialog.closing .sheet{animation:sheetOut .26s ease forwards}
     </div>
     <div class="steps" id="bkSteps"><i class="on"></i><i></i><i></i><i></i></div>
     <p class="reply-line" id="bkReply" hidden></p>
+    <div class="bk-sum" id="bkSum"></div>
     <div id="bkBody"></div>
     <div class="nav2">
       <button type="button" class="back" id="bkBack" hidden data-t="back"></button>
@@ -1111,7 +1268,26 @@ var T = {
     doneT:"تمام!", doneP:"افتحي واتساب وأرسلي الرسالة — التأكيد يجيك من الصالون مباشرة.",
     replyOpen:"الصالون مفتوح الآن — الرد عادة يكون سريع.",
     replyClosed:"الصالون مغلق الآن — رسالتك توصلهم أول ما يفتحون ١:٠٠ ظهرًا.",
-    ovKicker:"الخدمات", ovTitle:"اختاري الركن", ovFine:"كل ركن يوديك واتساب برسالة جاهزة."
+    ovKicker:"الخدمات", ovTitle:"اختاري الركن", ovFine:"كل ركن يوديك واتساب برسالة جاهزة.",
+    greetM:"صباح الخير", greetE:"مساء الخير", greetN:"مساء الخير",
+    copyAddr:"نسخ العنوان", copied:"تم النسخ ✓", appleMap:"خرائط آبل", callLabel:"اتصال",
+    cdOpensIn:function(h,m){ return h>0 ? "تفتح بعد "+h+" ساعة و"+m+" دقيقة" : "تفتح بعد "+m+" دقيقة" },
+    cdClosesIn:function(h,m){ return h>0 ? "تسكّر بعد "+h+" ساعة و"+m+" دقيقة" : "تسكّر بعد "+m+" دقيقة" },
+    /* unused placeholder kept out — see paintCountdown for numeral handling */
+    recentLbl:"بحثك الأخير:", resumeTxt:function(c){ return "كنتِ تشوفين "+c }, resumeGo:"أكملي",
+    sumEdit:"تعديل",
+    icsTitle:"موعد في صالون موجو", icsAdd:"أضيفي الموعد للتقويم",
+    faqQ1:"هل الصالون نسائي بالكامل؟",
+    faqA1:"نعم — موجو صالون نسائي للتزيين، والطاقم نسائي بالكامل.",
+    faqQ2:"كيف أحجز؟",
+    faqA2:"الحجز عبر واتساب مباشرة. اختاري الخدمة واليوم والوقت من زر الحجز، ويوصلك نص جاهز ترسلينه.",
+    faqQ3:"متى تفتحون؟",
+    faqA3:"يوميًا، كل أيام الأسبوع بدون إجازة، من ١:٠٠ ظهرًا إلى ١٠:٠٠ مساءً.",
+    faqQ4:"هل فيه تقسيط؟",
+    faqA4:"نعم، الدفع متاح بالتقسيط عبر تابي وتمارا.",
+    faqQ5:"وين موقعكم؟",
+    faqA5:"طريق الملك خالد، حي الجامعيين، المجمعة ١٥٣٦٥ — والرابط موجود فوق في خرائط جوجل.",
+    faqK:"أسئلة متكررة"
   },
   en:{
     book:"Book", next:"Next", back:"Back", skip:"Skip to services",
@@ -1181,7 +1357,25 @@ var T = {
     doneT:"Done!", doneP:"Open WhatsApp and send — the salon confirms directly.",
     replyOpen:"The salon is open now — replies are usually quick.",
     replyClosed:"The salon is closed now — your message lands when they open at 1:00 PM.",
-    ovKicker:"Services", ovTitle:"Choose a corner", ovFine:"Each one opens WhatsApp with a ready message."
+    ovKicker:"Services", ovTitle:"Choose a corner", ovFine:"Each one opens WhatsApp with a ready message.",
+    greetM:"Good morning", greetE:"Good evening", greetN:"Good evening",
+    copyAddr:"Copy address", copied:"Copied ✓", appleMap:"Apple Maps", callLabel:"Call",
+    cdOpensIn:function(h,m){ return h>0 ? "Opens in "+h+"h "+m+"m" : "Opens in "+m+" min" },
+    cdClosesIn:function(h,m){ return h>0 ? "Closes in "+h+"h "+m+"m" : "Closes in "+m+" min" },
+    recentLbl:"Recent:", resumeTxt:function(c){ return "You were viewing "+c }, resumeGo:"Continue",
+    sumEdit:"edit",
+    icsTitle:"Appointment at MOJO Salon", icsAdd:"Add to calendar",
+    faqQ1:"Is the salon women-only?",
+    faqA1:"Yes — MOJO is a women's salon, with an all-female team.",
+    faqQ2:"How do I book?",
+    faqA2:"Booking is on WhatsApp. Pick the service, day and time from the book button and you get a ready message to send.",
+    faqQ3:"What are your hours?",
+    faqA3:"Every day of the week with no closing day, 1:00 PM to 10:00 PM.",
+    faqQ4:"Can I pay in instalments?",
+    faqA4:"Yes, instalments are available through Tabby and Tamara.",
+    faqQ5:"Where are you?",
+    faqA5:"King Khalid Rd, Al Jamiiyyin, Al Majma'ah 15365 — the Google Maps link is above.",
+    faqK:"Common questions"
   }
 };
 
@@ -1227,13 +1421,92 @@ function paint(){
   paintPreview();
   paintOpen();
   paintCalc();
+  paintGreet();
+  paintFaq();
+  paintRecent();
+  paintResume();
+  splitHeads();
+  if(window.__runCounts) window.__runCounts(true);
+}
+
+/* 15 · a greeting that knows the hour in Riyadh */
+function paintGreet(){
+  var g=$("#greet"); if(!g) return;
+  var d=new Date(), r=new Date(d.getTime()+d.getTimezoneOffset()*60000+3*3600000), h=r.getHours();
+  g.textContent = h<12 ? t.greetM : (h<18 ? t.greetE : t.greetN);
+}
+
+/* 27 · FAQ, built only from facts we have confirmed */
+function paintFaq(){
+  var host=$("#faq"); if(!host) return;
+  var qs=[["faqQ1","faqA1"],["faqQ2","faqA2"],["faqQ3","faqA3"],["faqQ4","faqA4"],["faqQ5","faqA5"]];
+  host.innerHTML='<div class="track" style="margin-bottom:.3rem">'+t.faqK+'</div>'+
+    qs.map(function(p){
+      return '<details><summary>'+t[p[0]]+
+        '<span class="chev" aria-hidden="true">›</span></summary><div class="a">'+t[p[1]]+'</div></details>';
+    }).join("");
+}
+
+/* 24 · recent searches */
+function recentGet(){ try{ return JSON.parse(sessionStorage.getItem("mojo_recent")||"[]") }catch(e){ return [] } }
+function recentAdd(q){
+  if(!q || q.length<2) return;
+  var r=recentGet().filter(function(x){ return x!==q }); r.unshift(q); r=r.slice(0,4);
+  try{ sessionStorage.setItem("mojo_recent", JSON.stringify(r)) }catch(e){}
+  paintRecent();
+}
+function paintRecent(){
+  var host=$("#recentRow"); if(!host) return;
+  var r=recentGet();
+  host.innerHTML = r.length ? '<span class="lbl">'+t.recentLbl+'</span>' +
+    r.map(function(q){ return '<button type="button" data-q="'+q.replace(/"/g,'&quot;')+'">'+q+'</button>' }).join("") : "";
+}
+
+/* 26 · resume the category you were last looking at */
+function paintResume(){
+  var bar=$("#resumeBar"), txt=$("#resumeTxt"); if(!bar) return;
+  var k=null; try{ k=sessionStorage.getItem("mojo_lastcat") }catch(e){}
+  var c = k && CATS.filter(function(x){ return x.k===k })[0];
+  if(!c){ bar.hidden=true; return }
+  txt.textContent = t.resumeTxt(lang==="ar"?c.ar:c.en);
+  bar.hidden=false; bar.dataset.cat=c.k;
+}
+
+/* 4 · headings reveal word by word */
+function splitHeads(){
+  $$(".ch h2, .imm-text h2").forEach(function(h){
+    if(h.querySelector("br")) return;              /* the editorial two-liner keeps its break */
+    var txt=h.textContent.trim(); if(!txt) return;
+    h.classList.remove("go");
+    h.innerHTML = txt.split(/\s+/).map(function(w,i){
+      return '<span class="w" style="transition-delay:'+(i*0.06).toFixed(2)+'s">'+w+'</span>';
+    }).join(" ");
+  });
 }
 
 function paintOpen(){
   var st = mojoOpen(), chip = $("#openChip");
   if(!chip) return;
   chip.className = "open-chip " + (st.open ? "on" : "off");
+  chip.setAttribute("aria-live","polite");          /* 33 */
   $("#openChipT").textContent = st.open ? t.openNow : t.closedNow;
+  paintCountdown(st);
+}
+
+/* 16 · a live countdown to the next open/close boundary */
+function paintCountdown(st){
+  var el=$("#countLive"); if(!el) return;
+  var d=new Date(), r=new Date(d.getTime()+d.getTimezoneOffset()*60000+3*3600000);
+  var mins=r.getHours()*60+r.getMinutes();
+  var openM=CONFIG.open_h*60, closeM=CONFIG.close_h*60, diff;
+  /* numerals must match the page's script — Latin 9 inside Arabic copy
+     was the exact inconsistency flagged on the loyalty table */
+  var N = lang==="ar" ? arNum : function(x){ return x };
+  if(st.open){ diff=closeM-mins; el.textContent=t.cdClosesIn(N(Math.floor(diff/60)), N(diff%60)) }
+  else{
+    diff = mins < openM ? openM-mins : (24*60-mins)+openM;
+    el.textContent = t.cdOpensIn(N(Math.floor(diff/60)), N(diff%60));
+  }
 }
 
 /* ── the signature journey panels, built from the real categories ────── */
@@ -1277,7 +1550,7 @@ function paintCards(){
 }
 
 function paintTicker(){
-  var row = $("#tkA"); if(!row) return;
+  var row = $("#tkA"), rowB = $("#tkB"); if(!row) return;
   var items = CATS.map(function(c){
     return '<span class="tk-item">'+(lang==="ar"?c.ar:c.en)+
            '<span class="tk-p">'+(lang==="ar"?c.en:c.ar)+'</span></span>';
@@ -1285,6 +1558,15 @@ function paintTicker(){
   var seg = '<span class="tk-seg">' + items.join('<span class="tk-sep">✦</span>') +
             '<span class="tk-sep">✦</span></span>';
   row.innerHTML = seg + seg + seg;
+  /* 13 · the counter-travelling row carries the promises, not the menu */
+  if(rowB){
+    var pr = lang==="ar"
+      ? ["حجز عبر واتساب","٧ أيام بالأسبوع","تقسيط تابي وتمارا","طاقم نسائي بالكامل","نقاط وخصومات"]
+      : ["Book on WhatsApp","Open 7 days","Tabby & Tamara","All-female team","Points & discounts"];
+    var segB='<span class="tk-seg">'+pr.map(function(p){ return '<span class="tk-item">'+p+'</span>' })
+      .join('<span class="tk-sep">·</span>')+'<span class="tk-sep">·</span></span>';
+    rowB.innerHTML = segB+segB+segB;
+  }
   if(window.__tkStart) window.__tkStart();
 }
 
@@ -1321,12 +1603,22 @@ function paintCalc(){
 }
 
 /* ══ dialogs ════════════════════════════════════════════════════════════ */
-function openDlg(d){ if(d && !d.open) d.showModal() }
+/* 34 · remember what opened the dialog and give focus back on close */
+var __lastFocus = null;
+function openDlg(d){
+  if(!d || d.open) return;
+  __lastFocus = document.activeElement;
+  d.showModal();
+}
 function closeDlg(d){
   if(!d || !d.open) return;
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches){ d.close(); return }
+  function done(){
+    d.classList.remove("closing"); d.close();
+    if(__lastFocus && __lastFocus.focus){ try{ __lastFocus.focus() }catch(e){} }
+  }
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches){ done(); return }
   d.classList.add("closing");
-  setTimeout(function(){ d.classList.remove("closing"); d.close() }, 250);
+  setTimeout(done, 250);
 }
 document.addEventListener("click", function(e){
   var c = e.target.closest("[data-close]");
@@ -1361,8 +1653,23 @@ document.addEventListener("click", function(e){
     });
     next.disabled = !state[key];
   }
+  /* 21,22 · a live summary of what you have chosen, each chip jumps back */
+  function paintSum(){
+    var host=$("#bkSum"); if(!host) return;
+    var parts=[];
+    if(state.cat)  parts.push({s:0, v:catName(state.cat)});
+    if(state.day)  parts.push({s:1, v:state.day});
+    if(state.band) parts.push({s:2, v:state.band});
+    host.innerHTML = parts.map(function(p){
+      return '<button type="button" data-step="'+p.s+'"><b>'+p.v+'</b> · '+t.sumEdit+'</button>';
+    }).join("");
+    $$("button",host).forEach(function(b){
+      b.addEventListener("click", function(){ step=+b.dataset.step; render() });
+    });
+  }
   function render(){
     paintSteps();
+    paintSum();
     back.hidden = step===0;
     next.querySelector("span") && (next.querySelector("span").textContent = step===3 ? t.finish : t.next);
     if(step===0){
@@ -1393,7 +1700,31 @@ document.addEventListener("click", function(e){
       var url = "https://wa.me/"+CONFIG.wa+"?text="+encodeURIComponent(msg);
       body.innerHTML='<div class="bk-done"><div class="bk-tick" aria-hidden="true">'+
         '<svg viewBox="0 0 40 40"><path d="M11 20.5 17.5 27 29 14"/></svg></div>'+
-        '<b>'+t.doneT+'</b><p>'+t.doneP+'</p></div>';
+        '<b>'+t.doneT+'</b><p>'+t.doneP+'</p>'+
+        '<button type="button" class="copy-btn" id="icsBtn" style="margin-top:1rem">'+t.icsAdd+'</button></div>';
+      /* 20 · a real .ics so the appointment lands in her calendar */
+      var ics=$("#icsBtn");
+      if(ics) ics.addEventListener("click", function(){
+        var d=new Date(), r=new Date(d.getTime()+d.getTimezoneOffset()*60000+3*3600000);
+        var offset = state.day===t.bkDays[1] ? 1 : (state.day===t.bkDays[2] ? 2 : 0);
+        r.setDate(r.getDate()+offset);
+        var hr = t.bkBands.indexOf(state.band)===0 ? 13 : (t.bkBands.indexOf(state.band)===1 ? 16 : 19);
+        function z(n){ return (n<10?"0":"")+n }
+        function stamp(dt){ return dt.getUTCFullYear()+z(dt.getUTCMonth()+1)+z(dt.getUTCDate())+"T"+
+                                   z(dt.getUTCHours())+z(dt.getUTCMinutes())+"00Z" }
+        var startL=new Date(r.getFullYear(),r.getMonth(),r.getDate(),hr,0,0);
+        var startU=new Date(startL.getTime()-3*3600000);
+        var endU=new Date(startU.getTime()+90*60000);
+        var body=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Axis//MOJO//AR","BEGIN:VEVENT",
+          "DTSTART:"+stamp(startU),"DTEND:"+stamp(endU),
+          "SUMMARY:"+t.icsTitle+" — "+catName(state.cat),
+          "LOCATION:"+(lang==="ar"?CONFIG.addr_ar:CONFIG.addr_en),
+          "END:VEVENT","END:VCALENDAR"].join("\r\n");
+        var a=document.createElement("a");
+        a.href="data:text/calendar;charset=utf-8,"+encodeURIComponent(body);
+        a.download="mojo-appointment.ics"; a.click();
+        ics.classList.add("ok"); ics.textContent=t.copied;
+      });
       back.hidden = true;
       next.querySelector("span").textContent = t.finish;
       next.disabled = false;
@@ -1528,10 +1859,75 @@ document.addEventListener("click", function(e){
     box.hidden=false; inp.setAttribute("aria-expanded","true");
   }
   var deb;
-  inp.addEventListener("input", function(){ clearTimeout(deb); deb=setTimeout(run,140) });
+  inp.addEventListener("input", function(){
+    clearTimeout(deb);
+    deb=setTimeout(function(){ run(); recentAdd(inp.value.trim()) },300);
+  });
   inp.addEventListener("focus", function(){ if(inp.value.trim()) run() });
   document.addEventListener("click", function(e){
     if(!e.target.closest(".svc-search")) hide();
+  });
+
+  /* 23 · "/" focuses the search from anywhere */
+  addEventListener("keydown", function(e){
+    if(e.key==="/" && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)
+       && !document.querySelector("dialog[open]")){
+      e.preventDefault();
+      inp.scrollIntoView({block:"center"});
+      setTimeout(function(){ inp.focus() },260);
+    }
+  });
+
+  /* 25 · arrows + Enter through the results */
+  var kb=-1;
+  inp.addEventListener("keydown", function(e){
+    var rows=$$(".svc-hit[data-cat]", box);
+    if(!rows.length || box.hidden) return;
+    if(e.key==="ArrowDown"||e.key==="ArrowUp"){
+      e.preventDefault();
+      kb = e.key==="ArrowDown" ? Math.min(rows.length-1, kb+1) : Math.max(0, kb-1);
+      rows.forEach(function(r,i){ r.classList.toggle("kb", i===kb) });
+      rows[kb].scrollIntoView({block:"nearest"});
+    } else if(e.key==="Enter" && kb>-1){
+      e.preventDefault(); rows[kb].click();
+    } else if(e.key==="Escape"){ hide(); kb=-1 }
+  });
+  inp.addEventListener("input", function(){ kb=-1 });
+
+  /* 24 · clicking a recent chip re-runs that search */
+  document.addEventListener("click", function(e){
+    var chip=e.target.closest("#recentRow button");
+    if(chip){ inp.value=chip.dataset.q; run(); inp.focus() }
+  });
+})();
+
+/* 17,18,19 · copy address, Apple Maps on Apple devices */
+(function(){
+  var btn=$("#copyAddr");
+  if(btn) btn.addEventListener("click", function(){
+    var addr = lang==="ar" ? CONFIG.addr_ar : CONFIG.addr_en;
+    try{ navigator.clipboard.writeText(addr) }catch(e){}
+    var old=btn.textContent; btn.textContent=t.copied; btn.classList.add("ok");
+    setTimeout(function(){ btn.textContent=old; btn.classList.remove("ok") },1800);
+  });
+  var am=$("#appleMap");
+  if(am && /iPhone|iPad|iPod|Macintosh/.test(navigator.platform||navigator.userAgent)) am.hidden=false;
+})();
+
+/* 26 · remember the last category opened, and offer to resume */
+(function(){
+  document.addEventListener("click", function(e){
+    var a=e.target.closest("[data-cat]");
+    if(a && a.dataset.cat){
+      try{ sessionStorage.setItem("mojo_lastcat", a.dataset.cat) }catch(err){}
+      /* refresh the bar now, not only on the next full paint */
+      setTimeout(paintResume, 0);
+    }
+  });
+  var go=$("#resumeGo");
+  if(go) go.addEventListener("click", function(){
+    var k=$("#resumeBar").dataset.cat;
+    if(k && window.__openBooking) window.__openBooking(k);
   });
 })();
 
@@ -1541,10 +1937,15 @@ $("#langBtn").addEventListener("click", function(){
   paint();
 });
 
+/* 28 · share carries a real line, not a bare URL */
 $("#shareBtn").addEventListener("click", function(){
   var b=this, url=location.href;
-  if(navigator.share){ navigator.share({title:CONFIG.name_ar, url:url}).catch(function(){}); return }
-  try{ navigator.clipboard.writeText(url) }catch(e){}
+  var title = lang==="ar" ? CONFIG.name_ar : CONFIG.name_en;
+  var text  = lang==="ar"
+    ? "صالون موجو النسائي في المجمعة — شعر، أظافر، بشرة، حمّام مغربي، ومكياج. مفتوح يوميًا ١ ظهرًا – ١٠ مساءً."
+    : "MOJO women's salon in Al Majma'ah — hair, nails, skin, hammam and makeup. Open daily 1–10 PM.";
+  if(navigator.share){ navigator.share({title:title, text:text, url:url}).catch(function(){}); return }
+  try{ navigator.clipboard.writeText(text+" "+url) }catch(e){}
   b.classList.add("ok"); setTimeout(function(){ b.classList.remove("ok") },1800);
 });
 
@@ -1600,10 +2001,24 @@ $("#shareBtn").addEventListener("click", function(){
   }
 })();
 
-/* the calculator is live on input */
+/* 12 · the calculator pops when it crosses into a new tier */
 (function(){
-  var r=$("#calcRange"); if(r) r.addEventListener("input", paintCalc);
+  var r=$("#calcRange"); if(!r) return;
+  var lastTier=null;
+  r.addEventListener("input", function(){
+    paintCalc();
+    var pts=+r.value, tier=TIERS[0];
+    TIERS.forEach(function(x){ if(pts>=x.p) tier=x });
+    if(tier.p!==lastTier){
+      lastTier=tier.p;
+      var el=$("#calcPct");
+      el.classList.remove("pop"); void el.offsetWidth; el.classList.add("pop");
+    }
+  });
 })();
+
+/* the clock keeps the chip and countdown honest without a reload */
+setInterval(function(){ paintOpen() }, 60000);
 
 /* ══ THE HERO ENGINE — three scenes, one pin ════════════════════════════ */
 (function(){
@@ -1700,26 +2115,141 @@ $("#shareBtn").addEventListener("click", function(){
   splitHero();
   $("#langBtn").addEventListener("click", function(){ setTimeout(splitHero, 60) });
 
-  /* count-ups */
+  /* 1,2 · count-ups — slower and eased so 7/5/9 read as motion, and they
+     re-run on a language switch because the numeral script changes */
   (function(){
     var els=$$("[data-count]"); if(!els.length) return;
     function run(el){
       var target=parseInt(el.dataset.count,10), t0=null;
       if(reduced){ el.textContent = lang==="ar"?arNum(target):target; return }
+      el.classList.remove("pop");
       function tick(ts){
         if(!t0) t0=ts;
-        var p=Math.min(1,(ts-t0)/1200), e=1-Math.pow(1-p,3);
+        var p=Math.min(1,(ts-t0)/1750), e=1-Math.pow(1-p,4);
         var v=Math.round(target*e);
         el.textContent = lang==="ar" ? arNum(v) : v;
         if(p<1) requestAnimationFrame(tick);
+        else { el.classList.add("pop"); setTimeout(function(){ el.classList.remove("pop") },600) }
       }
       requestAnimationFrame(tick);
     }
+    window.__runCounts = function(force){
+      els.forEach(function(el){
+        var r=el.getBoundingClientRect();
+        if(force && r.top < innerHeight && r.bottom > 0) run(el);
+      });
+    };
     if(!("IntersectionObserver" in window)){ els.forEach(run); return }
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){ if(e.isIntersecting){ run(e.target); io.unobserve(e.target) } });
     },{threshold:.4});
     els.forEach(function(el){ io.observe(el) });
+  })();
+
+  /* 4 · fire the heading word-reveal when each heading arrives */
+  (function(){
+    var heads=$$(".ch h2, .imm-text h2");
+    if(!heads.length) return;
+    if(reduced || !("IntersectionObserver" in window)){ heads.forEach(function(h){h.classList.add("go")}); return }
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("go") } });
+    },{threshold:.25});
+    heads.forEach(function(h){ io.observe(h) });
+  })();
+
+  /* 3 · gold hairlines draw themselves */
+  (function(){
+    var rules=$$(".rulet"); if(!rules.length) return;
+    if(reduced || !("IntersectionObserver" in window)){ rules.forEach(function(r){r.classList.add("in")}); return }
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target) } });
+    },{threshold:.5});
+    rules.forEach(function(r){ io.observe(r) });
+  })();
+
+  /* 8,9,10 · stagger anything tagged .stag, in document order per group */
+  (function(){
+    function tag(sel, sub){
+      $$(sel).forEach(function(group){
+        $$(sub, group).forEach(function(el,i){
+          el.classList.add("stag");
+          el.style.transitionDelay = (i*0.08).toFixed(2)+"s";
+        });
+      });
+    }
+    tag(".offers", ".offer");
+    tag("#loyTable", "tr[data-tier]");
+    tag(".faq", "details");
+    var els=$$(".stag"); if(!els.length) return;
+    if(reduced || !("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return }
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target) } });
+    },{threshold:.2});
+    els.forEach(function(e){ io.observe(e) });
+  })();
+
+  /* 5,6 · parallax on the two full-bleed photographs (one shared rAF) */
+  (function(){
+    if(reduced) return;
+    var layers=[{el:$(".imm-media img"), amt:.12},{el:$(".ebm-wrap img"), amt:.10}]
+      .filter(function(l){ return l.el });
+    if(!layers.length) return;
+    var ticking=false;
+    function apply(){
+      ticking=false;
+      layers.forEach(function(l){
+        var host=l.el.closest(".imm-media,.ebm-wrap");
+        var r=host.getBoundingClientRect();
+        if(r.bottom<0 || r.top>innerHeight) return;
+        var mid=r.top + r.height/2 - innerHeight/2;
+        l.el.style.transform="translate3d(0,"+(-mid*l.amt).toFixed(1)+"px,0) scale(1.12)";
+      });
+    }
+    addEventListener("scroll", function(){ if(!ticking){ ticking=true; requestAnimationFrame(apply) } },{passive:true});
+    addEventListener("resize", apply);
+    apply();
+  })();
+
+  /* 7 · the scroll cue retires once the hero is behind you */
+  (function(){
+    var cue=$(".scrollcue"); if(!cue) return;
+    addEventListener("scroll", function(){ cue.classList.toggle("gone", scrollY > innerHeight*0.5) },{passive:true});
+  })();
+
+  /* 29 · clear the skeleton once each photo has actually decoded */
+  (function(){
+    function wire(){
+      $$(".imm-media,.ebm-wrap,.hz-media,.visit-media,.svc-card .th").forEach(function(box){
+        var img=box.querySelector("img"); if(!img) return;
+        if(img.complete && img.naturalWidth){ box.classList.add("ld"); return }
+        img.addEventListener("load", function(){ box.classList.add("ld") },{once:true});
+        img.addEventListener("error", function(){ box.classList.add("ld") },{once:true});
+      });
+    }
+    wire();
+    addEventListener("load", wire);
+    $("#langBtn").addEventListener("click", function(){ setTimeout(wire,120) });
+  })();
+
+  /* 11 · the index button's live progress ring */
+  (function(){
+    var fg=$("#idxRing .fg"); if(!fg) return;
+    var C=2*Math.PI*24;
+    fg.style.strokeDasharray=C+" "+C;
+    function up(){
+      var h=document.documentElement.scrollHeight-innerHeight;
+      var p=h>0?Math.min(1,scrollY/h):0;
+      fg.style.strokeDashoffset=(C*(1-p)).toFixed(1);
+    }
+    addEventListener("scroll",up,{passive:true}); addEventListener("resize",up); up();
+  })();
+
+  /* 14 · the sticky bar rises in once you are past the hero */
+  (function(){
+    var bar=$("#stickyBk"); if(!bar) return;
+    addEventListener("scroll", function(){
+      if(scrollY > innerHeight*0.7) bar.classList.add("up");
+    },{passive:true});
   })();
 
   /* cursor glow + magnetic CTAs (desktop only, one rAF) */
@@ -1779,11 +2309,14 @@ $("#shareBtn").addEventListener("click", function(){
      No CSS keyframes, no percentages, no masks — each of those broke on
      iOS. Pauses offscreen and when the tab hides. ──────────────────── */
   (function(){
-    var row=$("#tkA"); if(!row) return;
+    var row=$("#tkA"), rowB=$("#tkB"); if(!row) return;
     if(reduced){ window.__tkStart=function(){}; return }
-    var x=0,segW=0,last=0,raf=0,onscreen=true;
-    var SPEED=42;
-    function measure(){ var s=row.querySelector(".tk-seg"); segW = s ? s.getBoundingClientRect().width : 0 }
+    var x=0,xb=0,segW=0,segWb=0,last=0,raf=0,onscreen=true;
+    var SPEED=42, SPEED_B=30;
+    function measure(){
+      var s=row.querySelector(".tk-seg"); segW = s ? s.getBoundingClientRect().width : 0;
+      if(rowB){ var b=rowB.querySelector(".tk-seg"); segWb = b ? b.getBoundingClientRect().width : 0 }
+    }
     function frame(ts){
       raf=requestAnimationFrame(frame);
       if(!last){ last=ts; return }
@@ -1792,17 +2325,23 @@ $("#shareBtn").addEventListener("click", function(){
       x -= SPEED*dt/1000;
       if(-x>=segW) x+=segW;
       row.style.transform="translate3d("+x.toFixed(1)+"px,0,0)";
+      /* second row travels the other way; same modulo wrap, mirrored sign */
+      if(rowB && segWb){
+        xb += SPEED_B*dt/1000;
+        if(xb >= 0) xb -= segWb;
+        rowB.style.transform="translate3d("+xb.toFixed(1)+"px,0,0)";
+      }
     }
     function start(){ if(!raf && onscreen && !document.hidden){ last=0; raf=requestAnimationFrame(frame) } }
     function stop(){ cancelAnimationFrame(raf); raf=0 }
-    window.__tkStart=function(){ x=0; segW=0; measure(); start() };
+    window.__tkStart=function(){ x=0; segW=0; segWb=0; measure(); xb=-segWb; start() };
     document.addEventListener("visibilitychange", function(){ document.hidden?stop():start() });
     if("IntersectionObserver" in window){
       new IntersectionObserver(function(es){ onscreen=es[0].isIntersecting; onscreen?start():stop() },
         {rootMargin:"80px"}).observe(row.parentElement);
     }
-    addEventListener("resize", function(){ segW=0 });
-    if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ segW=0 });
+    addEventListener("resize", function(){ segW=0; segWb=0 });
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ segW=0; segWb=0 });
     window.__tkStart();
   })();
 

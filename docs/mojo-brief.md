@@ -68,3 +68,50 @@ fallback, `.fx` opt-in class so a script failure can never blank the photos.
 - reduced-motion pass: everything visible and operable
 - EN pass: no Arabic letter-spacing leak, direction flips
 - live URL serves the new build (poll until the marker string appears)
+
+---
+
+## Round 2 — 35 additions (motion + intelligence + polish)
+
+Trigger: "نافا الأرقام بتتحرك، هنا لا" + "نقطة اللايف في حاجات كتير" + 35 additions.
+
+### Motion (make the page feel alive, not decorated)
+1. Count-up: longer, eased, lands with a scale pop — 7/5/9 finished too fast to read as motion
+2. Count-up re-runs on language switch (numerals change script)
+3. Gold hairlines draw themselves on reveal
+4. Section h2s reveal word by word, same engine as the hero headline
+5. Parallax on the immersive chapter photo
+6. Parallax on the editorial photo
+7. Scroll cue fades out as the hero is left behind
+8. Journey panels + category cards stagger in
+9. Loyalty rows stagger in
+10. Offers stagger in
+11. Index FAB carries a live scroll-progress ring
+12. Calculator numerals tween between tiers instead of snapping
+13. Second ticker row travelling the opposite way (same rAF engine, no keyframes)
+14. Sticky bar rises in rather than appearing
+
+### Intelligence (real data only — nothing invented)
+15. Time-aware greeting (صباح/مساء) from Riyadh time
+16. Live countdown to opening / closing
+17. Copy-address button
+18. Tap-to-call chip (published number)
+19. Apple Maps link alongside Google Maps
+20. Add-to-calendar .ics after booking
+21. Live booking summary line as the steps progress
+22. Tap any summary chip to jump back and edit that step
+23. "/" focuses the search
+24. Recent searches as chips
+25. Keyboard arrows + Enter through search results
+26. Resume the last category viewed this session
+27. FAQ from confirmed facts only (women-only, WhatsApp booking, hours, Tabby/Tamara)
+28. Share carries a real text line, not just the URL
+29. Skeleton shimmer under photos until they decode
+30. Consistent focus-visible ring
+
+### Polish
+31. Respect prefers-reduced-data (skip the heaviest tiers)
+32. Latin tracking stays scoped to html[lang="en"]
+33. aria-live on the open/closed chip so it announces changes
+34. Dialogs restore focus to the control that opened them
+35. scroll-margin-top so anchor jumps clear the fixed header
